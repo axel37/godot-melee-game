@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqy4c57ghd41i"]
+
+[ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
+[ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fig7u"]
+height = 1.8
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movement_processor")]
+script = ExtResource("1_cmb4o")
+move_jump_impulse = 5.0
+movement_processor = NodePath("StandardMovementProcessor")
+
+[node name="StandardMovementProcessor" type="Node" parent="."]
+script = ExtResource("2_2ya5d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_fig7u")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+fov = 90.0

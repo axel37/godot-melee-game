@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://btjijot4c801v"]
+
+[ext_resource type="Texture2D" uid="uid://bv2y5e7tfh7qe" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="1_8tg25"]
+[ext_resource type="PackedScene" uid="uid://dqy4c57ghd41i" path="res://Actors/Player/player.tscn" id="2_xnxel"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tw7y"]
+albedo_texture = ExtResource("1_8tg25")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0n0sm"]
+sky_top_color = Color(0.530612, 0.340753, 0.723176, 1)
+sky_horizon_color = Color(0.8072, 0.613718, 0.389414, 1)
+sky_curve = 0.102453
+ground_bottom_color = Color(0.261153, 0.145328, 0.37449, 1)
+ground_horizon_color = Color(0.807843, 0.611765, 0.388235, 1)
+ground_curve = 0.00353551
+
+[sub_resource type="Sky" id="Sky_iurwf"]
+sky_material = SubResource("ProceduralSkyMaterial_0n0sm")
+
+[sub_resource type="Environment" id="Environment_4mnrn"]
+background_mode = 2
+sky = SubResource("Sky_iurwf")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.484585, 4.28364e-06, 0.320639, 1)
+fog_sky_affect = 0.035
+
+[node name="DebugLevel" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_1tw7y")
+cast_shadow = 0
+use_collision = true
+collision_mask = 0
+size = Vector3(15, 2, 15)
+
+[node name="Player" parent="." instance=ExtResource("2_xnxel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276685, -4.76837e-07, -0.301974)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4mnrn")
