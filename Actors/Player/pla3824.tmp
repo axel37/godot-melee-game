@@ -9,6 +9,8 @@ radius = 0.4
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movement_processor")]
 script = ExtResource("1_cmb4o")
+mouse_sensitivity = null
+move_max_speed = null
 move_jump_impulse = 5.0
 movement_processor = NodePath("StandardMovementProcessor")
 
