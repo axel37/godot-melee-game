@@ -20,11 +20,13 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent):
 	if Engine.is_editor_hint():
 		return
+	# TODO : Mouse capture does not belong in player code
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			get_viewport().set_input_as_handled()
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		_process_mouse_motion(event.screen_relative)
 
@@ -34,10 +36,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("%s has no movement_processor !" % name)
 	return warnings
 
+## Move the player according to input
 func _process_movement(delta: float) -> void:
 	if movement_processor:
 		movement_processor.process_movement(self, delta, move_max_speed, move_jump_impulse)
 
+## Rotate the camera and the player based on mouse motion
 func _process_mouse_motion(motion: Vector2) -> void:
 	var scaled_motion = motion * (1.0 / MOUSE_MOTION_SCALE_DOWN_FACTOR)
 	rotate_y(-scaled_motion.x * mouse_sensitivity)
