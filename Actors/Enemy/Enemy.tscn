@@ -10,7 +10,8 @@ uv1_triplanar = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xttpt"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_awbwd"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_10flg"]
+size = Vector3(1, 2, 1)
 
 [node name="Enemy" type="Node3D"]
 script = ExtResource("1_1yho5")
@@ -25,6 +26,4 @@ script = ExtResource("1_wsa3p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_awbwd")
-
-[connection signal="received_damage" from="DamageReceiver" to="." method="_on_damage_receiver_received_damage"]
+shape = SubResource("BoxShape3D_10flg")

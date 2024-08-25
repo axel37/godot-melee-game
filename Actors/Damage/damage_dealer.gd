@@ -1,4 +1,5 @@
 @icon("res://Assets/Class icons/damage_dealer.svg")
+## Area3D used to deal damage to [DamageReceiver]
 class_name DamageDealer
 extends Area3D
 

@@ -40,10 +40,10 @@ transform = Transform3D(0.975806, 0.161944, 0.146888, -0.0670216, 0.861055, -0.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("BoxMesh_55rnk")
 
-[node name="DamageDealer" type="Area3D" parent="Weapon"]
+[node name="PlayerDamageDealer" type="Area3D" parent="Weapon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 script = ExtResource("3_t1aey")
 amount = 1.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Weapon/DamageDealer"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Weapon/PlayerDamageDealer"]
 shape = SubResource("BoxShape3D_f60r3")
