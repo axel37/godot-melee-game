@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://btjijot4c801v"]
+[gd_scene load_steps=8 format=3 uid="uid://btjijot4c801v"]
 
 [ext_resource type="Texture2D" uid="uid://bv2y5e7tfh7qe" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="1_8tg25"]
 [ext_resource type="PackedScene" uid="uid://dqy4c57ghd41i" path="res://Actors/Player/player.tscn" id="2_xnxel"]
 [ext_resource type="PackedScene" uid="uid://dj6uunu4mssmn" path="res://Actors/Enemy/Enemy.tscn" id="3_ekqdv"]
-[ext_resource type="PackedScene" uid="uid://bibon8igtyidu" path="res://Actors/Damage/damage_dealer.tscn" id="4_gesch"]
-[ext_resource type="PackedScene" uid="uid://0y4q527mtlre" path="res://Actors/Damage/damage_receiver.tscn" id="5_bvmhs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tw7y"]
 albedo_texture = ExtResource("1_8tg25")
@@ -49,9 +47,3 @@ environment = SubResource("Environment_4mnrn")
 
 [node name="Enemy" parent="." instance=ExtResource("3_ekqdv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455549, 0, -6.56474)
-
-[node name="LevelDamageDealer" parent="." instance=ExtResource("4_gesch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.830958, 1.9341, -6.26279)
-
-[node name="LevelDamageReceiver" parent="." instance=ExtResource("5_bvmhs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60941, 1.50837, -6.59889)

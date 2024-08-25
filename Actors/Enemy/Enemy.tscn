@@ -21,9 +21,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_lnvf4")
 mesh = SubResource("CapsuleMesh_xttpt")
 
-[node name="DamageReceiver" type="Area3D" parent="."]
+[node name="EnemyDamageReceiver" type="Area3D" parent="."]
 script = ExtResource("1_wsa3p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceiver"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_10flg")
