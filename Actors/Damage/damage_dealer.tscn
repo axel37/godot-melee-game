@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bibon8igtyidu"]
+
+[ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="1_kb8ik"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xj57l"]
+
+[node name="DamageDealer" type="Area3D"]
+script = ExtResource("1_kb8ik")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xj57l")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
