@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=7 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_t1aey"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fig7u"]
 height = 1.8
 radius = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_55rnk"]
+size = Vector3(0.05, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f60r3"]
+size = Vector3(0.05, 0.1, 2)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movement_processor")]
 script = ExtResource("1_cmb4o")
@@ -25,3 +32,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 fov = 90.0
+
+[node name="Weapon" type="Node3D" parent="."]
+transform = Transform3D(0.975806, 0.161944, 0.146888, -0.0670216, 0.861055, -0.504076, -0.208111, 0.482035, 0.851077, 0.738451, 0.769895, -0.470254)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Weapon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("BoxMesh_55rnk")
+
+[node name="DamageDealer" type="Area3D" parent="Weapon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+script = ExtResource("3_t1aey")
+amount = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Weapon/DamageDealer"]
+shape = SubResource("BoxShape3D_f60r3")

@@ -6,6 +6,7 @@ signal received_damage(amount: float)
 
 
 func _on_area_entered(area: Area3D) -> void:
+	print("%s - onareaentered with : %s" % [name, area.name])
 	if area is DamageDealer:
 		var damage_dealer: DamageDealer = area as DamageDealer
 		received_damage.emit(damage_dealer.amount)

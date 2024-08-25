@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dj6uunu4mssmn"]
+
+[ext_resource type="Script" path="res://Actors/Enemy/enemy.gd" id="1_1yho5"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="1_wsa3p"]
+[ext_resource type="Texture2D" uid="uid://dovem415f3cc7" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="2_wa5a1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnvf4"]
+albedo_texture = ExtResource("2_wa5a1")
+uv1_triplanar = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xttpt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_awbwd"]
+
+[node name="Enemy" type="Node3D"]
+script = ExtResource("1_1yho5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_lnvf4")
+mesh = SubResource("CapsuleMesh_xttpt")
+
+[node name="DamageReceiver" type="Area3D" parent="."]
+script = ExtResource("1_wsa3p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_awbwd")
+
+[connection signal="received_damage" from="DamageReceiver" to="." method="_on_damage_receiver_received_damage"]
