@@ -33,7 +33,7 @@ func _input(event: InputEvent):
 		_process_mouse_motion(event.screen_relative)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack_1"):
+	if event.is_action_pressed("attack_2"):
 		_attack()
 
 func _get_configuration_warnings() -> PackedStringArray:

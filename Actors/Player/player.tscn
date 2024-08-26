@@ -36,23 +36,6 @@ nodes/idle/position = Vector2(180, 40)
 nodes/output/position = Vector2(620, 120)
 node_connections = [&"ThrustAttack", 0, &"idle", &"ThrustAttack", 1, &"attack", &"output", 0, &"ThrustAttack"]
 
-[sub_resource type="Animation" id="Animation_fkfl7"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponBase/Weapon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_2620o"]
 length = 0.001
 tracks/0/type = "value"
@@ -180,6 +163,23 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.23902, -0.784975), Vector3(0, 1.23902, -1.38973)]
 }
 
+[sub_resource type="Animation" id="Animation_fkfl7"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponBase/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
 _data = {
 "RESET": SubResource("Animation_2620o"),
@@ -241,12 +241,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("BoxMesh_55rnk")
 
 [node name="PlayerDamageDealer" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 monitoring = false
 monitorable = false
 script = ExtResource("3_t1aey")
 amount = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDamageDealer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.00001, 0, 1.23902, -0.784975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23902, -0.784975)
 shape = SubResource("BoxShape3D_f60r3")
