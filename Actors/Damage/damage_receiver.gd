@@ -1,4 +1,4 @@
-@icon("res://Assets/Class icons/damage_receiver.svg")
+@icon("res://Assets/Class icons/damage-receiver.svg")
 ## Area3D that can receive damage from [DamageDealer]
 class_name DamageReceiver
 extends Area3D
