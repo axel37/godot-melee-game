@@ -11,6 +11,8 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
 @export var movement_processor: MovementProcessor = null
 
 @onready var camera_pivot: Node3D = %CameraPivot
+@onready var weapon_animation_tree: AnimationTree = %WeaponAnimationTree
+
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -29,6 +31,10 @@ func _input(event: InputEvent):
 			get_viewport().set_input_as_handled()
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		_process_mouse_motion(event.screen_relative)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack_1"):
+		_attack()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -50,3 +56,7 @@ func _process_mouse_motion(motion: Vector2) -> void:
 	var camera_rot = camera_pivot.rotation_degrees
 	camera_rot.x = clamp(camera_rot.x, -90, 90)
 	camera_pivot.rotation_degrees = camera_rot
+
+func _attack():
+	weapon_animation_tree["parameters/ThrustAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	weapon_animation_tree.advance(100)
