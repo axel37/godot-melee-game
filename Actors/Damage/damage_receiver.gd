@@ -3,6 +3,8 @@
 class_name DamageReceiver
 extends Area3D
 
+const LOG_CODE_DAMAGE_RECEIVED = "DAMAGE-002"
+
 signal received_damage(amount: float)
 
 func _ready() -> void:
@@ -11,5 +13,5 @@ func _ready() -> void:
 func _on_area_entered(area: Area3D) -> void:
 	if area is DamageDealer:
 		var damage_dealer: DamageDealer = area as DamageDealer
-		print("%s received damage from %s" % [name, damage_dealer.name])
+		Global.log(LOG_CODE_DAMAGE_RECEIVED, "%s received damage from %s" % [name, damage_dealer.name])
 		received_damage.emit(damage_dealer.amount)
