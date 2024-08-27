@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=18 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -26,7 +26,6 @@ animation = &"attack_swing-a"
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nm5wg"]
-graph_offset = Vector2(-195.489, -20.7273)
 nodes/ThrustAttack/node = SubResource("AnimationNodeOneShot_vo6ng")
 nodes/ThrustAttack/position = Vector2(440, 40)
 nodes/attack/node = SubResource("AnimationNodeAnimation_d3b7d")
@@ -98,6 +97,35 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0, 1.23902, -0.784975)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fkfl7"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponBase/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_gwnp2"]
 resource_name = "attack_swing-a"
@@ -163,9 +191,8 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.23902, -0.784975), Vector3(0, 1.23902, -1.38973)]
 }
 
-[sub_resource type="Animation" id="Animation_fkfl7"]
-resource_name = "idle"
-length = 2.0
+[sub_resource type="Animation" id="Animation_5vtuh"]
+resource_name = "attack_swing_from-right"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -174,16 +201,29 @@ tracks/0/path = NodePath("WeaponBase/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.5, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 0.34151, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
+"values": [Vector3(0, 0.303493, 0), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.839265, -0.0679524, -0.996134), Vector3(-0.839265, -0.0679524, -0.996134)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.5, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 0.34151, 1, 1),
+"update": 0,
+"values": [Vector3(0.0829463, -0.607274, -1.42113), Vector3(0.131863, -0.980936, -1.19603), Vector3(0.131863, -0.980936, -1.19603), Vector3(-0.136375, 2.11798, -1.67422), Vector3(-0.136375, 2.11798, -1.67422)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
 _data = {
 "RESET": SubResource("Animation_2620o"),
-"attack_swing-a": SubResource("Animation_gwnp2"),
+"attack_swing_from-right": SubResource("Animation_5vtuh"),
+"attack_thrust": SubResource("Animation_gwnp2"),
 "idle": SubResource("Animation_fkfl7")
 }
 
@@ -234,11 +274,12 @@ fov = 90.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574576, 0.856796, 0.180834)
 
 [node name="Weapon" type="Node3D" parent="WeaponBase"]
-transform = Transform3D(0.994975, -1.11413e-11, 0.100119, -0.00384683, 0.999261, 0.0382296, -0.100045, -0.0384227, 0.994241, 0, 0, 0)
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponBase/Weapon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("BoxMesh_55rnk")
+metadata/_edit_lock_ = true
 
 [node name="PlayerDamageDealer" type="Area3D" parent="."]
 monitoring = false
