@@ -33,8 +33,10 @@ func _input(event: InputEvent):
 		_process_mouse_motion(event.screen_relative)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack_1"):
+		_swing_attack()
 	if event.is_action_pressed("attack_2"):
-		_attack()
+		_thrust_attack()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -57,6 +59,8 @@ func _process_mouse_motion(motion: Vector2) -> void:
 	camera_rot.x = clamp(camera_rot.x, -90, 90)
 	camera_pivot.rotation_degrees = camera_rot
 
-func _attack():
+func _thrust_attack():
 	weapon_animation_tree["parameters/ThrustAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	weapon_animation_tree.advance(100)
+
+func _swing_attack():
+	weapon_animation_tree["parameters/SwingAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
