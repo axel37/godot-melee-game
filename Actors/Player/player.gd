@@ -63,7 +63,13 @@ func _process_mouse_motion(motion: Vector2) -> void:
 	camera_pivot.rotation_degrees = camera_rot
 
 func _thrust_attack():
+
 	weapon_animation_tree["parameters/ThrustAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 func _swing_attack():
 	weapon_animation_tree["parameters/SwingAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+
+## Make the player move forward. Used by animations.
+func _step_forward(amount: float):
+	var local_forward = -transform.basis.z
+	velocity += local_forward * amount

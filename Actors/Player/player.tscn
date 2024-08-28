@@ -44,7 +44,6 @@ animation = &"attack_swing_from-right"
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nm5wg"]
-graph_offset = Vector2(-179.3, -73.7172)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_8f005")
 nodes/Animation/position = Vector2(463.559, 321.164)
 nodes/SwingAttack/node = SubResource("AnimationNodeOneShot_vo6ng")
@@ -306,6 +305,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [15.0],
+"method": &"_step_forward"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_fkfl7"]
