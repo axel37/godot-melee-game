@@ -21,7 +21,7 @@ func process_movement(character: Player, delta: float, move_max_speed: float, mo
 			else:
 				_friction(character, 0.86)
 		else:
-			_friction(character, 0.98)
+			_friction(character, 0.88)
 
 		character.move_and_slide()
 
