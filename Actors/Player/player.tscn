@@ -16,7 +16,6 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.31214, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_vo6ng"]
-mix_mode = 1
 fadein_time = 0.2
 fadein_curve = SubResource("Curve_5e8f1")
 fadeout_time = 1.0
@@ -31,7 +30,6 @@ _data = [Vector2(0, 0), 0.0, 0.0524013, 0, 0, Vector2(1, 1), 3.06804, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_gfm71"]
-mix_mode = 1
 fadein_time = 0.2
 fadein_curve = SubResource("Curve_dse71")
 fadeout_time = 0.4
@@ -44,6 +42,7 @@ animation = &"attack_swing_from-right"
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nm5wg"]
+graph_offset = Vector2(-292.437, -34.0947)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_8f005")
 nodes/Animation/position = Vector2(463.559, 321.164)
 nodes/SwingAttack/node = SubResource("AnimationNodeOneShot_vo6ng")
@@ -143,9 +142,34 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CameraPivot/AnimationPivot:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CameraPivot/AnimationPivot:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_5vtuh"]
 resource_name = "attack_swing_from-right"
+length = 1.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -230,6 +254,30 @@ tracks/6/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CameraPivot/AnimationPivot:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.166667, 0.366667, 0.566667, 1),
+"transitions": PackedFloat32Array(1, 0.5, 1.27456, 1),
+"update": 0,
+"values": [Vector3(0, -0.0523599, 0), Vector3(0, -0.0523599, 0), Vector3(0, 0.174533, 0), Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CameraPivot/AnimationPivot:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.166667, 0.366667, 0.566667, 1),
+"transitions": PackedFloat32Array(1, 0.5, 1.27456, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_gwnp2"]
 resource_name = "attack_swing-a"
@@ -244,7 +292,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.533333, 0.733333),
 "transitions": PackedFloat32Array(1, 1, -2),
 "update": 0,
-"values": [Vector3(0, 0.576584, 1.04596), Vector3(0, 0.576584, 1.04596), Vector3(-0.487, 0.46, -0.67)]
+"values": [Vector3(0, 0.266111, 1.04596), Vector3(0, 0.266111, 1.04596), Vector3(-0.487, 0.282204, -0.67)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -320,6 +368,30 @@ tracks/6/keys = {
 "method": &"_step_forward"
 }]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CameraPivot/AnimationPivot:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.233333, 0.5, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12503, 0, 0.302378), Vector3(0.12503, 0, 0.302378), Vector3(0, -0.283589, -0.255745)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CameraPivot/AnimationPivot:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.233333, 0.233433, 0.5, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.0965342, 0), Vector3(0, -0.0965342, 0), Vector3(0, -0.0965342, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_fkfl7"]
 resource_name = "idle"
@@ -389,7 +461,9 @@ shape = SubResource("CylinderShape3D_fig7u")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="AnimationPivot" type="Node3D" parent="CameraPivot"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/AnimationPivot"]
 fov = 90.0
 
 [node name="WeaponBase" type="Node3D" parent="."]
