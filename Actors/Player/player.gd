@@ -1,4 +1,5 @@
 @tool
+class_name Player
 extends CharacterBody3D
 
 const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
@@ -13,6 +14,8 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
 @onready var camera_pivot: Node3D = %CameraPivot
 @onready var weapon_animation_tree: AnimationTree = %WeaponAnimationTree
 
+## Toggled by animations to disable movement.
+@export var ignore_movement_input: bool = false
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():

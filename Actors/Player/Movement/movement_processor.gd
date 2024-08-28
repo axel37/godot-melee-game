@@ -3,7 +3,7 @@
 class_name MovementProcessor
 extends Node
 
-func process_movement(_character: CharacterBody3D, _delta: float, _move_max_speed: float, _move_jump_impulse: float) -> void:
+func process_movement(_character: Player, _delta: float, _move_max_speed: float, _move_jump_impulse: float) -> void:
 	_warn_abstract_class()
 	pass
 
