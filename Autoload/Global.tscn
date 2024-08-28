@@ -9,4 +9,3 @@ script = ExtResource("1_cngxu")
 [node name="Logger" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_lbwks")
-print_in_stdout = true
