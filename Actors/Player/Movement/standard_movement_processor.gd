@@ -19,12 +19,12 @@ func process_movement(character: Player, delta: float, move_max_speed: float, mo
 				character.velocity.x = direction.x * move_max_speed
 				character.velocity.z = direction.z * move_max_speed
 			else:
-				_friction(character, move_max_speed)
+				_friction(character, 0.86)
 		else:
-			_friction(character, move_max_speed)
+			_friction(character, 0.98)
 
 		character.move_and_slide()
 
-func _friction(character: Player, move_max_speed: float):
-	character.velocity.x = move_toward(character.velocity.x, 0, move_max_speed)
-	character.velocity.z = move_toward(character.velocity.z, 0, move_max_speed)
+func _friction(character: Player, factor: float):
+	character.velocity.x *= factor
+	character.velocity.z *= factor
