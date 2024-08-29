@@ -41,6 +41,7 @@ func _set_enabled(value: bool):
 	monitoring = value
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
 
+## DamageReceivers will consider this to be a new attack, and will allow themselves to be hit again.
 func _renew() -> void:
 	id += 1
 	_receivers_already_hit =[]

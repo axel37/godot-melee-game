@@ -9,6 +9,7 @@ const LOG_CODE_DAMAGE_ALREADY_RECEIVED = "DAMAGE-004"
 
 signal received_damage(amount: float)
 
+## Used to prevent detecting the same attacks multiple times
 var _damage_already_received: Array = []
 
 func _ready() -> void:
