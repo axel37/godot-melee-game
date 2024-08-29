@@ -255,6 +255,20 @@ tracks/7/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("PlayerDamageDealer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_renew"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_gwnp2"]
 resource_name = "attack_swing-a"
@@ -356,6 +370,20 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("PlayerDamageDealer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_renew"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_fkfl7"]

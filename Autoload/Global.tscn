@@ -10,3 +10,4 @@ script = ExtResource("1_cngxu")
 unique_name_in_owner = true
 script = ExtResource("2_lbwks")
 print_in_stdout = true
+codes_to_ignore = Array[String](["DAMAGE-002", "DAMAGE-001", "DAMAGE-005"])
