@@ -1,3 +1,4 @@
+@icon("res://Assets/Class icons/global.svg")
 extends Node
 
 @onready var _logger: Logger = %Logger

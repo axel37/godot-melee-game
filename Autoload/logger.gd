@@ -1,4 +1,5 @@
 ## Centralized handling of printing stuff
+@icon("res://Assets/Class icons/logger.svg")
 class_name Logger
 extends Node
 
