@@ -17,6 +17,9 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
 ## Toggled by animations to disable movement.
 @export var ignore_movement_input: bool = false
 
+## Toggled by animations to disabled attacking
+@export var _can_attack: bool = true
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
@@ -37,9 +40,11 @@ func _input(event: InputEvent):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack_1"):
-		_swing_attack()
+		if _can_attack:
+			_swing_attack()
 	if event.is_action_pressed("attack_2"):
-		_thrust_attack()
+		if _can_attack:
+			_thrust_attack()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
