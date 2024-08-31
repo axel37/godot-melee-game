@@ -16,9 +16,10 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
 
 ## Toggled by animations to disable movement.
 @export var ignore_movement_input: bool = false
-
 ## Toggled by animations to disabled attacking
 @export var _can_attack: bool = true
+## Toggled by animations to disable player rotation
+@export var _can_rotate: bool = true
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -40,7 +41,7 @@ func _input(event: InputEvent):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			get_viewport().set_input_as_handled()
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and _can_rotate:
 		_process_mouse_motion(event.screen_relative)
 
 func _get_configuration_warnings() -> PackedStringArray:
