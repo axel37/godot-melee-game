@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=40 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -15,6 +15,9 @@ animation = &"attack_swing_from-right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_keqny"]
 animation = &"attack_thrust"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygoib"]
+animation = &"guard_idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_icgh1"]
 animation = &"idle"
@@ -58,18 +61,30 @@ xfade_time = 0.3
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x8kg2"]
+xfade_time = 0.15
+advance_mode = 2
+advance_condition = &"is_guarding"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ffuo"]
+xfade_time = 0.3
+advance_mode = 2
+advance_expression = "self[\"parameters/Attack1StateMachine/conditions/is_guarding\"] == false"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gu7ok"]
-states/End/position = Vector2(1089, 148)
+states/End/position = Vector2(1315, 133)
 states/Start/position = Vector2(763, -24)
 states/attack_swing_from-left/node = SubResource("AnimationNodeAnimation_0bfx1")
-states/attack_swing_from-left/position = Vector2(668, 196)
+states/attack_swing_from-left/position = Vector2(438, 193)
 states/attack_swing_from-right/node = SubResource("AnimationNodeAnimation_dgb62")
-states/attack_swing_from-right/position = Vector2(438, 109)
+states/attack_swing_from-right/position = Vector2(438, 78)
 states/attack_thrust/node = SubResource("AnimationNodeAnimation_keqny")
-states/attack_thrust/position = Vector2(903, 185)
+states/attack_thrust/position = Vector2(763, 193)
+states/guard_idle/node = SubResource("AnimationNodeAnimation_ygoib")
+states/guard_idle/position = Vector2(1014, 78)
 states/idle/node = SubResource("AnimationNodeAnimation_icgh1")
 states/idle/position = Vector2(763, 78)
-transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8")]
+transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8"), "idle", "guard_idle", SubResource("AnimationNodeStateMachineTransition_x8kg2"), "guard_idle", "idle", SubResource("AnimationNodeStateMachineTransition_3ffuo")]
 graph_offset = Vector2(-85, -63)
 
 [sub_resource type="Curve" id="Curve_5e8f1"]
@@ -654,12 +669,42 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_xycy8"]
+resource_name = "guard_idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.428544, 1.20188, 0.105814), Vector3(0.428544, 1.20188, 0.105814)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponBase/Weapon:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0327281, 0.261724, -0.766976), Vector3(-0.033, 0.2, -0.767)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
 _data = {
 "RESET": SubResource("Animation_2620o"),
 "attack_swing_from-left": SubResource("Animation_tye2j"),
 "attack_swing_from-right": SubResource("Animation_5vtuh"),
 "attack_thrust": SubResource("Animation_gwnp2"),
+"guard_idle": SubResource("Animation_xycy8"),
 "idle": SubResource("Animation_fkfl7")
 }
 
@@ -685,6 +730,7 @@ tree_root = SubResource("AnimationNodeBlendTree_nm5wg")
 anim_player = NodePath("../WeaponAnimationPlayer")
 parameters/Attack1StateMachine/conditions/is_attacking = false
 parameters/Attack1StateMachine/conditions/is_attacking_thrust = false
+parameters/Attack1StateMachine/conditions/is_guarding = false
 parameters/SwingAttack/active = false
 parameters/SwingAttack/internal_active = false
 parameters/SwingAttack/request = 0

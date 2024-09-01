@@ -76,3 +76,4 @@ func _step_forward(amount: float):
 func _update_animation_tree_inputs():
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking"] = Input.is_action_pressed("attack_1")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking_thrust"] = Input.is_action_pressed("attack_2")
+	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_guarding"] = Input.is_action_pressed("guard")
