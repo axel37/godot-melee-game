@@ -2,7 +2,7 @@
 class_name Player
 extends CharacterBody3D
 
-const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1500
+const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 
 @export var mouse_sensitivity: float = 0.25
 
@@ -41,8 +41,9 @@ func _input(event: InputEvent):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			get_viewport().set_input_as_handled()
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and _can_rotate:
-		_process_mouse_motion(event.screen_relative)
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		var x_multiplier: float = 1.0 if _can_rotate else 0.1
+		_process_mouse_motion(event.screen_relative, x_multiplier, 1)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -56,10 +57,10 @@ func _process_movement(delta: float) -> void:
 		movement_processor.process_movement(self, delta, move_max_speed, move_jump_impulse)
 
 ## Rotate the camera and the player based on mouse motion
-func _process_mouse_motion(motion: Vector2) -> void:
+func _process_mouse_motion(motion: Vector2, x_multiplier: float, y_multiplier: float) -> void:
 	var scaled_motion = motion * (1.0 / MOUSE_MOTION_SCALE_DOWN_FACTOR)
-	rotate_y(-scaled_motion.x * mouse_sensitivity)
-	camera_pivot.rotate_x(-scaled_motion.y * mouse_sensitivity)
+	rotate_y(-scaled_motion.x * mouse_sensitivity * x_multiplier)
+	camera_pivot.rotate_x(-scaled_motion.y * mouse_sensitivity * y_multiplier)
 
 	var camera_rot = camera_pivot.rotation_degrees
 	camera_rot.x = clamp(camera_rot.x, -90, 90)
