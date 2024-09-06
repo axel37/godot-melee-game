@@ -57,7 +57,13 @@ shadow_blur = 3.0
 environment = SubResource("Environment_4mnrn")
 
 [node name="Enemy" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455549, 0, -6.56474)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.455549, 0, -6.56474)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_ekqdv")]
+transform = Transform3D(-0.81836, 0, -0.574705, 0, 1, 0, 0.574705, 0, -0.81836, -5.12978, -9.53674e-07, -3.4024)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_ekqdv")]
+transform = Transform3D(-0.472797, 0, 0.881171, 0, 1, 0, -0.881171, 0, -0.472797, 4.86294, 0, -3.3579)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 1)
