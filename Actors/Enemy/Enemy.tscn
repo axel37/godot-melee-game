@@ -1,10 +1,41 @@
-[gd_scene load_steps=17 format=4 uid="uid://dj6uunu4mssmn"]
+[gd_scene load_steps=26 format=4 uid="uid://dj6uunu4mssmn"]
 
 [ext_resource type="Script" path="res://Actors/Enemy/enemy.gd" id="1_1yho5"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="1_wsa3p"]
 [ext_resource type="Texture2D" uid="uid://dovem415f3cc7" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="2_wa5a1"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="3_motfw"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_blocker.gd" id="5_tyq6u"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5l4bv"]
+animation = &"blocked_damage"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6oamx"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f5xu3"]
+advance_mode = 2
+
+[sub_resource type="Curve" id="Curve_07028"]
+_data = [Vector2(0, 0), 0.0, 5.67082, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1nacy"]
+xfade_time = 0.1
+xfade_curve = SubResource("Curve_07028")
+advance_mode = 2
+advance_condition = &"blocked_damage"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0a3qf"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pktis"]
+states/blocked_damage/node = SubResource("AnimationNodeAnimation_5l4bv")
+states/blocked_damage/position = Vector2(663, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_6oamx")
+states/idle/position = Vector2(430, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f5xu3"), "idle", "blocked_damage", SubResource("AnimationNodeStateMachineTransition_1nacy"), "blocked_damage", "idle", SubResource("AnimationNodeStateMachineTransition_0a3qf")]
 
 [sub_resource type="Animation" id="Animation_nfif0"]
 length = 0.001
@@ -31,6 +62,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StickMesh:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.41894, -0.707921)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StickMesh:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0477531, 0.0435351, -0.375163)]
 }
 
 [sub_resource type="Animation" id="Animation_c7pbk"]
@@ -61,10 +116,69 @@ tracks/1/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_1yr3q"]
+resource_name = "blocked_damage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../StickMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.130076, 1.42014, -0.572148)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StickMesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.208891, -0.0311538, -0.516511)]
+}
+
+[sub_resource type="Animation" id="Animation_re28s"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../StickMesh:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0477531, 0.0435351, -0.375163), Vector3(-0.0477531, 0.0435351, -0.375163)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StickMesh:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.41894, -0.707921), Vector3(0, 1.38572, -0.707921)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pi5c8"]
 _data = {
 "RESET": SubResource("Animation_nfif0"),
-"got_hurt": SubResource("Animation_c7pbk")
+"blocked_damage": SubResource("Animation_1yr3q"),
+"got_hurt": SubResource("Animation_c7pbk"),
+"idle": SubResource("Animation_re28s")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lni2g"]
@@ -95,6 +209,9 @@ uv1_triplanar = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xttpt"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8jgm"]
+size = Vector3(0.953613, 1.4635, 0.266479)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_10flg"]
 size = Vector3(1, 2, 1)
 
@@ -110,11 +227,15 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 1.5
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_c8jgm"]
-size = Vector3(0.953613, 1.4635, 0.266479)
-
 [node name="Enemy" type="Node3D"]
 script = ExtResource("1_1yho5")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../MeshInstance3D")
+tree_root = SubResource("AnimationNodeStateMachine_pktis")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/blocked_damage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -122,6 +243,7 @@ root_node = NodePath("../MeshInstance3D")
 libraries = {
 "": SubResource("AnimationLibrary_pi5c8")
 }
+autoplay = "idle"
 
 [node name="OutlineMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -137,6 +259,14 @@ mesh = SubResource("CapsuleMesh_xttpt")
 [node name="EnemyDamageReceivingHandler" type="Node3D" parent="."]
 script = ExtResource("3_motfw")
 
+[node name="EnemyDamageBlocker" type="Area3D" parent="EnemyDamageReceivingHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38981, -0.689952)
+script = ExtResource("5_tyq6u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageBlocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0231934, 0.0154419, -0.0419312)
+shape = SubResource("BoxShape3D_c8jgm")
+
 [node name="DamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
 script = ExtResource("1_wsa3p")
 
@@ -144,16 +274,9 @@ script = ExtResource("1_wsa3p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_10flg")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.930328, 0.364144, 0.0434718, -0.366006, 0.929387, 0.047735, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
+[node name="StickMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.930328, 0.364144, 0.0434717, -0.366006, 0.929387, 0.0477349, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
 mesh = SubResource("CylinderMesh_smpya")
 
-[node name="EnemyDamageBlocker" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38981, -0.689952)
-script = ExtResource("5_tyq6u")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageBlocker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0231934, 0.0154419, -0.0419312)
-shape = SubResource("BoxShape3D_c8jgm")
-
+[connection signal="blocked_damage" from="EnemyDamageReceivingHandler" to="." method="_on_enemy_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="EnemyDamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]

@@ -5,8 +5,7 @@ extends Area3D
 const LOG_CODE_SET_ENABLED = "BLOCKER-001"
 const LOG_CODE_DAMAGE_BLOCKED = "BLOCKER-002"
 
-
-signal blocked_damage(time_since_block: float)
+signal blocked_damage(time_since_block: float, damage_dealer: DamageDealer)
 
 @export var enabled: bool = true:
 	set = _set_enabled
@@ -22,7 +21,7 @@ func _on_area_entered(area: Area3D) -> void:
 	if area is DamageDealer:
 		var damage_dealer: DamageDealer = area as DamageDealer
 		Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage %s" % [name, damage_dealer.name])
-		blocked_damage.emit()
+		blocked_damage.emit(time_blocking, damage_dealer)
 
 func _renew() -> void:
 	time_blocking = 0
