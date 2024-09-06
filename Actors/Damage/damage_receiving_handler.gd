@@ -1,4 +1,4 @@
-## Handles receiving damage from a group of [DamageReceiver]
+## Handles receiving damage using a group of [DamageReceiver]
 @icon("res://Assets/Class icons/damage_receiving_handler.svg")
 class_name DamageReceivingHandler
 extends Node3D
@@ -15,6 +15,8 @@ signal received_damage
 ## Setting this to false allows you to manually pick them in [member damage_receivers].
 @export var auto_register_children = true
 
+# Warning : DamageIds may be queue_freed by DamageDealers when they _renew themselves !
+# This array fills up with nulls !
 var _damage_sources_already_detected: Array[DamageId] = []
 
 func _ready() -> void:
@@ -23,10 +25,10 @@ func _ready() -> void:
 
 	# Connect to signals of owned damage_receivers
 	for receiver in damage_receivers:
-		receiver.detected_damage.connect(_on_receiver_received_damage)
+		receiver.detected_damage.connect(_on_receiver_detected_damage)
 
-## Signal owner that we have detected damage
-func _on_receiver_received_damage(damage_dealer: DamageDealer):
+## Check if damage source if valid, then signal owner we have received damage
+func _on_receiver_detected_damage(damage_dealer: DamageDealer):
 	var damage_id: DamageId = damage_dealer.id
 
 	if damage_id in _damage_sources_already_detected:

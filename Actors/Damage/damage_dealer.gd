@@ -44,6 +44,9 @@ func _set_enabled(value: bool):
 
 ## DamageReceivers will consider this to be a new attack, and will allow themselves to be hit again.
 func _renew() -> void:
+	# Prevent unused objects from hanging around
+	if id != null:
+		id.queue_free()
 	id = DamageId.new()
 	_receivers_already_hit =[]
 

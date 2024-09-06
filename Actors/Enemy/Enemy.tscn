@@ -72,14 +72,14 @@ material_override = SubResource("StandardMaterial3D_lnvf4")
 material_overlay = SubResource("StandardMaterial3D_quwot")
 mesh = SubResource("CapsuleMesh_xttpt")
 
-[node name="DamageReceivingHandler" type="Node3D" parent="."]
+[node name="EnemyDamageReceivingHandler" type="Node3D" parent="."]
 script = ExtResource("3_motfw")
 
-[node name="EnemyDamageReceiver" type="Area3D" parent="DamageReceivingHandler"]
+[node name="DamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
 script = ExtResource("1_wsa3p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/EnemyDamageReceiver"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/DamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_10flg")
 
-[connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
+[connection signal="received_damage" from="EnemyDamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
