@@ -1,0 +1,56 @@
+[1mdiff --git a/Actors/Enemy/Enemy.tscn b/Actors/Enemy/Enemy.tscn[m
+[1mindex 5abab83..babe68b 100644[m
+[1m--- a/Actors/Enemy/Enemy.tscn[m
+[1m+++ b/Actors/Enemy/Enemy.tscn[m
+[36m@@ -232,12 +232,20 @@[m [mscript = ExtResource("1_1yho5")[m
+ [m
+ [node name="AnimationTree" type="AnimationTree" parent="."][m
+ unique_name_in_owner = true[m
+[31m-root_node = NodePath("../MeshInstance3D")[m
+[32m+[m[32mroot_node = NodePath("%AnimationTree/../MeshInstance3D")[m
+ tree_root = SubResource("AnimationNodeStateMachine_pktis")[m
+[31m-anim_player = NodePath("../AnimationPlayer")[m
+[32m+[m[32manim_player = NodePath("../WeaponAnimationPlayer")[m
+ parameters/conditions/blocked_damage = false[m
+ [m
+[31m-[node name="AnimationPlayer" type="AnimationPlayer" parent="."][m
+[32m+[m[32m[node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="."][m
+[32m+[m[32munique_name_in_owner = true[m
+[32m+[m[32mroot_node = NodePath("../MeshInstance3D")[m
+[32m+[m[32mlibraries = {[m
+[32m+[m[32m"": SubResource("AnimationLibrary_pi5c8")[m
+[32m+[m[32m}[m
+[32m+[m[32mautoplay = "idle"[m
+[32m+[m
+[32m+[m[32m[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."][m
+ unique_name_in_owner = true[m
+ root_node = NodePath("../MeshInstance3D")[m
+ libraries = {[m
+[1mdiff --git a/Actors/Enemy/enemy.gd b/Actors/Enemy/enemy.gd[m
+[1mindex 483f1ec..3bf66df 100644[m
+[1m--- a/Actors/Enemy/enemy.gd[m
+[1m+++ b/Actors/Enemy/enemy.gd[m
+[36m@@ -4,7 +4,8 @@[m [mconst LOG_CODE_DAMAGE_RECEIVED = "ENEMY-001"[m
+ const LOG_CODE_DAMAGE_BLOCKED = "ENEMY-002"[m
+ [m
+ [m
+[31m-@onready var animation_player: AnimationPlayer = %AnimationPlayer[m
+[32m+[m[32m@onready var weapon_animation_player: AnimationPlayer = %WeaponAnimationPlayer[m
+[32m+[m[32m@onready var hurt_animation_player: AnimationPlayer = %HurtAnimationPlayer[m
+ @onready var animation_tree: AnimationTree = %AnimationTree[m
+ [m
+ [m
+[36m@@ -13,11 +14,11 @@[m [mfunc _process(delta: float) -> void:[m
+ [m
+ [m
+ func _on_damage_receiving_handler_received_damage() -> void:[m
+[31m-	animation_player.play("got_hurt")[m
+[32m+[m	[32mhurt_animation_player.play("got_hurt")[m
+ 	Global.log(LOG_CODE_DAMAGE_RECEIVED, "%s received damage." % [name])[m
+ [m
+ [m
+ func _on_enemy_damage_receiving_handler_blocked_damage() -> void:[m
+ 	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage." % [name])[m
+ 	animation_tree["parameters/conditions/blocked_damage"] = true[m
+[31m-	animation_player.play("blocked_damage")[m
+[32m+[m	[32mweapon_animation_player.play("blocked_damage")[m

@@ -232,12 +232,20 @@ script = ExtResource("1_1yho5")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../MeshInstance3D")
+root_node = NodePath("%AnimationTree/../MeshInstance3D")
 tree_root = SubResource("AnimationNodeStateMachine_pktis")
-anim_player = NodePath("../AnimationPlayer")
+anim_player = NodePath("../WeaponAnimationPlayer")
 parameters/conditions/blocked_damage = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../MeshInstance3D")
+libraries = {
+"": SubResource("AnimationLibrary_pi5c8")
+}
+autoplay = "idle"
+
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("../MeshInstance3D")
 libraries = {
