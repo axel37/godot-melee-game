@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dj6uunu4mssmn"]
+[gd_scene load_steps=12 format=3 uid="uid://dj6uunu4mssmn"]
 
 [ext_resource type="Script" path="res://Actors/Enemy/enemy.gd" id="1_1yho5"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="1_wsa3p"]
 [ext_resource type="Texture2D" uid="uid://dovem415f3cc7" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="2_wa5a1"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="3_motfw"]
 
 [sub_resource type="Animation" id="Animation_nfif0"]
 length = 0.001
@@ -71,11 +72,14 @@ material_override = SubResource("StandardMaterial3D_lnvf4")
 material_overlay = SubResource("StandardMaterial3D_quwot")
 mesh = SubResource("CapsuleMesh_xttpt")
 
-[node name="EnemyDamageReceiver" type="Area3D" parent="."]
+[node name="DamageReceivingHandler" type="Node3D" parent="."]
+script = ExtResource("3_motfw")
+
+[node name="EnemyDamageReceiver" type="Area3D" parent="DamageReceivingHandler"]
 script = ExtResource("1_wsa3p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceiver"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/EnemyDamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_10flg")
 
-[connection signal="received_damage" from="EnemyDamageReceiver" to="." method="_on_enemy_damage_receiver_received_damage"]
+[connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]

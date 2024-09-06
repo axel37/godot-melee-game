@@ -16,10 +16,11 @@ signal dealt_damage()
 	set = _set_enabled
 
 ## Used to differentiate attacks for reused DamageDealers
-var id: int = 0
+var id: DamageId
 var _receivers_already_hit: Array[DamageReceiver] = []
 
 func _ready() -> void:
+	_renew()
 	area_entered.connect(_on_area_entered)
 
 func _on_area_entered(area: Area3D) -> void:
@@ -43,7 +44,7 @@ func _set_enabled(value: bool):
 
 ## DamageReceivers will consider this to be a new attack, and will allow themselves to be hit again.
 func _renew() -> void:
-	id += 1
+	id = DamageId.new()
 	_receivers_already_hit =[]
 
 func _has_already_hit_receiver(damage_receiver: DamageReceiver) -> bool:
