@@ -2,6 +2,8 @@
 extends Node
 
 @onready var _logger: Logger = %Logger
+@export_range(0, 2, 0.1) var time_scale: float = 1.0:
+	set = _set_time_scale
 
 func log(code: String, message: String) -> void:
 	if _logger == null:
@@ -9,3 +11,7 @@ func log(code: String, message: String) -> void:
 		print("<Fallback Logger> [%s] %s" % [code, message])
 		return
 	_logger.log(code, message)
+
+func _set_time_scale(value: float) -> void:
+	time_scale = value
+	Engine.time_scale = value
