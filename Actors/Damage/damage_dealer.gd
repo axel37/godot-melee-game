@@ -8,8 +8,8 @@ const LOG_CODE_SET_ENABLED = "DAMAGE-005"
 const LOG_CODE_RECEIVER_ALREADY_HIT = "DAMAGE-003"
 
 
-
-signal dealt_damage()
+signal dealt_damage
+signal was_blocked
 
 @export var amount: float = 0
 @export var enabled: bool = true:
@@ -32,6 +32,8 @@ func _on_area_entered(area: Area3D) -> void:
 		_receivers_already_hit.append(damage_receiver)
 		Global.log(LOG_CODE_DAMAGE_DEALT, "%s dealt damage to %s" % [name, damage_receiver.name])
 		dealt_damage.emit()
+	elif area is DamageBlocker:
+		was_blocked.emit()
 
 func _set_enabled(value: bool):
 	if enabled == value:

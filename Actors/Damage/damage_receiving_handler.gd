@@ -46,7 +46,7 @@ func _on_blocker_detected_damage(time_spent_blocking: float, damage_dealer: Dama
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
 	blocked_damage.emit()
 
-## Register all [DamageReceiver] child nodes
+## Register all [DamageReceiver] and [DamageBlocker] child nodes
 func _register_children():
 	for child in get_children():
 			if child is DamageReceiver:

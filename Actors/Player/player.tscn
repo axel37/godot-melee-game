@@ -1,11 +1,15 @@
-[gd_scene load_steps=40 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=44 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_t1aey"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="3_wgo13"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8f005"]
 animation = &"attack_thrust"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sosc3"]
+animation = &"attack_blocked"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0bfx1"]
 animation = &"attack_swing_from-left"
@@ -71,9 +75,16 @@ xfade_time = 0.3
 advance_mode = 2
 advance_expression = "self[\"parameters/Attack1StateMachine/conditions/is_guarding\"] == false"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8mdw8"]
+xfade_time = 0.7
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gu7ok"]
 states/End/position = Vector2(1315, 133)
 states/Start/position = Vector2(763, -24)
+states/attack_blocked/node = SubResource("AnimationNodeAnimation_sosc3")
+states/attack_blocked/position = Vector2(927, -1)
 states/attack_swing_from-left/node = SubResource("AnimationNodeAnimation_0bfx1")
 states/attack_swing_from-left/position = Vector2(438, 193)
 states/attack_swing_from-right/node = SubResource("AnimationNodeAnimation_dgb62")
@@ -84,7 +95,7 @@ states/guard_idle/node = SubResource("AnimationNodeAnimation_ygoib")
 states/guard_idle/position = Vector2(1014, 78)
 states/idle/node = SubResource("AnimationNodeAnimation_icgh1")
 states/idle/position = Vector2(763, 78)
-transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8"), "idle", "guard_idle", SubResource("AnimationNodeStateMachineTransition_x8kg2"), "guard_idle", "idle", SubResource("AnimationNodeStateMachineTransition_3ffuo")]
+transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8"), "idle", "guard_idle", SubResource("AnimationNodeStateMachineTransition_x8kg2"), "guard_idle", "idle", SubResource("AnimationNodeStateMachineTransition_3ffuo"), "attack_blocked", "idle", SubResource("AnimationNodeStateMachineTransition_8mdw8")]
 graph_offset = Vector2(-85, -63)
 
 [sub_resource type="Curve" id="Curve_5e8f1"]
@@ -154,7 +165,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerDamageDealer/CollisionShape3D:shape:size")
+tracks/1/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:shape:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -166,7 +177,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerDamageDealer/CollisionShape3D:position")
+tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -226,7 +237,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerDamageDealer:enabled")
+tracks/7/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -289,7 +300,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerDamageDealer/CollisionShape3D:position")
+tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -301,7 +312,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerDamageDealer/CollisionShape3D:shape:size")
+tracks/3/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:shape:size")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -313,7 +324,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerDamageDealer")
+tracks/4/path = NodePath("DamageDealingHandler/PlayerDamageDealer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -327,7 +338,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerDamageDealer:enabled")
+tracks/5/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -404,7 +415,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerDamageDealer/CollisionShape3D:shape:size")
+tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:shape:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -416,7 +427,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerDamageDealer/CollisionShape3D:position")
+tracks/3/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -464,7 +475,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerDamageDealer:enabled")
+tracks/7/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -476,7 +487,7 @@ tracks/7/keys = {
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerDamageDealer")
+tracks/8/path = NodePath("DamageDealingHandler/PlayerDamageDealer")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -530,7 +541,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerDamageDealer/CollisionShape3D:shape:size")
+tracks/1/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:shape:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -542,7 +553,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerDamageDealer/CollisionShape3D:position")
+tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -604,7 +615,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerDamageDealer:enabled")
+tracks/7/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -616,7 +627,7 @@ tracks/7/keys = {
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerDamageDealer")
+tracks/8/path = NodePath("DamageDealingHandler/PlayerDamageDealer")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -710,9 +721,49 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_jucjh"]
+resource_name = "attack_blocked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponBase/Weapon:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.436975, 0.436377, 0.0154332), Vector3(-0.306754, 0.355831, -0.422357), Vector3(-0.306754, 0.207444, -0.633358)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.252116, -0.053046, -0.0245853), Vector3(0.783415, -0.86088, -0.575989), Vector3(0.867858, -0.981277, -0.739485)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
 _data = {
 "RESET": SubResource("Animation_2620o"),
+"attack_blocked": SubResource("Animation_jucjh"),
 "attack_swing_from-left": SubResource("Animation_tye2j"),
 "attack_swing_from-right": SubResource("Animation_5vtuh"),
 "attack_thrust": SubResource("Animation_gwnp2"),
@@ -782,13 +833,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("BoxMesh_55rnk")
 metadata/_edit_lock_ = true
 
-[node name="PlayerDamageDealer" type="Area3D" parent="."]
+[node name="DamageDealingHandler" type="Node3D" parent="."]
+script = ExtResource("3_wgo13")
+
+[node name="PlayerDamageDealer" type="Area3D" parent="DamageDealingHandler"]
 monitoring = false
 monitorable = false
 script = ExtResource("3_t1aey")
 amount = 1.0
 enabled = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDamageDealer"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/PlayerDamageDealer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0.974, -0.68)
 shape = SubResource("BoxShape3D_f60r3")
+
+[connection signal="was_blocked" from="DamageDealingHandler" to="." method="_on_damage_dealing_handler_was_blocked"]

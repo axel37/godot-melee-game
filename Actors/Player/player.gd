@@ -13,6 +13,7 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 
 @onready var camera_pivot: Node3D = %CameraPivot
 @onready var weapon_animation_tree: AnimationTree = %WeaponAnimationTree
+@onready var state_machine: AnimationNodeStateMachinePlayback = weapon_animation_tree["parameters/Attack1StateMachine/playback"]
 
 ## Toggled by animations to disable movement.
 @export var ignore_movement_input: bool = false
@@ -77,3 +78,7 @@ func _update_animation_tree_inputs():
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking"] = Input.is_action_pressed("attack_1")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking_thrust"] = Input.is_action_pressed("attack_2")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_guarding"] = Input.is_action_pressed("guard")
+
+
+func _on_damage_dealing_handler_was_blocked() -> void:
+		state_machine.travel("attack_blocked")
