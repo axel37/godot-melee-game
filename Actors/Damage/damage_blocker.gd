@@ -34,6 +34,6 @@ func _set_enabled(value: bool):
 		return  # TODO : Avoid redundant sets (this is being called every frame !)
 
 	enabled = value
-	monitorable = value
-	monitoring = value
+	set_deferred("monitorable", value)
+	set_deferred("monitoring", value)
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])

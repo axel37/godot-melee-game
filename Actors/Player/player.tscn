@@ -271,6 +271,69 @@ tracks/9/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_jucjh"]
+resource_name = "attack_blocked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponBase/Weapon:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.436975, 0.436377, 0.0154332), Vector3(-0.306754, 0.355831, -0.422357), Vector3(-0.306754, 0.207444, -0.633358)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.252116, -0.053046, -0.0245853), Vector3(0.783415, -0.86088, -0.575989), Vector3(0.867858, -0.981277, -0.739485)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraPivot/AnimationPivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CameraPivot/AnimationPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0657815, -0.0192335, -0.0514174)]
+}
+
 [sub_resource type="Animation" id="Animation_tye2j"]
 resource_name = "attack_swing_from-left"
 tracks/0/type = "value"
@@ -328,7 +391,7 @@ tracks/4/path = NodePath("DamageDealingHandler/PlayerDamageDealer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -342,7 +405,7 @@ tracks/5/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.3, 0.466667),
+"times": PackedFloat32Array(0.333333, 0.466667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -395,10 +458,10 @@ tracks/0/path = NodePath("WeaponBase/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.566667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 0.34151, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.300001, 0.366667, 0.566668, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.34151, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0.303493, 0), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.839265, -0.0679524, -0.996134), Vector3(-0.839265, -0.0679524, -0.996134)]
+"values": [Vector3(-0.172803, 0.168108, -0.133782), Vector3(0.139506, -0.177747, 0.146743), Vector3(0.0211809, 0.110466, -0.234394), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.0971434, 0.597032, -0.075138), Vector3(-0.839265, -0.0679524, -0.996134), Vector3(-0.849457, -0.0252852, -1.05869)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -407,10 +470,10 @@ tracks/1/path = NodePath("WeaponBase/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.566667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 0.34151, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.300001, 0.366667, 0.566668, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.34151, 1, 1),
 "update": 0,
-"values": [Vector3(0.0829463, -0.607274, -1.55186), Vector3(0.131863, -0.980936, -1.31585), Vector3(0.131863, -0.980936, -1.19603), Vector3(-0.136375, 2.11798, -1.67422), Vector3(-0.136375, 2.11798, -1.67422)]
+"values": [Vector3(-0.0154107, -0.111966, -2.57951), Vector3(-0.028356, -0.381632, -2.42107), Vector3(0.868557, -1.73857, -1.03947), Vector3(0.408723, -0.903123, -1.29486), Vector3(0.131863, -0.980936, -1.19603), Vector3(-0.39825, 2.14714, -1.68199), Vector3(-0.111408, 2.04522, -1.66411)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -455,7 +518,7 @@ tracks/5/path = NodePath("CameraPivot/AnimationPivot:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.166667, 0.366667, 0.566667),
+"times": PackedFloat32Array(0.3, 0.366667, 0.566667),
 "transitions": PackedFloat32Array(1, 0.5, 1.27456),
 "update": 0,
 "values": [Vector3(0, -0.0523599, 0), Vector3(0, -0.0523599, 0), Vector3(0, 0.174533, 0)]
@@ -467,7 +530,7 @@ tracks/6/path = NodePath("CameraPivot/AnimationPivot:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.166667, 0.366667, 0.566667),
+"times": PackedFloat32Array(0.3, 0.366667, 0.566667),
 "transitions": PackedFloat32Array(1, 0.5, 1.27456),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
@@ -505,7 +568,7 @@ tracks/9/path = NodePath(".:_can_attack")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.7),
+"times": PackedFloat32Array(0, 0.633332),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -517,7 +580,7 @@ tracks/10/path = NodePath(".:_can_rotate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0.166667, 0.700001),
+"times": PackedFloat32Array(0.3, 0.633333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -719,45 +782,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_jucjh"]
-resource_name = "attack_blocked"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponBase/Weapon:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.436975, 0.436377, 0.0154332), Vector3(-0.306754, 0.355831, -0.422357), Vector3(-0.306754, 0.207444, -0.633358)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponBase/Weapon:rotation")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.252116, -0.053046, -0.0245853), Vector3(0.783415, -0.86088, -0.575989), Vector3(0.867858, -0.981277, -0.739485)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]

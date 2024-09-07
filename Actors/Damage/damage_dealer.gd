@@ -24,16 +24,10 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 func _on_area_entered(area: Area3D) -> void:
-	if area is DamageReceiver:
-		var damage_receiver: DamageReceiver = area as DamageReceiver
-		if _has_already_hit_receiver(damage_receiver):
-			Global.log(LOG_CODE_RECEIVER_ALREADY_HIT, "%s hit %s, but was already registered. Ignoring..." % [name, area.name])
-			return
-		_receivers_already_hit.append(damage_receiver)
-		Global.log(LOG_CODE_DAMAGE_DEALT, "%s dealt damage to %s" % [name, damage_receiver.name])
-		dealt_damage.emit()
-	elif area is DamageBlocker:
+	if area is DamageBlocker:
 		was_blocked.emit()
+	elif area is DamageReceiver:
+		dealt_damage.emit()
 
 func _set_enabled(value: bool):
 	if enabled == value:

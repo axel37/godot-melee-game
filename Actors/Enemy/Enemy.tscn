@@ -61,6 +61,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_c7pbk"]
 resource_name = "got_hurt"
@@ -89,40 +101,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_toql6"]
 _data = {
 "RESET": SubResource("Animation_nfif0"),
 "got_hurt": SubResource("Animation_c7pbk")
-}
-
-[sub_resource type="Animation" id="Animation_16p5x"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StickMesh:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.41894, -0.707921), Vector3(0, 1.3, -0.708)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StickMesh:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.0477531, 0.0435351, -0.375163), Vector3(-0.0477531, 0.0435351, -0.375163)]
 }
 
 [sub_resource type="Animation" id="Animation_0pal6"]
@@ -180,6 +175,35 @@ tracks/1/keys = {
 "values": [Vector3(0.174224, -0.165488, -0.76387)]
 }
 
+[sub_resource type="Animation" id="Animation_16p5x"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StickMesh:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.41894, -0.707921), Vector3(0, 1.3, -0.708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickMesh:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0477531, 0.0435351, -0.375163), Vector3(-0.0477531, 0.0435351, -0.375163)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f0rc7"]
 _data = {
 "RESET": SubResource("Animation_0pal6"),
@@ -228,7 +252,7 @@ bottom_radius = 0.05
 height = 1.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c8jgm"]
-size = Vector3(1.07874, 1.84903, 0.587723)
+size = Vector3(1.07874, 1.84903, 0.416786)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_10flg"]
 size = Vector3(1, 2, 1)
@@ -279,7 +303,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38981, -0.689952)
 script = ExtResource("5_tyq6u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageBlocker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.0931321)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.00766385)
 shape = SubResource("BoxShape3D_c8jgm")
 
 [node name="DamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
