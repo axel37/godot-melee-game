@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=45 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -76,8 +76,13 @@ xfade_time = 0.3
 advance_mode = 2
 advance_expression = "self[\"parameters/Attack1StateMachine/conditions/is_guarding\"] == false"
 
+[sub_resource type="Curve" id="Curve_b4xux"]
+_data = [Vector2(0.167095, 0), 0.0, -0.107522, 0, 0, Vector2(1, 1), 0.0423066, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8mdw8"]
 xfade_time = 0.7
+xfade_curve = SubResource("Curve_b4xux")
 switch_mode = 2
 advance_mode = 2
 
@@ -85,9 +90,9 @@ advance_mode = 2
 states/End/position = Vector2(1315, 133)
 states/Start/position = Vector2(763, -24)
 states/attack_blocked/node = SubResource("AnimationNodeAnimation_sosc3")
-states/attack_blocked/position = Vector2(927, -1)
+states/attack_blocked/position = Vector2(890, -9)
 states/attack_swing_from-left/node = SubResource("AnimationNodeAnimation_0bfx1")
-states/attack_swing_from-left/position = Vector2(438, 193)
+states/attack_swing_from-left/position = Vector2(438, 167)
 states/attack_swing_from-right/node = SubResource("AnimationNodeAnimation_dgb62")
 states/attack_swing_from-right/position = Vector2(438, 78)
 states/attack_thrust/node = SubResource("AnimationNodeAnimation_keqny")
@@ -333,6 +338,44 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.0657815, -0.0192335, -0.0514174)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:ignore_movement_input")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:_can_rotate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [-1.0],
+"method": &"_step_forward"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tye2j"]
@@ -741,7 +784,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.428544, 1.20188, 0.105814), Vector3(0.428544, 1.20188, 0.105814)]
+"values": [Vector3(0.505422, 1.48989, 1.34752), Vector3(0.501131, 1.46881, 1.33736)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -753,7 +796,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.0327281, 0.261724, -0.766976), Vector3(-0.033, 0.2, -0.767)]
+"values": [Vector3(0.0670845, 0.261724, -0.766976), Vector3(0.067, 0.23, -0.767)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -852,6 +895,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574576, 0.856796, 0.180834)
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="WeaponSkin" parent="WeaponBase/Weapon" instance=ExtResource("3_c3wxg")]
+metadata/_edit_lock_ = true
 
 [node name="DamageDealingHandler" type="Node3D" parent="."]
 script = ExtResource("3_wgo13")
