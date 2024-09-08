@@ -132,47 +132,6 @@ tracks/1/keys = {
 "values": [Vector3(0.174224, -0.165488, -0.76387)]
 }
 
-[sub_resource type="Animation" id="Animation_16p5x"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StickMesh:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.41894, -0.707921), Vector3(0, 1.3, -0.708)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StickMesh:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.0477531, 0.0435351, -0.375163), Vector3(-0.0477531, 0.0435351, -0.375163)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_j70xy"]
 resource_name = "got_hurt"
 tracks/0/type = "value"
@@ -222,6 +181,47 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_16p5x"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StickMesh:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.41894, -0.707921), Vector3(0, 1.3, -0.708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickMesh:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0477531, 0.0435351, -0.375163), Vector3(-0.0477531, 0.0435351, -0.375163)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f0rc7"]
@@ -327,7 +327,7 @@ material_override = SubResource("StandardMaterial3D_lnvf4")
 mesh = SubResource("CapsuleMesh_xttpt")
 
 [node name="StickMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.930328, 0.364144, 0.0434718, -0.366007, 0.929387, 0.047735, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
+transform = Transform3D(0.930328, 0.364144, 0.0434717, -0.366007, 0.929387, 0.047735, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
 mesh = SubResource("CylinderMesh_smpya")
 
 [node name="HurtParticles" type="GPUParticles3D" parent="."]
@@ -351,10 +351,10 @@ script = ExtResource("5_tyq6u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.00766385)
 shape = SubResource("BoxShape3D_c8jgm")
 
-[node name="DamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
+[node name="EnemyDamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
 script = ExtResource("1_wsa3p")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/DamageReceiver"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_10flg")
 

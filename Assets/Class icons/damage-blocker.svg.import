@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnw26yic0xlo"
-path="res://.godot/imported/damage_receiver.svg-d306ff36c03937bef7524b19e72aa182.ctex"
+uid="uid://d10nxjlrwg4q0"
+path="res://.godot/imported/damage-blocker.svg-d4854dcee04c42ea981e660d3567ccc4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Class icons/damage_receiver.svg"
-dest_files=["res://.godot/imported/damage_receiver.svg-d306ff36c03937bef7524b19e72aa182.ctex"]
+source_file="res://Assets/Class icons/damage-blocker.svg"
+dest_files=["res://.godot/imported/damage-blocker.svg-d4854dcee04c42ea981e660d3567ccc4.ctex"]
 
 [params]
 
