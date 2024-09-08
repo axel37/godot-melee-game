@@ -344,10 +344,10 @@ tracks/0/path = NodePath("WeaponBase/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.466667, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-0.0449237, 0.44998, -0.440583), Vector3(-0.0449237, 0.44998, -0.440583)]
+"values": [Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.36433, 0.213529, -0.500838), Vector3(-1.36433, 0.213529, -0.500838), Vector3(-0.0449237, -0.239043, -0.440583), Vector3(-0.0449237, -0.239043, -0.440583)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -356,10 +356,10 @@ tracks/1/path = NodePath("WeaponBase/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.466667, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.103279, 0.891749, -1.33645), Vector3(-0.363485, 2.25631, -2.56625), Vector3(-0.363485, 2.25631, -1.82869), Vector3(0.417835, -1.1678, -1.42114), Vector3(0.417835, -1.1678, -1.42114)]
+"values": [Vector3(-0.103279, 0.891749, -1.33645), Vector3(-0.363485, 2.25631, -2.56625), Vector3(0.67244, 2.45294, 1.78262), Vector3(0.67244, 2.45294, 1.78262), Vector3(-0.203335, -0.921188, 1.20147), Vector3(-0.203335, -0.921188, 1.20147)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -368,10 +368,10 @@ tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.366667, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.366667, 0.4, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-1.90928, 0.704104, -1.4751), Vector3(-1.97613, 0.21617, 0.712586), Vector3(-1.18796, 0.726779, -1.02367), Vector3(-0.00570977, 1.49269, -1.55479)]
+"values": [Vector3(-1.01413, 1.45192, -0.0166427), Vector3(-1.01413, 1.45192, -0.0166427), Vector3(-1.01413, 1.45192, -0.0166427), Vector3(-0.520092, 1.46551, -1.06741), Vector3(-0.00570977, 1.49269, -1.30779)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -383,7 +383,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.366667, 0.4, 0.466667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(1.19365, 0.833716, 1.16047), Vector3(1.54048, 1.39433, 1.88951), Vector3(1.92841, 1.61017, 1.73877)]
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.812721, 1.39433, 1.88951), Vector3(1.01157, 1.61017, 1.73877)]
 }
 tracks/4/type = "method"
 tracks/4/imported = false
@@ -392,7 +392,7 @@ tracks/4/path = NodePath("DamageDealingHandler/PlayerDamageDealer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.333333),
+"times": PackedFloat32Array(0.366667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -406,7 +406,7 @@ tracks/5/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.333333, 0.466667),
+"times": PackedFloat32Array(0.366667, 0.466667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -483,10 +483,10 @@ tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.383333, 0.416667, 0.566667),
+"times": PackedFloat32Array(0, 0.366667, 0.383333, 0.433333, 0.566667),
 "transitions": PackedFloat32Array(1, 0.08, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.895963, 0.8978, 1.3619), Vector3(2.24781, 0.971328, 1.52121), Vector3(2.4, 1.1, 1.8)]
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.895963, 0.8978, 1.3619), Vector3(1.20658, 0.985626, 1.55219), Vector3(2.4, 1.1, 1.8)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -543,7 +543,7 @@ tracks/7/path = NodePath("DamageDealingHandler/PlayerDamageDealer:enabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.566667),
+"times": PackedFloat32Array(0, 0.366667, 0.483333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -851,7 +851,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574576, 0.856796, 0.180834)
 [node name="Weapon" type="Node3D" parent="WeaponBase"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="MeshInstance3D" parent="WeaponBase/Weapon" instance=ExtResource("3_c3wxg")]
+[node name="WeaponSkin" parent="WeaponBase/Weapon" instance=ExtResource("3_c3wxg")]
 
 [node name="DamageDealingHandler" type="Node3D" parent="."]
 script = ExtResource("3_wgo13")
