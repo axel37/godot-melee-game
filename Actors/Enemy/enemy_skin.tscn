@@ -1,7 +1,236 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfs4bkfhqt48j"]
+[gd_scene load_steps=20 format=3 uid="uid://dfs4bkfhqt48j"]
 
+[ext_resource type="Script" path="res://Actors/Enemy/enemy_skin.gd" id="1_4vg63"]
 [ext_resource type="Texture2D" uid="uid://dovem415f3cc7" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="1_g3o1c"]
 [ext_resource type="Texture2D" uid="uid://c2aug7xsxbo8i" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_pvcwn"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ipyuv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gcm83"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d87p4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_eao0t"]
+graph_offset = Vector2(-103.846, -13.9818)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_ipyuv")
+nodes/OneShot/position = Vector2(300, 200)
+nodes/hurt/node = SubResource("AnimationNodeAnimation_gcm83")
+nodes/hurt/position = Vector2(100, 280)
+nodes/idle/node = SubResource("AnimationNodeAnimation_d87p4")
+nodes/idle/position = Vector2(100, 120)
+nodes/output/position = Vector2(540, 120)
+node_connections = [&"OneShot", 0, &"idle", &"OneShot", 1, &"hurt", &"output", 0, &"OneShot"]
+
+[sub_resource type="Animation" id="Animation_30vo2"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegPivot/Leg/BodyPivot/Body/NeckPivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0320268, 0, 0), Vector3(-0.0292517, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LegPivot/Leg/BodyPivot:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0261974, 0, 0), Vector3(-0.0202458, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LegPivot:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.016441, 0, 0), Vector3(-0.0246091, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sfw36"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegPivot/Leg/BodyPivot/Body/NeckPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LegPivot/Leg/BodyPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LegPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LegPivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LegPivot/Leg/BodyPivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LegPivot/Leg/BodyPivot/Body/NeckPivot:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.359, 0)]
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LegPivot:rotation:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LegPivot/Leg/BodyPivot/Body/NeckPivot:rotation:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LegPivot/Leg/BodyPivot:rotation:x")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_b6lg3"]
+resource_name = "hurt"
+length = 0.7
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegPivot:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.206643, -0.25, 0, 0.25, 0, -1.34236e-05, -0.567, -0.199, 0.25, 0),
+"times": PackedFloat32Array(0, 0.633686)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LegPivot/Leg/BodyPivot:rotation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.161404, -0.25, 0, 0.25, 0, -1.34236e-05, -0.667, -0.123, 0.25, 0),
+"times": PackedFloat32Array(0, 0.633686)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LegPivot/Leg/BodyPivot/Body/NeckPivot:rotation:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.452333, -0.25, 0, 0.25, 0, -1.34236e-05, -0.58, -0.151, 0.25, 0),
+"times": PackedFloat32Array(0, 0.633686)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0s50m"]
+_data = {
+"RESET": SubResource("Animation_sfw36"),
+"hurt": SubResource("Animation_b6lg3"),
+"idle": SubResource("Animation_30vo2")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpvam"]
+albedo_texture = ExtResource("1_pvcwn")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hefyb"]
+top_radius = 0.075
+bottom_radius = 0.1
+height = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vihp"]
+albedo_texture = ExtResource("1_g3o1c")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nuk4c"]
+size = Vector3(0.5, 0.6, 0.3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b70wq"]
 albedo_texture = ExtResource("1_pvcwn")
@@ -20,44 +249,55 @@ uv1_triplanar = true
 [sub_resource type="PrismMesh" id="PrismMesh_hxhav"]
 size = Vector3(0.65, 0.65, 0.3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpvam"]
-albedo_texture = ExtResource("1_pvcwn")
-uv1_triplanar = true
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_hefyb"]
-top_radius = 0.075
-bottom_radius = 0.1
-height = 0.75
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vihp"]
-albedo_texture = ExtResource("1_g3o1c")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_nuk4c"]
-size = Vector3(0.5, 0.6, 0.3)
-
 [node name="EnemySkin" type="Node3D"]
+script = ExtResource("1_4vg63")
 
-[node name="Neck" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.35874, 0)
-material_override = SubResource("StandardMaterial3D_b70wq")
-mesh = SubResource("SphereMesh_nlt33")
-skeleton = NodePath("../Head")
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeBlendTree_eao0t")
+anim_player = NodePath("../AnimationPlayer")
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
 
-[node name="Head" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.58028, -0.0942178)
-material_override = SubResource("StandardMaterial3D_ehdli")
-mesh = SubResource("PrismMesh_hxhav")
-skeleton = NodePath("../Leg")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0s50m")
+}
 
-[node name="Leg" type="MeshInstance3D" parent="."]
+[node name="LegPivot" type="Node3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="Leg" type="MeshInstance3D" parent="LegPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
 material_override = SubResource("StandardMaterial3D_kpvam")
 mesh = SubResource("CylinderMesh_hefyb")
-skeleton = NodePath("../Body")
+skeleton = NodePath("BodyPivot/Body")
 
-[node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="BodyPivot" type="Node3D" parent="LegPivot/Leg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+metadata/_edit_group_ = true
+
+[node name="Body" type="MeshInstance3D" parent="LegPivot/Leg/BodyPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 material_override = SubResource("StandardMaterial3D_1vihp")
 mesh = SubResource("BoxMesh_nuk4c")
 skeleton = NodePath("")
+
+[node name="NeckPivot" type="Node3D" parent="LegPivot/Leg/BodyPivot/Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.359, 0)
+metadata/_edit_group_ = true
+
+[node name="Neck" type="MeshInstance3D" parent="LegPivot/Leg/BodyPivot/Body/NeckPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_b70wq")
+mesh = SubResource("SphereMesh_nlt33")
+skeleton = NodePath("Head")
+metadata/_edit_lock_ = true
+
+[node name="Head" type="MeshInstance3D" parent="LegPivot/Leg/BodyPivot/Body/NeckPivot/Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0942178, 0.221544)
+material_override = SubResource("StandardMaterial3D_ehdli")
+mesh = SubResource("PrismMesh_hxhav")
+skeleton = NodePath("../../../../..")
