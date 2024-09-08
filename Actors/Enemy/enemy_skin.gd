@@ -4,5 +4,4 @@ extends Node3D
 
 
 func play_hurt_animation() -> void:
-	print("Playing enemy hurt animation...")
 	animation_tree["parameters/OneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE

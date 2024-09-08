@@ -13,14 +13,14 @@ animation = &"hurt"
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_eao0t"]
-graph_offset = Vector2(-103.846, -13.9818)
+graph_offset = Vector2(-313.688, 22.394)
 nodes/OneShot/node = SubResource("AnimationNodeOneShot_ipyuv")
-nodes/OneShot/position = Vector2(300, 200)
+nodes/OneShot/position = Vector2(320, 240)
 nodes/hurt/node = SubResource("AnimationNodeAnimation_gcm83")
-nodes/hurt/position = Vector2(100, 280)
+nodes/hurt/position = Vector2(100, 340)
 nodes/idle/node = SubResource("AnimationNodeAnimation_d87p4")
-nodes/idle/position = Vector2(100, 120)
-nodes/output/position = Vector2(540, 120)
+nodes/idle/position = Vector2(100, 180)
+nodes/output/position = Vector2(560, 240)
 node_connections = [&"OneShot", 0, &"idle", &"OneShot", 1, &"hurt", &"output", 0, &"OneShot"]
 
 [sub_resource type="Animation" id="Animation_30vo2"]

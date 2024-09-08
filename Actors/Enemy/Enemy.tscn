@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dj6uunu4mssmn"]
+[gd_scene load_steps=28 format=4 uid="uid://dj6uunu4mssmn"]
 
 [ext_resource type="Script" path="res://Actors/Enemy/enemy.gd" id="1_1yho5"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="1_wsa3p"]
@@ -82,22 +82,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HurtParticles:emitting")
+tracks/2/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -137,46 +125,34 @@ resource_name = "got_hurt"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HurtParticles:emitting")
-tracks/0/interp = 1
+tracks/0/path = NodePath("StickMesh:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.120744, 1),
+"update": 0,
+"values": [Vector3(-0.515361, 1.32474, -0.470998), Vector3(-0.552541, 0.339715, -0.782482)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StickMesh:position")
+tracks/1/path = NodePath("StickMesh:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.120744, 1),
 "update": 0,
-"values": [Vector3(-0.515361, 1.32474, -0.470998), Vector3(-0.552541, 0.339715, -0.782482)]
+"values": [Vector3(-0.0477531, 0.0435351, 0.199434), Vector3(-0.783751, -1.97625, 2.0878)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("StickMesh:rotation")
-tracks/2/interp = 2
+tracks/2/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.120744, 1),
-"update": 0,
-"values": [Vector3(-0.0477531, 0.0435351, 0.199434), Vector3(-0.783751, -1.97625, 2.0878)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EnemyDamageReceivingHandler/EnemyDamageBlocker:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -266,29 +242,6 @@ top_radius = 0.03
 bottom_radius = 0.03
 height = 1.5
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u1qw5"]
-emission_shape = 2
-emission_sphere_radius = 0.7
-angle_min = -291.2
-angle_max = 291.2
-direction = Vector3(0, 0, 0)
-spread = 180.0
-initial_velocity_min = 1.0
-initial_velocity_max = 5.0
-collision_mode = 1
-collision_friction = 0.0
-collision_bounce = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0n5m"]
-billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_uihq6"]
-material = SubResource("StandardMaterial3D_u0n5m")
-size = Vector2(0.1, 0.1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_c8jgm"]
 size = Vector3(1.07874, 1.84903, 0.416786)
 
@@ -321,16 +274,6 @@ unique_name_in_owner = true
 [node name="StickMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.930328, 0.364144, 0.0434717, -0.366007, 0.929387, 0.047735, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
 mesh = SubResource("CylinderMesh_smpya")
-
-[node name="HurtParticles" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-emitting = false
-amount = 16
-lifetime = 0.2
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_u1qw5")
-draw_pass_1 = SubResource("QuadMesh_uihq6")
 
 [node name="EnemyDamageReceivingHandler" type="Node3D" parent="."]
 script = ExtResource("3_motfw")
