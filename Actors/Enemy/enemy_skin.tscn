@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfs4bkfhqt48j"]
+
+[ext_resource type="Texture2D" uid="uid://dovem415f3cc7" path="res://addons/kenney_prototype_textures/red/texture_02.png" id="1_g3o1c"]
+[ext_resource type="Texture2D" uid="uid://c2aug7xsxbo8i" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_pvcwn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b70wq"]
+albedo_texture = ExtResource("1_pvcwn")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_nlt33"]
+radius = 0.1
+height = 0.2
+radial_segments = 12
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehdli"]
+albedo_texture = ExtResource("1_g3o1c")
+uv1_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_hxhav"]
+size = Vector3(0.65, 0.65, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpvam"]
+albedo_texture = ExtResource("1_pvcwn")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hefyb"]
+top_radius = 0.075
+bottom_radius = 0.1
+height = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vihp"]
+albedo_texture = ExtResource("1_g3o1c")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nuk4c"]
+size = Vector3(0.5, 0.6, 0.3)
+
+[node name="EnemySkin" type="Node3D"]
+
+[node name="Neck" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.35874, 0)
+material_override = SubResource("StandardMaterial3D_b70wq")
+mesh = SubResource("SphereMesh_nlt33")
+skeleton = NodePath("../Head")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.58028, -0.0942178)
+material_override = SubResource("StandardMaterial3D_ehdli")
+mesh = SubResource("PrismMesh_hxhav")
+skeleton = NodePath("../Leg")
+
+[node name="Leg" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+material_override = SubResource("StandardMaterial3D_kpvam")
+mesh = SubResource("CylinderMesh_hefyb")
+skeleton = NodePath("../Body")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_1vihp")
+mesh = SubResource("BoxMesh_nuk4c")
+skeleton = NodePath("")
