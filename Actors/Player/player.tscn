@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
+[ext_resource type="PackedScene" uid="uid://kigmv8xm1oxv" path="res://Actors/Player/sword_skin.tscn" id="3_c3wxg"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_t1aey"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="3_wgo13"]
 
@@ -343,7 +344,7 @@ tracks/0/path = NodePath("WeaponBase/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.466667, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-1.08884, -0.0428253, -0.488978), Vector3(-0.0449237, 0.44998, -0.440583), Vector3(-0.0449237, 0.44998, -0.440583)]
@@ -355,10 +356,10 @@ tracks/1/path = NodePath("WeaponBase/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.466667, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.103279, 0.891749, -1.33645), Vector3(-0.363485, 2.25631, -1.82869), Vector3(-0.363485, 2.25631, -1.82869), Vector3(0.417835, -1.1678, -1.42114), Vector3(0.417835, -1.1678, -1.42114)]
+"values": [Vector3(-0.103279, 0.891749, -1.33645), Vector3(-0.363485, 2.25631, -2.56625), Vector3(-0.363485, 2.25631, -1.82869), Vector3(0.417835, -1.1678, -1.42114), Vector3(0.417835, -1.1678, -1.42114)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -799,9 +800,6 @@ _data = {
 height = 1.8
 radius = 0.4
 
-[sub_resource type="BoxMesh" id="BoxMesh_55rnk"]
-size = Vector3(0.05, 0.1, 2)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_f60r3"]
 size = Vector3(0.5, 0.5, 0.5)
 
@@ -842,6 +840,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="AnimationPivot" type="Node3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/AnimationPivot"]
 fov = 90.0
@@ -852,10 +851,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574576, 0.856796, 0.180834)
 [node name="Weapon" type="Node3D" parent="WeaponBase"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponBase/Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-mesh = SubResource("BoxMesh_55rnk")
-metadata/_edit_lock_ = true
+[node name="MeshInstance3D" parent="WeaponBase/Weapon" instance=ExtResource("3_c3wxg")]
 
 [node name="DamageDealingHandler" type="Node3D" parent="."]
 script = ExtResource("3_wgo13")
