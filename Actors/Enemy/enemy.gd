@@ -4,13 +4,12 @@ const LOG_CODE_DAMAGE_RECEIVED = "ENEMY-001"
 const LOG_CODE_DAMAGE_BLOCKED = "ENEMY-002"
 
 
-@onready var weapon_animation_player: AnimationPlayer = %WeaponAnimationPlayer
-@onready var hurt_animation_player: AnimationPlayer = %HurtAnimationPlayer
+
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 func _on_damage_receiving_handler_received_damage() -> void:
-	hurt_animation_player.play("got_hurt")
+	state_machine.travel("hurt")
 	Global.log(LOG_CODE_DAMAGE_RECEIVED, "%s received damage." % [name])
 
 

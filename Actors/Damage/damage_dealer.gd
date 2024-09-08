@@ -23,10 +23,12 @@ func _ready() -> void:
 	_renew()
 	area_entered.connect(_on_area_entered)
 
+## Called by external entities who blocked this attack
+func block() -> void:
+	was_blocked.emit()
+
 func _on_area_entered(area: Area3D) -> void:
-	if area is DamageBlocker:
-		was_blocked.emit()
-	elif area is DamageReceiver:
+	if area is DamageReceiver:
 		dealt_damage.emit()
 
 func _set_enabled(value: bool):
