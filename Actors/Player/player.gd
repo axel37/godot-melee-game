@@ -1,18 +1,29 @@
 @tool
+## Main playable character code.
 class_name Player
 extends CharacterBody3D
 
+## Used to scale down mouse motion so that [member sensitivity] can match quake / source engine values.
+## TODO : Approximate, find an exact value !
 const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 
+## Lower values means slower camera rotation.
+## Should approximately match quake / source engine games.
 @export var mouse_sensitivity: float = 0.25
 
+## The speed at which the player should stop accelerating (grounded, in a straight line)
 @export var move_max_speed: float = 5
+## The vertical velocity to add upon jumping
 @export var move_jump_impulse: float = 10
-
+## Used to tuck away movement code from main player script.
+## Designed to be replaceable.
 @export var movement_processor: MovementProcessor = null
 
+## Used for "vertical" camera rotation (looking up/down)
 @onready var camera_pivot: Node3D = %CameraPivot
+## [AnimationTree] managing animations for the viewmodel.
 @onready var weapon_animation_tree: AnimationTree = %WeaponAnimationTree
+## [member weapon_animation_tree]'s state machine.
 @onready var state_machine: AnimationNodeStateMachinePlayback = weapon_animation_tree["parameters/Attack1StateMachine/playback"]
 
 ## Toggled by animations to disable movement.
@@ -35,13 +46,6 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent):
 	if Engine.is_editor_hint():
 		return
-	# TODO : Mouse capture does not belong in player code
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			get_viewport().set_input_as_handled()
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		var x_multiplier: float = 1.0 if _can_rotate else 0.1
 		_process_mouse_motion(event.screen_relative, x_multiplier, 1)
@@ -58,6 +62,7 @@ func _process_movement(delta: float) -> void:
 		movement_processor.process_movement(self, delta, move_max_speed, move_jump_impulse)
 
 ## Rotate the camera and the player based on mouse motion
+# TODO : Should that be handled by a movement_processor ?
 func _process_mouse_motion(motion: Vector2, x_multiplier: float, y_multiplier: float) -> void:
 	var scaled_motion = motion * (1.0 / MOUSE_MOTION_SCALE_DOWN_FACTOR)
 	rotate_y(-scaled_motion.x * mouse_sensitivity * x_multiplier)
@@ -79,6 +84,6 @@ func _update_animation_tree_inputs():
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking_thrust"] = Input.is_action_pressed("attack_2")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_guarding"] = Input.is_action_pressed("guard")
 
-
+## [DamageDealingHandler] signaled an attack as being blocked.
 func _on_damage_dealing_handler_was_blocked() -> void:
 		state_machine.travel("attack_blocked")

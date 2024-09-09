@@ -1,4 +1,5 @@
 ## This class is used to tuck away movement code from the Player class.
+# This should be an interface D:
 @icon("res://Assets/Class icons/movement-processor.svg")
 class_name MovementProcessor
 extends Node

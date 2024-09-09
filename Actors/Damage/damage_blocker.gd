@@ -1,4 +1,5 @@
 ## Area3D used to block/guard from [DamageDealer]s
+## Best used as a child of [DamageReceivingHandler]
 @icon("res://Assets/Class icons/damage-blocker.svg")
 class_name DamageBlocker
 extends Area3D

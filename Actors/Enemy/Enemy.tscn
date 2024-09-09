@@ -250,6 +250,7 @@ size = Vector3(0.75, 2, 0.5)
 
 [node name="Enemy" type="Node3D"]
 script = ExtResource("1_1yho5")
+skin_scene = ExtResource("2_pokh1")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
@@ -266,10 +267,7 @@ libraries = {
 [node name="OutlineMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("ArrayMesh_a2tk3")
-skeleton = NodePath("../BodySkin")
-
-[node name="BodySkin" parent="." instance=ExtResource("2_pokh1")]
-unique_name_in_owner = true
+skeleton = NodePath("")
 
 [node name="StickMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.930328, 0.364144, 0.0434717, -0.366007, 0.929387, 0.047735, -0.0230197, -0.0603201, 0.997914, 0, 1.41894, -0.707921)
