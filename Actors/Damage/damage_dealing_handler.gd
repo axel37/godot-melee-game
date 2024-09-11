@@ -1,3 +1,4 @@
+@icon("res://Assets/Class icons/damage-dealing-handler.svg")
 class_name DamageDealingHandler
 extends Node3D
 
