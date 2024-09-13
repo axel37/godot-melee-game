@@ -26,6 +26,5 @@ func _register_children():
 			if child is DamageDealer:
 				damage_dealers.append(child)
 
-# TODO : Never emitted by damagedealer !
 func _on_dealer_was_blocked():
 	was_blocked.emit()

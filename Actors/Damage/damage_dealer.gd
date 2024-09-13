@@ -2,7 +2,7 @@
 ## Area3D used to deal damage to [DamageReceiver]
 ## It's only monitorable and does no monitoring by itself.
 class_name DamageDealer
-extends Area3D
+extends UniqueShapeArea3D
 
 const LOG_CODE_DAMAGE_DEALT = "DAMAGE-001"
 const LOG_CODE_SET_ENABLED = "DAMAGE-005"
@@ -19,6 +19,8 @@ signal was_blocked
 var id: DamageId
 
 func _ready() -> void:
+	# Needed to call UniqueShapeArea3D's make unique mechanism
+	super._ready()
 	monitoring = false
 	_renew()
 
