@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://dj6uunu4mssmn"]
+[gd_scene load_steps=38 format=4 uid="uid://dj6uunu4mssmn"]
 
 [ext_resource type="Script" path="res://Actors/Enemy/enemy.gd" id="1_1yho5"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="1_wsa3p"]
@@ -10,11 +10,6 @@
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yjsu5"]
 animation = &"attack"
-use_custom_timeline = true
-timeline_length = 2.0
-stretch_time_scale = true
-start_offset = 0.0
-loop_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5l4bv"]
 animation = &"blocked"
@@ -25,8 +20,11 @@ animation = &"got_hurt"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6oamx"]
 animation = &"idle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ggxac"]
+animation = &"was_blocked"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f5xu3"]
-advance_mode = 0
+advance_mode = 2
 
 [sub_resource type="Curve" id="Curve_07028"]
 _data = [Vector2(0, 0), 0.0, 5.67082, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -53,8 +51,18 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t8bky"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7xqpo"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8k27h"]
 xfade_time = 0.3
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bu7at"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wbta1"]
+xfade_time = 0.3
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pktis"]
@@ -67,7 +75,9 @@ states/hurt/node = SubResource("AnimationNodeAnimation_ej3mk")
 states/hurt/position = Vector2(430, 197)
 states/idle/node = SubResource("AnimationNodeAnimation_6oamx")
 states/idle/position = Vector2(430, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f5xu3"), "idle", "blocked", SubResource("AnimationNodeStateMachineTransition_1nacy"), "blocked", "idle", SubResource("AnimationNodeStateMachineTransition_0a3qf"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_662ft"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_t8bky"), "Start", "attack", SubResource("AnimationNodeStateMachineTransition_7xqpo")]
+states/was_blocked/node = SubResource("AnimationNodeAnimation_ggxac")
+states/was_blocked/position = Vector2(226.516, 35)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f5xu3"), "idle", "blocked", SubResource("AnimationNodeStateMachineTransition_1nacy"), "blocked", "idle", SubResource("AnimationNodeStateMachineTransition_0a3qf"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_662ft"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_t8bky"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_8k27h"), "was_blocked", "idle", SubResource("AnimationNodeStateMachineTransition_bu7at"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_wbta1")]
 graph_offset = Vector2(-147.984, 0)
 
 [sub_resource type="Animation" id="Animation_0pal6"]
@@ -148,7 +158,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id="Animation_yacnj"]
 resource_name = "attack"
 length = 2.0
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -180,7 +189,7 @@ tracks/2/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionS
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.43333),
+"times": PackedFloat32Array(0, 1.26667, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 1.58499)]
@@ -318,13 +327,53 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_3fyiy"]
+resource_name = "was_blocked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StickMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.86253, -0.707923), Vector3(0.317317, 2.2241, -0.0272011)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickMesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.568524, -9.08611e-10, -0.220051)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f0rc7"]
 _data = {
 "RESET": SubResource("Animation_0pal6"),
 "attack": SubResource("Animation_yacnj"),
 "blocked": SubResource("Animation_u4kub"),
 "got_hurt": SubResource("Animation_j70xy"),
-"idle": SubResource("Animation_16p5x")
+"idle": SubResource("Animation_16p5x"),
+"was_blocked": SubResource("Animation_3fyiy")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lni2g"]
@@ -432,3 +481,4 @@ shape = SubResource("BoxShape3D_lis6f")
 
 [connection signal="blocked_damage" from="EnemyDamageReceivingHandler" to="." method="_on_enemy_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="EnemyDamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
+[connection signal="was_blocked" from="EnemyDamageDealingHandler" to="." method="_on_enemy_damage_dealing_handler_was_blocked"]

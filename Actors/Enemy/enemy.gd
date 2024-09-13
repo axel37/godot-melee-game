@@ -4,6 +4,8 @@ extends Node3D
 
 const LOG_CODE_DAMAGE_RECEIVED = "ENEMY-001"
 const LOG_CODE_DAMAGE_BLOCKED = "ENEMY-002"
+const LOG_CODE_DAMAGE_WAS_BLOCKED = "ENEMY-003"
+
 
 ## A Node3D with the enemy's appearance.
 # Used for decoupling visuals from behaviour.
@@ -37,3 +39,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if skin_scene == null:
 		errors.append("%s has no skin_scene" % name)
 	return errors
+
+
+func _on_enemy_damage_dealing_handler_was_blocked() -> void:
+	Global.log(LOG_CODE_DAMAGE_WAS_BLOCKED, "%s was blocked" % name)
+	state_machine.travel("was_blocked")

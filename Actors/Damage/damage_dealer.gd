@@ -26,7 +26,7 @@ func _ready() -> void:
 ## Called by external entities who blocked this attack
 func block() -> void:
 	was_blocked.emit()
-	Global.log(LOG_CODE_WAS_BLOCKED, "%s was blocked" % name)
+	Global.log(LOG_CODE_WAS_BLOCKED, "%s was blocked()" % name)
 
 func _set_enabled(value: bool):
 	if enabled == value:

@@ -3,7 +3,9 @@
 class_name DamageReceivingHandler
 extends Node3D
 
-const LOG_CODE_DAMAGE_ALREADY_RECEIVED = "DAMAGE-004"
+const LOG_CODE_DAMAGE_ALREADY_RECEIVED = "DAMAGE-RECEIVING-HANDLER-001"
+const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
+
 
 # TODO : What info should this signal transmit ?
 signal received_damage
@@ -45,6 +47,7 @@ func _on_blocker_detected_damage(time_spent_blocking: float, damage_dealer: Dama
 
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
 	damage_dealer.block()
+	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked dealer %s" % [name, damage_dealer.name])
 	blocked_damage.emit()
 
 ## Register all [DamageReceiver] and [DamageBlocker] child nodes
