@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=53 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -25,6 +25,9 @@ animation = &"attack_thrust"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygoib"]
 animation = &"guard_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ntunj"]
+animation = &"guarded"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_icgh1"]
 animation = &"idle"
@@ -88,6 +91,18 @@ xfade_curve = SubResource("Curve_b4xux")
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u3vbg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l1hrh"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_di2ig"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"is_guarding"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gu7ok"]
 states/End/position = Vector2(1315, 133)
 states/Start/position = Vector2(763, -24)
@@ -101,9 +116,11 @@ states/attack_thrust/node = SubResource("AnimationNodeAnimation_keqny")
 states/attack_thrust/position = Vector2(763, 193)
 states/guard_idle/node = SubResource("AnimationNodeAnimation_ygoib")
 states/guard_idle/position = Vector2(1014, 78)
+states/guarded/node = SubResource("AnimationNodeAnimation_ntunj")
+states/guarded/position = Vector2(1044, 4)
 states/idle/node = SubResource("AnimationNodeAnimation_icgh1")
 states/idle/position = Vector2(763, 78)
-transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8"), "idle", "guard_idle", SubResource("AnimationNodeStateMachineTransition_x8kg2"), "guard_idle", "idle", SubResource("AnimationNodeStateMachineTransition_3ffuo"), "attack_blocked", "idle", SubResource("AnimationNodeStateMachineTransition_8mdw8")]
+transitions = ["attack_swing_from-right", "attack_swing_from-left", SubResource("AnimationNodeStateMachineTransition_vdr18"), "attack_swing_from-left", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_y0d47"), "attack_swing_from-left", "idle", SubResource("AnimationNodeStateMachineTransition_bf8ph"), "attack_swing_from-right", "idle", SubResource("AnimationNodeStateMachineTransition_wnlwi"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_i1fxd"), "idle", "attack_swing_from-right", SubResource("AnimationNodeStateMachineTransition_mh322"), "idle", "attack_thrust", SubResource("AnimationNodeStateMachineTransition_kkuer"), "attack_thrust", "idle", SubResource("AnimationNodeStateMachineTransition_rg0m8"), "idle", "guard_idle", SubResource("AnimationNodeStateMachineTransition_x8kg2"), "guard_idle", "idle", SubResource("AnimationNodeStateMachineTransition_3ffuo"), "attack_blocked", "idle", SubResource("AnimationNodeStateMachineTransition_8mdw8"), "guard_idle", "guarded", SubResource("AnimationNodeStateMachineTransition_u3vbg"), "guarded", "idle", SubResource("AnimationNodeStateMachineTransition_l1hrh"), "guarded", "guard_idle", SubResource("AnimationNodeStateMachineTransition_di2ig")]
 graph_offset = Vector2(-85, -63)
 
 [sub_resource type="Curve" id="Curve_5e8f1"]
@@ -902,6 +919,46 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3q3h3"]
+resource_name = "guarded"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponBase/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.329963, 0.234607, -0.660561), Vector3(0.329963, 0.234607, -0.771345)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponBase/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.171023, 1.39352, 1.45982), Vector3(0.171023, 1.39352, 1.22589)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot/AnimationPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0212371, 0.0242145, 0.0286219), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
 _data = {
 "RESET": SubResource("Animation_2620o"),
@@ -910,6 +967,7 @@ _data = {
 "attack_swing_from-right": SubResource("Animation_5vtuh"),
 "attack_thrust": SubResource("Animation_gwnp2"),
 "guard_idle": SubResource("Animation_xycy8"),
+"guarded": SubResource("Animation_3q3h3"),
 "idle": SubResource("Animation_fkfl7")
 }
 
@@ -960,6 +1018,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="AnimationPivot" type="Node3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/AnimationPivot"]
 fov = 90.0
