@@ -58,7 +58,6 @@ environment = SubResource("Environment_4mnrn")
 
 [node name="Enemy" parent="." instance=ExtResource("3_ekqdv")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.455549, 0, -6.56474)
-is_attacking = false
 
 [node name="Enemy2" parent="." instance=ExtResource("3_ekqdv")]
 transform = Transform3D(-0.81836, 0, -0.574705, 0, 1, 0, 0.574705, 0, -0.81836, -5.12978, -9.53674e-07, -3.4024)
