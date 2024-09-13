@@ -193,7 +193,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.26667, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 1.58499)]
+"values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.2, 1.412, 1.7)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -498,7 +498,7 @@ script = ExtResource("6_26uo3")
 
 [node name="EnemyDamageDealer" type="Area3D" parent="EnemyDamageDealingHandler"]
 collision_layer = 2147483648
-collision_mask = 2147483648
+collision_mask = 1610612736
 script = ExtResource("7_m3oxn")
 enabled = false
 
