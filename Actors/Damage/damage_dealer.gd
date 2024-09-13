@@ -1,14 +1,14 @@
 @icon("res://Assets/Class icons/damage-dealer.svg")
 ## Area3D used to deal damage to [DamageReceiver]
+## It's only monitorable and does no monitoring by itself.
 class_name DamageDealer
 extends Area3D
 
 const LOG_CODE_DAMAGE_DEALT = "DAMAGE-001"
 const LOG_CODE_SET_ENABLED = "DAMAGE-005"
 const LOG_CODE_RECEIVER_ALREADY_HIT = "DAMAGE-003"
+const LOG_CODE_WAS_BLOCKED = "DAMAGE-006"
 
-
-signal dealt_damage
 signal was_blocked
 
 @export var amount: float = 0
@@ -20,16 +20,13 @@ var id: DamageId
 var _receivers_already_hit: Array[DamageReceiver] = []
 
 func _ready() -> void:
+	monitoring = false
 	_renew()
-	area_entered.connect(_on_area_entered)
 
 ## Called by external entities who blocked this attack
 func block() -> void:
 	was_blocked.emit()
-
-func _on_area_entered(area: Area3D) -> void:
-	if area is DamageReceiver:
-		dealt_damage.emit()
+	Global.log(LOG_CODE_WAS_BLOCKED, "%s was blocked" % name)
 
 func _set_enabled(value: bool):
 	if enabled == value:
@@ -37,7 +34,6 @@ func _set_enabled(value: bool):
 
 	enabled = value
 	monitorable = value
-	monitoring = value
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
 
 ## DamageReceivers will consider this to be a new attack, and will allow themselves to be hit again.
@@ -46,7 +42,3 @@ func _renew() -> void:
 	if id != null:
 		id.queue_free()
 	id = DamageId.new()
-	_receivers_already_hit =[]
-
-func _has_already_hit_receiver(damage_receiver: DamageReceiver) -> bool:
-	return damage_receiver in _receivers_already_hit

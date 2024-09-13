@@ -900,6 +900,8 @@ metadata/_edit_lock_ = true
 script = ExtResource("3_wgo13")
 
 [node name="PlayerDamageDealer" type="Area3D" parent="DamageDealingHandler"]
+collision_layer = 536870912
+collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3_t1aey")

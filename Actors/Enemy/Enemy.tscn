@@ -145,6 +145,71 @@ tracks/5/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_yacnj"]
+resource_name = "attack"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StickMesh:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.3, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.86253, -0.707923), Vector3(-0.403366, 2.03254, 0.186912), Vector3(-0.403366, 2.03254, 0.186912), Vector3(0, 0.558135, -1.23961)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickMesh:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.3, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.1796, 0.499911, 0.832987), Vector3(1.1796, 0.499911, 0.832987), Vector3(-1.88297, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionShape3D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 1.58499)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionShape3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -1.21409)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer:enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.33333, 1.43333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="Animation" id="Animation_u4kub"]
 resource_name = "blocked"
 length = 0.4
@@ -253,71 +318,6 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_yacnj"]
-resource_name = "attack"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StickMesh:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.3, 1.43333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 1.86253, -0.707923), Vector3(-0.403366, 2.03254, 0.186912), Vector3(-0.403366, 2.03254, 0.186912), Vector3(0, 0.558135, -1.23961)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StickMesh:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.3, 1.43333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.1796, 0.499911, 0.832987), Vector3(1.1796, 0.499911, 0.832987), Vector3(-1.88297, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionShape3D:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.43333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 1.58499)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionShape3D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.43333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -1.21409)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer:enabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1.33333, 1.43333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f0rc7"]
 _data = {
 "RESET": SubResource("Animation_0pal6"),
@@ -400,6 +400,8 @@ script = ExtResource("3_motfw")
 
 [node name="EnemyDamageBlocker" type="Area3D" parent="EnemyDamageReceivingHandler"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38981, -0.689952)
+collision_layer = 2147483648
+collision_mask = 1610612736
 script = ExtResource("5_tyq6u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageBlocker"]
@@ -407,6 +409,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.00766
 shape = SubResource("BoxShape3D_c8jgm")
 
 [node name="EnemyDamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
+collision_layer = 0
+collision_mask = 1610612736
 script = ExtResource("1_wsa3p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageReceiver"]
@@ -417,6 +421,8 @@ shape = SubResource("BoxShape3D_10flg")
 script = ExtResource("6_26uo3")
 
 [node name="EnemyDamageDealer" type="Area3D" parent="EnemyDamageDealingHandler"]
+collision_layer = 2147483648
+collision_mask = 2147483648
 script = ExtResource("7_m3oxn")
 enabled = false
 
