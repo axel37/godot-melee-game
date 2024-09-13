@@ -17,7 +17,6 @@ signal was_blocked
 
 ## Used to differentiate attacks for reused DamageDealers
 var id: DamageId
-var _receivers_already_hit: Array[DamageReceiver] = []
 
 func _ready() -> void:
 	monitoring = false

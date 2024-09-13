@@ -54,6 +54,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8k27h"]
 xfade_time = 0.3
 advance_mode = 2
+advance_condition = &"is_attacking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bu7at"]
 xfade_time = 0.3
@@ -213,7 +214,7 @@ tracks/4/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(1.33333, 1.43333),
+"times": PackedFloat32Array(1.3, 1.43333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -326,6 +327,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3fyiy"]
 resource_name = "was_blocked"
@@ -416,18 +429,20 @@ size = Vector3(1.07874, 1.84903, 0.416786)
 [sub_resource type="BoxShape3D" id="BoxShape3D_10flg"]
 size = Vector3(0.75, 2, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lis6f"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3yafa"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Enemy" type="Node3D"]
 script = ExtResource("1_1yho5")
 skin_scene = ExtResource("2_pokh1")
+is_attacking = null
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_pktis")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_attacking = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -477,7 +492,7 @@ enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageDealingHandler/EnemyDamageDealer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879883, -0.446064)
-shape = SubResource("BoxShape3D_lis6f")
+shape = SubResource("BoxShape3D_3yafa")
 
 [connection signal="blocked_damage" from="EnemyDamageReceivingHandler" to="." method="_on_enemy_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="EnemyDamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]

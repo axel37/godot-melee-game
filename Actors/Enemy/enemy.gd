@@ -11,6 +11,10 @@ const LOG_CODE_DAMAGE_WAS_BLOCKED = "ENEMY-003"
 # Used for decoupling visuals from behaviour.
 @export var skin_scene: PackedScene
 
+## Whether to automatically play the attack animation in a loop
+# One day, it'll be real AI !
+@export var is_attacking: bool = false
+
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 ## The instanciated  [member skin_scene]
@@ -20,6 +24,8 @@ func _ready() -> void:
 	if skin_scene != null:
 		body_skin = skin_scene.instantiate()
 		add_child(body_skin)
+
+	animation_tree["parameters/conditions/is_attacking"] = is_attacking
 
 ## The enemy's [DamageReceivingHandler] has signaled that it should take damage.
 func _on_damage_receiving_handler_received_damage() -> void:

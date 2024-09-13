@@ -42,7 +42,7 @@ func _on_receiver_detected_damage(damage_dealer: DamageDealer):
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
 	received_damage.emit()
 
-func _on_blocker_detected_damage(time_spent_blocking: float, damage_dealer: DamageDealer):
+func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: DamageDealer):
 	if _should_ignore(damage_dealer): return
 
 	_damage_sources_already_dealt_with.append(damage_dealer.id)

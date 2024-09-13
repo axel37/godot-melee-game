@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		return
 	_process_movement(delta)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	_update_animation_tree_inputs()
