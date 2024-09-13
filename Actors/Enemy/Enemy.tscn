@@ -141,7 +141,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.879883, -0.446064)]
+"values": [Vector3(0, 1.87467, -0.446064)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -193,7 +193,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.26667, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector3(0.113037, 1.41211, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.2, 1.412, 1.7)]
+"values": [Vector3(0.113037, 0.263672, 0.292618), Vector3(0.113037, 1.41211, 0.292618), Vector3(0.2, 1.412, 1.7)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -202,10 +202,10 @@ tracks/3/path = NodePath("EnemyDamageDealingHandler/EnemyDamageDealer/CollisionS
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.43333),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.766667, 1.3, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -1.21409)]
+"values": [Vector3(0, 2.33753, -0.246991), Vector3(0, 2.33753, -0.246991), Vector3(0, 0.879883, -0.567908), Vector3(0, 0.879883, -1.21409)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -516,7 +516,7 @@ script = ExtResource("7_m3oxn")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageDealingHandler/EnemyDamageDealer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879883, -0.446064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87467, -0.446064)
 shape = SubResource("BoxShape3D_3yafa")
 
 [connection signal="blocked_damage" from="EnemyDamageReceivingHandler" to="." method="_on_enemy_damage_receiving_handler_blocked_damage"]

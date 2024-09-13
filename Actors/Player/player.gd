@@ -93,4 +93,4 @@ func _on_damage_dealing_handler_was_blocked() -> void:
 
 func _on_damage_receiving_handler_blocked_damage() -> void:
 	state_machine.travel("guarded")
-	Global.log(LOG_CODE_BLOCKED_INCOMING_DAMAGE, "% has guarded against an incoming attack.")
+	Global.log(LOG_CODE_BLOCKED_INCOMING_DAMAGE, "%s has guarded against an incoming attack." % name)
