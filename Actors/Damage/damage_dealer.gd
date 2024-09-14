@@ -43,3 +43,10 @@ func _renew() -> void:
 	if id != null:
 		id.queue_free()
 	id = DamageId.new()
+
+	# Toggle children shapes to reset their detection from other areas
+	for child in get_children():
+		if child is CollisionShape3D:
+			var shape: CollisionShape3D = child as CollisionShape3D
+			shape.disabled = true
+			shape.disabled = false

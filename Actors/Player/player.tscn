@@ -581,10 +581,10 @@ tracks/2/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.383333, 0.433333, 0.566667),
+"times": PackedFloat32Array(0, 0.366667, 0.383334, 0.433333, 0.483334),
 "transitions": PackedFloat32Array(1, 0.08, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.895963, 0.8978, 1.3619), Vector3(1.20658, 0.985626, 1.55219), Vector3(2.4, 1.1, 1.8)]
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5), Vector3(0.89597, 0.897802, 1.55705), Vector3(1.20658, 0.985626, 1.55219), Vector3(1.65412, 1.02852, 0.49297)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -593,10 +593,10 @@ tracks/3/path = NodePath("DamageDealingHandler/PlayerDamageDealer/CollisionShape
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.383334, 0.416667, 0.566667),
+"times": PackedFloat32Array(0, 0.366667, 0.383334, 0.416667, 0.483334),
 "transitions": PackedFloat32Array(0.08, 0.08, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.564457, 1.33848, -0.134129), Vector3(0.564457, 1.33848, -0.134129), Vector3(0.529939, 1.28048, -1.10599), Vector3(-0.0944071, 1.27512, -1.19581), Vector3(-0.139, 1.251, -1.6)]
+"values": [Vector3(0.564457, 1.33848, -0.134129), Vector3(0.564457, 1.33848, -0.134129), Vector3(0.529939, 1.28048, -1.10599), Vector3(-0.0944071, 1.27512, -1.19581), Vector3(-0.114226, 1.2644, -0.77154)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -722,7 +722,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0.5, 0.733333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 1.23902, -0.784975), Vector3(0, 1.23902, -1.38973)]
+"values": [Vector3(0, 1.23902, -0.343251), Vector3(0, 1.23902, -1.38973)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -902,23 +902,6 @@ tracks/5/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_fkfl7"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponBase/Weapon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_3q3h3"]
 resource_name = "guarded"
 length = 0.75
@@ -957,6 +940,23 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.0212371, 0.0242145, 0.0286219), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fkfl7"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponBase/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.03, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkxal"]
@@ -1018,7 +1018,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="AnimationPivot" type="Node3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/AnimationPivot"]
 fov = 90.0
