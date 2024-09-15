@@ -1,6 +1,6 @@
 @tool
 ## A target dummy (for now...)
-extends Node3D
+extends CharacterBody3D
 
 const LOG_CODE_DAMAGE_RECEIVED = "ENEMY-001"
 const LOG_CODE_DAMAGE_BLOCKED = "ENEMY-002"
