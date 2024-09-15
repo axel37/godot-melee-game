@@ -35,6 +35,10 @@ func _set_enabled(value: bool):
 
 	enabled = value
 	monitorable = value
+
+	if value == true:
+		_reset_child_shapes()
+
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
 
 ## DamageReceivers will consider this to be a new attack, and will allow themselves to be hit again.
@@ -44,9 +48,10 @@ func _renew() -> void:
 		id.queue_free()
 	id = DamageId.new()
 
+func _reset_child_shapes():
 	# Toggle children shapes to reset their detection from other areas
-	for child in get_children():
-		if child is CollisionShape3D:
-			var shape: CollisionShape3D = child as CollisionShape3D
-			shape.disabled = true
-			shape.disabled = false
+		for child in get_children():
+			if child is CollisionShape3D:
+				var shape: CollisionShape3D = child as CollisionShape3D
+				shape.disabled = true
+				shape.disabled = false

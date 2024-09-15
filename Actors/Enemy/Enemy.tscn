@@ -450,7 +450,7 @@ bottom_radius = 0.03
 height = 1.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c8jgm"]
-size = Vector3(1.07874, 1.84903, 0.416786)
+size = Vector3(1.07874, 1.84903, 0.63039)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_10flg"]
 size = Vector3(0.75, 2, 0.5)
@@ -494,7 +494,7 @@ collision_mask = 1610612736
 script = ExtResource("5_tyq6u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDamageReceivingHandler/EnemyDamageBlocker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.00766385)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353, -0.177323, 0.114466)
 shape = SubResource("BoxShape3D_c8jgm")
 
 [node name="EnemyDamageReceiver" type="Area3D" parent="EnemyDamageReceivingHandler"]
