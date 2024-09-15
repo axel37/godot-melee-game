@@ -6,7 +6,6 @@
 
 [node name="Global" type="Node"]
 script = ExtResource("1_cngxu")
-time_scale = 0.6
 
 [node name="Logger" type="Node" parent="."]
 unique_name_in_owner = true
