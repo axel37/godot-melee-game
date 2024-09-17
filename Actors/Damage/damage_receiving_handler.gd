@@ -10,8 +10,8 @@ const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
 signal received_damage
 signal blocked_damage
 
-# Warning : DamageIds may be queue_freed by DamageDealers when they _renew themselves !
-# This array fills up with nulls !
+# NOTICE DamageIds may be queue_freed by DamageDealers when they _renew themselves !
+# WARNING This array fills up with nulls !
 var _damage_sources_already_dealt_with: Array[DamageId] = []
 
 var damage_receivers: NodeRegistry
