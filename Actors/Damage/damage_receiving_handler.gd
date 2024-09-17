@@ -6,14 +6,9 @@ extends Node3D
 const LOG_CODE_DAMAGE_ALREADY_RECEIVED = "DAMAGE-RECEIVING-HANDLER-001"
 const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
 
-
 # TODO : What info should this signal transmit ?
 signal received_damage
 signal blocked_damage
-
-## Whether all [DamageReceiver] child nodes should be registered on _ready.
-## Setting this to false allows you to manually pick them in [member damage_receivers].
-@export var auto_register_children = true
 
 # Warning : DamageIds may be queue_freed by DamageDealers when they _renew themselves !
 # This array fills up with nulls !
