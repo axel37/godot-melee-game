@@ -18,7 +18,6 @@ var damage_receivers: NodeRegistry
 var damage_blockers: NodeRegistry
 
 func _ready() -> void:
-	# Keep track of child DamageReceivers and Blockers + connect to their signals
 	_register_children()
 
 ## Check if damage source if valid, then signal owner we have received damage
@@ -42,7 +41,7 @@ func _should_ignore(damage_dealer: DamageDealer) -> bool:
 		return true
 	return false
 
-## Register all [DamageReceiver] and [DamageBlocker] child nodes
+## Register [DamageReceiver] and [DamageBlocker] child nodes and connect to their signals
 func _register_children():
 	damage_receivers = NodeRegistry.new(DamageReceiver)
 	add_child(damage_receivers)
