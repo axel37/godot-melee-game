@@ -25,7 +25,12 @@ signal blocked_damage
 # This array fills up with nulls !
 var _damage_sources_already_dealt_with: Array[DamageId] = []
 
+var damage_receiver_registry: NodeRegistry
+
 func _ready() -> void:
+	damage_receiver_registry = NodeRegistry.new(DamageReceiver)
+	add_child(damage_receiver_registry)
+
 	if auto_register_children:
 		_register_children()
 
