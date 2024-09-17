@@ -23,6 +23,5 @@ func register_children():
 # TODO : Signals might need to be updated when registering new children !
 func connect_signal(signal_name: String, callback: Callable):
 	for child in _registered_children:
-		#_parent.connect(signal_to_connect, callback)
 		var signal_to_connect: Signal = Signal(child, signal_name)
 		signal_to_connect.connect(callback)

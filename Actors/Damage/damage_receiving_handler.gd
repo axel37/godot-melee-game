@@ -11,12 +11,6 @@ const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
 signal received_damage
 signal blocked_damage
 
-## The [DamageReceiver]s to be handled by this node.
-## Set automatically on _ready by default. See [member auto_register_children].
-@export var damage_receivers: Array[DamageReceiver] = []
-## The [DamageBlocker]s to be handled by this node.
-## Set automatically on _ready by default. See [member auto_register_children].
-@export var damage_blockers: Array[DamageBlocker] = []
 ## Whether all [DamageReceiver] child nodes should be registered on _ready.
 ## Setting this to false allows you to manually pick them in [member damage_receivers].
 @export var auto_register_children = true
@@ -25,20 +19,12 @@ signal blocked_damage
 # This array fills up with nulls !
 var _damage_sources_already_dealt_with: Array[DamageId] = []
 
-var damage_receiver_registry: NodeRegistry
+var damage_receivers: NodeRegistry
+var damage_blockers: NodeRegistry
 
 func _ready() -> void:
-	damage_receiver_registry = NodeRegistry.new(DamageReceiver)
-	add_child(damage_receiver_registry)
-
-	if auto_register_children:
-		_register_children()
-
-	# Connect to signals of owned damage_receivers
-	for receiver in damage_receivers:
-		receiver.detected_damage.connect(_on_receiver_detected_damage)
-	for blocker in damage_blockers:
-		blocker.blocked_damage.connect(_on_blocker_detected_damage)
+	# Keep track of child DamageReceivers and Blockers + connect to their signals
+	_register_children()
 
 ## Check if damage source if valid, then signal owner we have received damage
 func _on_receiver_detected_damage(damage_dealer: DamageDealer):
@@ -55,16 +41,18 @@ func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: Dam
 	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked dealer %s" % [name, damage_dealer.name])
 	blocked_damage.emit()
 
-## Register all [DamageReceiver] and [DamageBlocker] child nodes
-func _register_children():
-	for child in get_children():
-			if child is DamageReceiver:
-				damage_receivers.append(child)
-			if child is DamageBlocker:
-				damage_blockers.append(child)
-
 func _should_ignore(damage_dealer: DamageDealer) -> bool:
 	if damage_dealer.id in _damage_sources_already_dealt_with:
 		Global.log(LOG_CODE_DAMAGE_ALREADY_RECEIVED, "%s was hit by damage source %s, but was already registered. Ignoring..." % [name, damage_dealer.name])
 		return true
 	return false
+
+## Register all [DamageReceiver] and [DamageBlocker] child nodes
+func _register_children():
+	damage_receivers = NodeRegistry.new(DamageReceiver)
+	add_child(damage_receivers)
+	damage_receivers.connect_signal("detected_damage", _on_receiver_detected_damage)
+
+	damage_blockers = NodeRegistry.new(DamageBlocker)
+	add_child(damage_blockers)
+	damage_blockers.connect_signal("blocked_damage", _on_blocker_detected_damage)
