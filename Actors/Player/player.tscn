@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=55 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="3_wgo13"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="4_vmj4h"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_blocker.gd" id="6_irynb"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="6_om47h"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8f005"]
 animation = &"attack_thrust"
@@ -978,6 +979,9 @@ radius = 0.4
 [sub_resource type="BoxShape3D" id="BoxShape3D_ou6kn"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2kwu"]
+size = Vector3(1, 2, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_f60r3"]
 size = Vector3(0.5, 0.5, 0.5)
 
@@ -1044,6 +1048,15 @@ enabled = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 shape = SubResource("BoxShape3D_ou6kn")
 
+[node name="DamageReceiver" type="Area3D" parent="DamageReceivingHandler"]
+collision_layer = 0
+collision_mask = 3221225472
+script = ExtResource("6_om47h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_c2kwu")
+
 [node name="DamageDealingHandler" type="Node3D" parent="."]
 script = ExtResource("3_wgo13")
 
@@ -1061,4 +1074,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0.974, -0.68)
 shape = SubResource("BoxShape3D_f60r3")
 
 [connection signal="blocked_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_blocked_damage"]
+[connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
 [connection signal="was_blocked" from="DamageDealingHandler" to="." method="_on_damage_dealing_handler_was_blocked"]

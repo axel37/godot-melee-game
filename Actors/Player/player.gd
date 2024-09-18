@@ -4,6 +4,8 @@ class_name Player
 extends CharacterBody3D
 
 const LOG_CODE_BLOCKED_INCOMING_DAMAGE = "PLAYER-001"
+const LOG_CODE_TOOK_DAMAGE = "PLAYER-002"
+
 
 ## Used to scale down mouse motion so that [member sensitivity] can match quake / source engine values.
 ## TODO : Approximate, find an exact value !
@@ -94,3 +96,7 @@ func _on_damage_dealing_handler_was_blocked() -> void:
 func _on_damage_receiving_handler_blocked_damage() -> void:
 	state_machine.travel("guarded")
 	Global.log(LOG_CODE_BLOCKED_INCOMING_DAMAGE, "%s has guarded against an incoming attack." % name)
+
+
+func _on_damage_receiving_handler_received_damage() -> void:
+	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
