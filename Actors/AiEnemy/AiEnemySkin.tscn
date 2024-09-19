@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://digesnlq6lpva"]
+[gd_scene load_steps=21 format=3 uid="uid://digesnlq6lpva"]
 
 [ext_resource type="Texture2D" uid="uid://c2aug7xsxbo8i" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_rywg6"]
 [ext_resource type="Texture2D" uid="uid://bijfmrmhjhjrm" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="2_f8abi"]
 [ext_resource type="Texture2D" uid="uid://co7gxtsxqttbl" path="res://addons/kenney_prototype_textures/dark/texture_09.png" id="3_5p53w"]
+[ext_resource type="PackedScene" uid="uid://bejfbvli8gtee" path="res://Actors/AiEnemy/AiEnemySword.tscn" id="4_gtr68"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ue5pu"]
 albedo_texture = ExtResource("1_rywg6")
@@ -129,6 +130,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.249, 0.421, 0)
 [node name="LArmMesh" type="MeshInstance3D" parent="HipsPivot/ChestPivot/RArmPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.335761, 0)
 mesh = SubResource("CylinderMesh_l24tg")
+
+[node name="AiEnemySword" parent="HipsPivot/ChestPivot/RArmPivot" instance=ExtResource("4_gtr68")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00981323, -0.656302, 0)
 
 [node name="LLegPivot" type="Node3D" parent="HipsPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0)

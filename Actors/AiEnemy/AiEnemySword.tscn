@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://bejfbvli8gtee"]
+
+[ext_resource type="Texture2D" uid="uid://dqwjgij83hcpy" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_sgqby"]
+[ext_resource type="Texture2D" uid="uid://dch6nfvrd2gvp" path="res://addons/kenney_prototype_textures/red/texture_01.png" id="2_q3h1k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_foe53"]
+albedo_texture = ExtResource("1_sgqby")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c6e5"]
+size = Vector3(0.02, 0.1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obt78"]
+albedo_texture = ExtResource("2_q3h1k")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6ta0y"]
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.8
+
+[node name="AiEnemySword" type="Node3D"]
+
+[node name="SwordPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.103271)
+
+[node name="Blade" type="MeshInstance3D" parent="SwordPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+material_override = SubResource("StandardMaterial3D_foe53")
+mesh = SubResource("BoxMesh_2c6e5")
+skeleton = NodePath("../..")
+
+[node name="Handle" type="MeshInstance3D" parent="SwordPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.125486)
+material_override = SubResource("StandardMaterial3D_obt78")
+mesh = SubResource("CylinderMesh_6ta0y")
