@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp3ao61ldxjvh"]
+
+[ext_resource type="Script" path="res://Actors/AiEnemy/ai_enemy.gd" id="1_52va2"]
+[ext_resource type="Script" path="res://Actors/AiEnemy/skin_handler.gd" id="2_f52nv"]
+[ext_resource type="PackedScene" uid="uid://digesnlq6lpva" path="res://Actors/AiEnemy/AiEnemySkin.tscn" id="3_eye2a"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_su4i5"]
+radius = 0.25
+
+[node name="AiEnemy" type="CharacterBody3D"]
+script = ExtResource("1_52va2")
+
+[node name="SkinHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_f52nv")
+skin_scene = ExtResource("3_eye2a")
+
+[node name="PhysicsShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_su4i5")

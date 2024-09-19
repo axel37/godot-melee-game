@@ -1,0 +1,145 @@
+[gd_scene load_steps=20 format=3 uid="uid://digesnlq6lpva"]
+
+[ext_resource type="Texture2D" uid="uid://c2aug7xsxbo8i" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_rywg6"]
+[ext_resource type="Texture2D" uid="uid://bijfmrmhjhjrm" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="2_f8abi"]
+[ext_resource type="Texture2D" uid="uid://co7gxtsxqttbl" path="res://addons/kenney_prototype_textures/dark/texture_09.png" id="3_5p53w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ue5pu"]
+albedo_texture = ExtResource("1_rywg6")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ssy4g"]
+top_radius = 0.07
+bottom_radius = 0.07
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3te12"]
+albedo_texture = ExtResource("1_rywg6")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_keq1g"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7g21y"]
+albedo_texture = ExtResource("2_f8abi")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_p6uix"]
+size = Vector3(0.4, 0.5, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xrfab"]
+albedo_texture = ExtResource("1_rywg6")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_sap0j"]
+radius = 0.07
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtpy6"]
+albedo_texture = ExtResource("1_rywg6")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_3eewl"]
+material = SubResource("StandardMaterial3D_mtpy6")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2owp0"]
+albedo_texture = ExtResource("2_f8abi")
+uv1_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_xhdjr"]
+size = Vector3(0.4, 0.4, 0.17)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_upy4q"]
+albedo_texture = ExtResource("3_5p53w")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l24tg"]
+material = SubResource("StandardMaterial3D_upy4q")
+top_radius = 0.04
+bottom_radius = 0.03
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_appgv"]
+albedo_texture = ExtResource("3_5p53w")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g7r3q"]
+material = SubResource("StandardMaterial3D_appgv")
+top_radius = 0.04
+bottom_radius = 0.06
+height = 1.0
+
+[node name="AiEnemySkin" type="Node3D"]
+
+[node name="HipsPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Hips" type="MeshInstance3D" parent="HipsPivot"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ue5pu")
+mesh = SubResource("CylinderMesh_ssy4g")
+
+[node name="HipsJoint" type="MeshInstance3D" parent="HipsPivot/Hips"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.101736, 0, 0)
+material_override = SubResource("StandardMaterial3D_3te12")
+mesh = SubResource("SphereMesh_keq1g")
+
+[node name="ChestPivot" type="Node3D" parent="HipsPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14456, 0)
+
+[node name="ChestMesh" type="MeshInstance3D" parent="HipsPivot/ChestPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_7g21y")
+mesh = SubResource("BoxMesh_p6uix")
+
+[node name="Neck" type="MeshInstance3D" parent="HipsPivot/ChestPivot/ChestMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.285414, 0)
+material_override = SubResource("StandardMaterial3D_xrfab")
+mesh = SubResource("SphereMesh_sap0j")
+
+[node name="LarmJoint" type="MeshInstance3D" parent="HipsPivot/ChestPivot/ChestMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.165, 0)
+mesh = SubResource("SphereMesh_3eewl")
+
+[node name="RarmJoint" type="MeshInstance3D" parent="HipsPivot/ChestPivot/ChestMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.165, 0)
+mesh = SubResource("SphereMesh_3eewl")
+
+[node name="HeadPivot" type="Node3D" parent="HipsPivot/ChestPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568656, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="HipsPivot/ChestPivot/HeadPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0915596, -0.0566183)
+material_override = SubResource("StandardMaterial3D_2owp0")
+mesh = SubResource("PrismMesh_xhdjr")
+
+[node name="LArmPivot" type="Node3D" parent="HipsPivot/ChestPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24881, 0.42119, 0)
+
+[node name="LArmMesh" type="MeshInstance3D" parent="HipsPivot/ChestPivot/LArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.335761, 0)
+mesh = SubResource("CylinderMesh_l24tg")
+
+[node name="RArmPivot" type="Node3D" parent="HipsPivot/ChestPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.249, 0.421, 0)
+
+[node name="LArmMesh" type="MeshInstance3D" parent="HipsPivot/ChestPivot/RArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.335761, 0)
+mesh = SubResource("CylinderMesh_l24tg")
+
+[node name="LLegPivot" type="Node3D" parent="HipsPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0)
+
+[node name="LLegMesh" type="MeshInstance3D" parent="HipsPivot/LLegPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("CylinderMesh_g7r3q")
+
+[node name="RLegPivot" type="Node3D" parent="HipsPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, 0)
+
+[node name="RLegMesh" type="MeshInstance3D" parent="HipsPivot/RLegPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("CylinderMesh_g7r3q")
