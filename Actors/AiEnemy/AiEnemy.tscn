@@ -1,11 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp3ao61ldxjvh"]
+[gd_scene load_steps=12 format=3 uid="uid://dp3ao61ldxjvh"]
 
 [ext_resource type="Script" path="res://Actors/AiEnemy/ai_enemy.gd" id="1_52va2"]
 [ext_resource type="Script" path="res://Actors/AiEnemy/skin_handler.gd" id="2_f52nv"]
 [ext_resource type="PackedScene" uid="uid://digesnlq6lpva" path="res://Actors/AiEnemy/AiEnemySkin.tscn" id="3_eye2a"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="4_18iuq"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="4_a1kph"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="5_0l2im"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="5_7jpqs"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_su4i5"]
 radius = 0.25
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fex3a"]
+size = Vector3(0.3, 0.3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gx5tu"]
+size = Vector3(0.619141, 1.84375, 0.359619)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecncs"]
+size = Vector3(1.9845, 1, 2.15771)
 
 [node name="AiEnemy" type="CharacterBody3D"]
 script = ExtResource("1_52va2")
@@ -18,3 +31,38 @@ skin_scene = ExtResource("3_eye2a")
 [node name="PhysicsShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_su4i5")
+
+[node name="DamageDealingHandler" type="Node3D" parent="."]
+script = ExtResource("4_18iuq")
+
+[node name="DamageDealer" type="Area3D" parent="DamageDealingHandler"]
+collision_layer = 1610612736
+collision_mask = 0
+script = ExtResource("5_7jpqs")
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239821, 0.923975, -1.15219)
+shape = SubResource("BoxShape3D_fex3a")
+
+[node name="DamageReceivingHandler" type="Node3D" parent="."]
+script = ExtResource("4_a1kph")
+
+[node name="DamageReceiver" type="Area3D" parent="DamageReceivingHandler"]
+collision_layer = 0
+collision_mask = 1610612736
+script = ExtResource("5_0l2im")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02148, 0)
+shape = SubResource("BoxShape3D_gx5tu")
+
+[node name="TargetDetector" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00238037, 1, -0.934158)
+shape = SubResource("BoxShape3D_ecncs")
+
+[connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
+[connection signal="body_entered" from="TargetDetector" to="." method="_on_target_detector_body_entered"]
