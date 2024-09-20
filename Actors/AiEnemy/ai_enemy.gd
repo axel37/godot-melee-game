@@ -19,4 +19,4 @@ func _on_damage_receiving_handler_received_damage() -> void:
 
 
 func _on_target_detector_body_entered(body: Node3D) -> void:
-	print("would try to attack")
+	skin.attack()
