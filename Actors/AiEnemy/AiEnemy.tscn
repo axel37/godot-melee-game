@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dp3ao61ldxjvh"]
+[gd_scene load_steps=21 format=3 uid="uid://dp3ao61ldxjvh"]
 
 [ext_resource type="Script" path="res://Actors/AiEnemy/ai_enemy.gd" id="1_52va2"]
 [ext_resource type="Script" path="res://Actors/AiEnemy/skin_handler.gd" id="2_f52nv"]
@@ -7,6 +7,127 @@
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="4_a1kph"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="5_0l2im"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="5_7jpqs"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m2qbf"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tsanh"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t5brw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b1brv"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uqi6y"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0vpu1"]
+states/RESET/node = SubResource("AnimationNodeAnimation_m2qbf")
+states/RESET/position = Vector2(357, 95)
+states/attack/node = SubResource("AnimationNodeAnimation_tsanh")
+states/attack/position = Vector2(492, 90)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_t5brw"), "RESET", "attack", SubResource("AnimationNodeStateMachineTransition_b1brv"), "attack", "RESET", SubResource("AnimationNodeStateMachineTransition_uqi6y")]
+
+[sub_resource type="Animation" id="Animation_qsgcw"]
+resource_name = "attack"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.933333, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.10021, 1.38026, -0.16029), Vector3(1.10021, 1.38026, -0.16029), Vector3(-0.164146, 1.38026, -1.0882), Vector3(-1.26336, 1.38026, -0.530023)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.933333, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.43443, 0), Vector3(0, -1.43443, 0), Vector3(0, 0.120505, 0), Vector3(0, 1.28671, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.866667, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DamageDealingHandler/DamageDealer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.866667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_renew"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_s03yg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.239821, 0.923975, -1.15219)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_plfwk"]
+_data = {
+"RESET": SubResource("Animation_s03yg"),
+"attack": SubResource("Animation_qsgcw")
+}
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_su4i5"]
 radius = 0.25
@@ -23,6 +144,17 @@ size = Vector3(1.9845, 1, 2.15771)
 [node name="AiEnemy" type="CharacterBody3D"]
 script = ExtResource("1_52va2")
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_0vpu1")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_plfwk")
+}
+
 [node name="SkinHandler" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_f52nv")
@@ -36,7 +168,7 @@ shape = SubResource("CylinderShape3D_su4i5")
 script = ExtResource("4_18iuq")
 
 [node name="DamageDealer" type="Area3D" parent="DamageDealingHandler"]
-collision_layer = 1610612736
+collision_layer = 2147483648
 collision_mask = 0
 script = ExtResource("5_7jpqs")
 enabled = false
