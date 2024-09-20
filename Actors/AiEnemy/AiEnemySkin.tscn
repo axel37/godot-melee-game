@@ -197,7 +197,7 @@ tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.213506, -2.39298, -2.99163)]
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_031w3"]
@@ -568,6 +568,18 @@ tracks/13/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("HipsPivot/ChestPivot/RArmPivot/AiEnemySword:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.176418, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1m7qf"]
 _data = {
@@ -708,7 +720,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.335761, 0)
 mesh = SubResource("CylinderMesh_l24tg")
 
 [node name="AiEnemySword" parent="HipsPivot/ChestPivot/RArmPivot" instance=ExtResource("4_gtr68")]
-transform = Transform3D(0.745957, 0.0331407, -0.665169, -0.146009, -0.966326, -0.211888, -0.649791, 0.25518, -0.715999, -0.00981343, -0.656302, 0)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, -0.00981343, -0.656302, 0)
 
 [node name="LLegPivot" type="Node3D" parent="HipsPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0)
