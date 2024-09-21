@@ -6,3 +6,6 @@ extends Node3D
 
 func attack():
 	state_machine.travel("attack")
+
+func guard():
+	state_machine.travel("guard")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://digesnlq6lpva"]
+[gd_scene load_steps=36 format=3 uid="uid://digesnlq6lpva"]
 
 [ext_resource type="Script" path="res://Actors/AiEnemy/ai_enemy_skin.gd" id="1_44ao1"]
 [ext_resource type="Texture2D" uid="uid://c2aug7xsxbo8i" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_rywg6"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_avxyd"]
 animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykr88"]
+animation = &"guard"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8eu0h"]
 animation = &"idle"
@@ -23,12 +26,20 @@ xfade_time = 0.2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7k6o2"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lt1qp"]
+xfade_time = 0.3
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g75n0"]
 states/attack/node = SubResource("AnimationNodeAnimation_avxyd")
 states/attack/position = Vector2(461, 99)
+states/guard/node = SubResource("AnimationNodeAnimation_ykr88")
+states/guard/position = Vector2(302, 216)
 states/idle/node = SubResource("AnimationNodeAnimation_8eu0h")
 states/idle/position = Vector2(315, 101)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_e81yv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_ls5fi"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_pvjrp")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_e81yv"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_ls5fi"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_pvjrp"), "idle", "guard", SubResource("AnimationNodeStateMachineTransition_7k6o2"), "guard", "idle", SubResource("AnimationNodeStateMachineTransition_lt1qp")]
 
 [sub_resource type="Animation" id="Animation_tjshd"]
 length = 0.001
@@ -606,10 +617,158 @@ tracks/14/keys = {
 "values": [Vector3(-0.176418, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_4oims"]
+resource_name = "guard"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HipsPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.199666, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HipsPivot/ChestPivot/HeadPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.141651, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HipsPivot/ChestPivot/LArmPivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.585284, -0.575308, -0.0508499)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HipsPivot/ChestPivot/LArmPivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.227115, 0.394352, 0.0094082)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HipsPivot/ChestPivot/RArmPivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.276261, 0.421, 0.0319785)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HipsPivot/ChestPivot/RArmPivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.866735, 0.278316, -0.306663)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HipsPivot/ChestPivot/RArmPivot/AiEnemySword:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0098134, -0.656302, -1.19209e-07)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HipsPivot/ChestPivot/RArmPivot/AiEnemySword:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.534027, 0.165071, 0.399743)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("HipsPivot/LLegPivot:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.12, 0, 1.86265e-09)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("HipsPivot/LLegPivot:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.214867, 0.284908, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HipsPivot/RLegPivot:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.12, 0, -1.86265e-09)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HipsPivot/RLegPivot:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.347478, 0.130795, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1m7qf"]
 _data = {
 "RESET": SubResource("Animation_tjshd"),
 "attack": SubResource("Animation_031w3"),
+"guard": SubResource("Animation_4oims"),
 "idle": SubResource("Animation_ywvxg")
 }
 

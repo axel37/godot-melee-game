@@ -21,3 +21,8 @@ func _on_damage_receiving_handler_received_damage() -> void:
 func _on_target_detector_body_entered(body: Node3D) -> void:
 	skin.attack()
 	state_machine.travel("attack")
+
+
+func _on_hazard_detector_received_damage() -> void:
+	skin.guard()
+	state_machine.travel("guard")

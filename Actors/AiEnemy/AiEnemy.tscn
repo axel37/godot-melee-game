@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dp3ao61ldxjvh"]
+[gd_scene load_steps=28 format=3 uid="uid://dp3ao61ldxjvh"]
 
 [ext_resource type="Script" path="res://Actors/AiEnemy/ai_enemy.gd" id="1_52va2"]
 [ext_resource type="Script" path="res://Actors/AiEnemy/skin_handler.gd" id="2_f52nv"]
@@ -7,12 +7,16 @@
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="4_a1kph"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="5_0l2im"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="5_7jpqs"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_blocker.gd" id="8_rjwxy"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m2qbf"]
 animation = &"RESET"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tsanh"]
 animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h700w"]
+animation = &"guard"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t5brw"]
 advance_mode = 2
@@ -23,12 +27,57 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hjsu4"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wdb1y"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0vpu1"]
 states/RESET/node = SubResource("AnimationNodeAnimation_m2qbf")
 states/RESET/position = Vector2(357, 95)
 states/attack/node = SubResource("AnimationNodeAnimation_tsanh")
 states/attack/position = Vector2(492, 90)
-transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_t5brw"), "RESET", "attack", SubResource("AnimationNodeStateMachineTransition_b1brv"), "attack", "RESET", SubResource("AnimationNodeStateMachineTransition_uqi6y")]
+states/guard/node = SubResource("AnimationNodeAnimation_h700w")
+states/guard/position = Vector2(352, 197)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_t5brw"), "RESET", "attack", SubResource("AnimationNodeStateMachineTransition_b1brv"), "attack", "RESET", SubResource("AnimationNodeStateMachineTransition_uqi6y"), "RESET", "guard", SubResource("AnimationNodeStateMachineTransition_hjsu4"), "guard", "RESET", SubResource("AnimationNodeStateMachineTransition_wdb1y")]
+
+[sub_resource type="Animation" id="Animation_s03yg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.239821, 0.923975, -1.15219)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_qsgcw"]
 resource_name = "attack"
@@ -84,49 +133,26 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_s03yg"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_jsq7w"]
+resource_name = "guard"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:position")
+tracks/0/path = NodePath("DamageReceivingHandler/DamageBlocker:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.239821, 0.923975, -1.15219)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DamageDealingHandler/DamageDealer/CollisionShape3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_plfwk"]
 _data = {
 "RESET": SubResource("Animation_s03yg"),
-"attack": SubResource("Animation_qsgcw")
+"attack": SubResource("Animation_qsgcw"),
+"guard": SubResource("Animation_jsq7w")
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_su4i5"]
@@ -138,8 +164,14 @@ size = Vector3(0.3, 0.3, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gx5tu"]
 size = Vector3(0.619141, 1.84375, 0.359619)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qknsc"]
+size = Vector3(1, 1.77258, 0.409302)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecncs"]
 size = Vector3(1.9845, 1, 2.15771)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_myqce"]
+size = Vector3(1.52875, 1.83093, 1.35254)
 
 [node name="AiEnemy" type="CharacterBody3D"]
 script = ExtResource("1_52va2")
@@ -189,6 +221,16 @@ script = ExtResource("5_0l2im")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02148, 0)
 shape = SubResource("BoxShape3D_gx5tu")
 
+[node name="DamageBlocker" type="Area3D" parent="DamageReceivingHandler"]
+collision_layer = 0
+collision_mask = 1610612736
+script = ExtResource("8_rjwxy")
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageBlocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.981605, -0.278995)
+shape = SubResource("BoxShape3D_qknsc")
+
 [node name="TargetDetector" type="Area3D" parent="."]
 collision_layer = 0
 
@@ -196,5 +238,18 @@ collision_layer = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00238037, 1, -0.934158)
 shape = SubResource("BoxShape3D_ecncs")
 
+[node name="HazardDetector" type="Node3D" parent="."]
+script = ExtResource("4_a1kph")
+
+[node name="DamageReceiver" type="Area3D" parent="HazardDetector"]
+collision_layer = 0
+collision_mask = 1610612736
+script = ExtResource("5_0l2im")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HazardDetector/DamageReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0291443, 1.07725, -0.749033)
+shape = SubResource("BoxShape3D_myqce")
+
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
 [connection signal="body_entered" from="TargetDetector" to="." method="_on_target_detector_body_entered"]
+[connection signal="received_damage" from="HazardDetector" to="." method="_on_hazard_detector_received_damage"]
