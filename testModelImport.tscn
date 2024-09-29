@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxbmccotu05bk"]
+
+[ext_resource type="PackedScene" uid="uid://t4cn0sllh0jb" path="res://enemy.glb" id="1_2pisx"]
+
+[node name="TestModelImport" type="Node3D"]
+
+[node name="enemy" parent="." instance=ExtResource("1_2pisx")]
