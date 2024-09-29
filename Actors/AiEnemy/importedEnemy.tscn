@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://db3sblc285eoy"]
+
+[ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/AiEnemy/enemy.glb" id="1_qynyj"]
+[ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/AiEnemy/sword.glb" id="2_yq5uk"]
+
+[node name="enemy2" instance=ExtResource("1_qynyj")]
+
+[node name="Skeleton3D" parent="skeleton" index="0"]
+bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
+bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
+bones/11/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(-0.707107, 1.13099e-08, 8.36962e-08, 0.707107)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="skeleton/Skeleton3D" index="1"]
+transform = Transform3D(-0.999993, -0.00376443, 3.68464e-07, 0.00376443, -0.999993, -1.38704e-09, 3.68467e-07, 2.84217e-14, 1, -0.319753, -0.0848547, -2.09451e-08)
+bone_name = "r-hand"
+bone_idx = 7
+
+[node name="sword2" parent="skeleton/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_yq5uk")]

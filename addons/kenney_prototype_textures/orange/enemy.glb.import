@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c3nyw6r5ifx0"
-path="res://.godot/imported/enemy.glb-e60db7e273e17c031c97108ff9b263d9.scn"
+uid="uid://bhe60pkl5y0jy"
+path="res://.godot/imported/enemy.glb-a5b89bb477b7a52d3560fc73a178edca.scn"
 
 [deps]
 
-source_file="res://enemy.glb"
-dest_files=["res://.godot/imported/enemy.glb-e60db7e273e17c031c97108ff9b263d9.scn"]
+source_file="res://addons/kenney_prototype_textures/orange/enemy.glb"
+dest_files=["res://.godot/imported/enemy.glb-a5b89bb477b7a52d3560fc73a178edca.scn"]
 
 [params]
 
