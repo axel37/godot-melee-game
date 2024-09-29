@@ -1033,7 +1033,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574576, 0.856796, 0.180834)
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="WeaponSkin" parent="WeaponBase/Weapon" instance=ExtResource("3_c3wxg")]
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="DamageReceivingHandler" type="Node3D" parent="."]
