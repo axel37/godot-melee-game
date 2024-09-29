@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://t4cn0sllh0jb"
+uid="uid://c3nyw6r5ifx0"
 path="res://.godot/imported/enemy.glb-e60db7e273e17c031c97108ff9b263d9.scn"
 
 [deps]
@@ -26,7 +26,7 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=60.0
+animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
