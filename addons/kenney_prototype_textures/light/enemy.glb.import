@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bebheibvciqj5"
-path="res://.godot/imported/enemy.glb-530d321ea565c49dce3c8fa3b03063ac.scn"
+uid="uid://bkbi8td2rnoo4"
+path="res://.godot/imported/enemy.glb-063d670490f5bfe7b35670c32e609abc.scn"
 
 [deps]
 
-source_file="res://Actors/AiEnemy/enemy.glb"
-dest_files=["res://.godot/imported/enemy.glb-530d321ea565c49dce3c8fa3b03063ac.scn"]
+source_file="res://addons/kenney_prototype_textures/light/enemy.glb"
+dest_files=["res://.godot/imported/enemy.glb-063d670490f5bfe7b35670c32e609abc.scn"]
 
 [params]
 
@@ -23,10 +23,10 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
-meshes/force_disable_compression=true
+meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=60.0
+animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false

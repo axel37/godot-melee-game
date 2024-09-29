@@ -1021,16 +1021,6 @@ shape = SubResource("CylinderShape3D_fig7u")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="DebugFlashlight" type="SpotLight3D" parent="CameraPivot"]
-transform = Transform3D(0.998741, 0, 0.0501572, 0, 1, 0, -0.0501572, 0, 0.998741, 0.177013, -0.0395521, -0.4)
-light_color = Color(0, 1, 0, 1)
-light_energy = 10.0
-light_size = 0.3
-light_specular = 1.0
-shadow_enabled = true
-spot_range = 7.0
-spot_angle = 50.0
-
 [node name="AnimationPivot" type="Node3D" parent="CameraPivot"]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/AnimationPivot"]
