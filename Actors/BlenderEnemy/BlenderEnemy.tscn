@@ -1,11 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://db3sblc285eoy"]
+[gd_scene load_steps=5 format=3 uid="uid://c705nchj22gd5"]
 
-[ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/AiEnemy/enemy.glb" id="1_qynyj"]
-[ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/AiEnemy/sword.glb" id="2_yq5uk"]
+[ext_resource type="PackedScene" uid="uid://db3sblc285eoy" path="res://Actors/BlenderEnemy/blenderEnemySkin.tscn" id="1_1kwts"]
 
-[node name="enemy2" instance=ExtResource("1_qynyj")]
+[sub_resource type="Animation" id="Animation_enwmi"]
+resource_name = "test-swing"
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skin/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("attack-windup", "attack-swing"),
+"times": PackedFloat32Array(0, 0.633333)
+}
 
-[node name="Skeleton3D" parent="skeleton" index="0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ehtx1"]
+_data = {
+"test-swing": SubResource("Animation_enwmi")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5xobr"]
+radius = 0.3
+
+[node name="BlenderEnemy" type="CharacterBody3D"]
+
+[node name="skin" parent="." instance=ExtResource("1_1kwts")]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Skeleton3D" parent="skin/skeleton" index="0"]
 bones/0/position = Vector3(-0.0135535, -0.387421, 1.16996)
 bones/0/rotation = Quaternion(0.00119676, 0.553248, -0.0457368, 0.831759)
 bones/1/rotation = Quaternion(0.0489209, -0.137456, -0.0682971, 0.986939)
@@ -20,7 +44,6 @@ bones/9/rotation = Quaternion(-0.126514, 0.220979, -0.646983, 0.718732)
 bones/10/rotation = Quaternion(0.15223, -0.153191, -0.0997788, 0.971289)
 bones/11/position = Vector3(-0.0146348, -0.353291, 1.39623)
 bones/11/rotation = Quaternion(0.5077, -0.5347, -0.440142, -0.512458)
-bones/11/scale = Vector3(1, 1, 1)
 bones/12/rotation = Quaternion(-0.666187, 0.309205, 0.336918, 0.589129)
 bones/13/rotation = Quaternion(-0.00785932, 0.0265398, -0.563254, 0.82582)
 bones/14/position = Vector3(-0.09226, -0.446564, 1.02744)
@@ -28,10 +51,16 @@ bones/14/rotation = Quaternion(0.335275, 0.534939, 0.422374, -0.650409)
 bones/15/rotation = Quaternion(-0.820784, 0.110852, 0.0412851, 0.558857)
 bones/16/rotation = Quaternion(-0.0227034, -0.0113863, 0.398683, 0.916737)
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="skeleton/Skeleton3D" index="1"]
+[node name="BoneAttachment3D" parent="skin/skeleton/Skeleton3D" index="1"]
 transform = Transform3D(-0.120077, 0.100299, 0.987685, -0.992751, -0.00697124, -0.119985, -0.00514907, -0.994933, 0.100409, 0.852806, -0.245922, 1.07133)
-bone_name = "r-hand"
-bone_idx = 7
 
-[node name="sword2" parent="skeleton/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_yq5uk")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ehtx1")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_5xobr")
+
+[editable path="skin"]

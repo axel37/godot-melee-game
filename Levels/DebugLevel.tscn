@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dj6uunu4mssmn" path="res://Actors/Enemy/Enemy.tscn" id="3_ekqdv"]
 [ext_resource type="Texture2D" uid="uid://cqsab8reno8mt" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="4_hbf3x"]
 [ext_resource type="PackedScene" uid="uid://dp3ao61ldxjvh" path="res://Actors/AiEnemy/AiEnemy.tscn" id="5_ppe6u"]
-[ext_resource type="PackedScene" uid="uid://db3sblc285eoy" path="res://Actors/AiEnemy/importedEnemy.tscn" id="6_4llsh"]
+[ext_resource type="PackedScene" uid="uid://c705nchj22gd5" path="res://Actors/BlenderEnemy/BlenderEnemy.tscn" id="6_sgnd6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tw7y"]
 albedo_texture = ExtResource("1_8tg25")
@@ -78,5 +78,5 @@ size = Vector3(2, 3, 7)
 [node name="AiEnemy" parent="." instance=ExtResource("5_ppe6u")]
 transform = Transform3D(-0.927745, 0, -0.373215, 0, 1, 0, 0.373215, 0, -0.927745, -3.39082, 0, -5.41142)
 
-[node name="enemy2" parent="." instance=ExtResource("6_4llsh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34972, -2.38419e-07, -5.88059)
+[node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50615, 0, -6.02427)

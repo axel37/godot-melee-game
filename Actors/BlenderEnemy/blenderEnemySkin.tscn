@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://db3sblc285eoy"]
+
+[ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/BlenderEnemy/enemy.glb" id="1_qynyj"]
+[ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/BlenderEnemy/sword.glb" id="2_yq5uk"]
+
+[node name="enemy2" instance=ExtResource("1_qynyj")]
+
+[node name="Skeleton3D" parent="skeleton" index="0"]
+bones/0/position = Vector3(-0.0135535, -0.136634, 0.0293609)
+bones/0/rotation = Quaternion(-0.134869, -0.470362, 0.119543, 0.863875)
+bones/1/rotation = Quaternion(-0.0983647, -0.0598465, -0.192776, 0.974464)
+bones/2/rotation = Quaternion(0.182236, -0.0648667, 0.00438516, 0.981103)
+bones/3/rotation = Quaternion(0.0727844, 0.614694, 0.0688968, 0.782373)
+bones/4/rotation = Quaternion(4.25125e-08, -4.68211e-08, 0.707107, 0.707107)
+bones/5/rotation = Quaternion(0.202815, 0.254836, 0.561572, 0.760632)
+bones/6/rotation = Quaternion(0.722442, 0.273122, 0.0610574, 0.632261)
+bones/7/rotation = Quaternion(0.0367467, 0.32502, 0.0541912, 0.943438)
+bones/8/rotation = Quaternion(0.136074, -0.376019, -0.811118, 0.426827)
+bones/9/rotation = Quaternion(0.3323, -0.204208, -0.616478, 0.683982)
+bones/10/rotation = Quaternion(0.241967, -0.161413, -0.329471, 0.898246)
+bones/11/position = Vector3(-0.0146348, -0.276849, -0.0925907)
+bones/11/rotation = Quaternion(0.166955, -0.627488, -0.365274, -0.667052)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.736788, 0.13254, -0.476772, 0.460722)
+bones/13/rotation = Quaternion(-0.352701, -0.00936717, -0.275165, 0.894315)
+bones/14/position = Vector3(-0.09226, -0.0948946, 0.273309)
+bones/14/rotation = Quaternion(0.496133, 0.581863, 0.372225, -0.526058)
+bones/15/rotation = Quaternion(-0.78531, -0.0483131, -0.0698295, 0.613252)
+bones/16/rotation = Quaternion(-0.0064231, -0.011305, 0.201061, 0.979492)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="skeleton/Skeleton3D" index="1"]
+transform = Transform3D(-0.613808, -0.673348, 0.412118, -0.587594, 0.738301, 0.331127, -0.527231, -0.0389095, -0.848831, -0.619798, 0.522875, -0.428714)
+bone_name = "r-hand"
+bone_idx = 7
+
+[node name="sword2" parent="skeleton/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_yq5uk")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
