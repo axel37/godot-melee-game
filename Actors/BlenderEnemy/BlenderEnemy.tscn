@@ -52,7 +52,7 @@ bones/15/rotation = Quaternion(-0.820784, 0.110852, 0.0412851, 0.558857)
 bones/16/rotation = Quaternion(-0.0227034, -0.0113863, 0.398683, 0.916737)
 
 [node name="BoneAttachment3D" parent="skin/skeleton/Skeleton3D" index="1"]
-transform = Transform3D(-0.120077, 0.100299, 0.987685, -0.992751, -0.00697124, -0.119985, -0.00514907, -0.994933, 0.100409, 0.852806, -0.245922, 1.07133)
+transform = Transform3D(-0.120077, 0.100301, 0.987685, -0.992751, -0.00697225, -0.119985, -0.00514814, -0.994933, 0.100411, 0.852806, -0.245922, 1.07133)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
