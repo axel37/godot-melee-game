@@ -11,7 +11,7 @@ tracks/0/path = NodePath("skin/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": PackedStringArray("attack-windup", "attack-swing"),
+"clips": PackedStringArray("anim-attack-windup", "anim-attack-swing"),
 "times": PackedFloat32Array(0, 0.633333)
 }
 
@@ -26,15 +26,12 @@ radius = 0.3
 [node name="BlenderEnemy" type="CharacterBody3D"]
 
 [node name="skin" parent="." instance=ExtResource("1_1kwts")]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(-0.0135535, -0.387421, 1.16996)
-bones/0/rotation = Quaternion(0.00119676, 0.553248, -0.0457368, 0.831759)
+bones/0/position = Vector3(0, -0.0201646, 0)
 bones/1/rotation = Quaternion(0.0489209, -0.137456, -0.0682971, 0.986939)
 bones/2/rotation = Quaternion(0.0596225, 0.310644, 0.111649, 0.942062)
-bones/3/rotation = Quaternion(-0.0722496, -0.605916, 0.0994364, 0.785976)
+bones/3/rotation = Quaternion(-0.125364, -0.609261, 0.0645456, 0.780332)
 bones/4/rotation = Quaternion(0.0305394, 0.304062, 0.8598, 0.409095)
 bones/5/rotation = Quaternion(0.0916903, 0.312542, 0.552526, 0.767219)
 bones/6/rotation = Quaternion(0.207871, 0.0755264, 0.124945, 0.967199)
@@ -42,17 +39,15 @@ bones/7/rotation = Quaternion(-0.465212, 0.247495, 0.217642, 0.821557)
 bones/8/rotation = Quaternion(-0.453862, -0.463279, -0.607489, 0.458627)
 bones/9/rotation = Quaternion(-0.126514, 0.220979, -0.646983, 0.718732)
 bones/10/rotation = Quaternion(0.15223, -0.153191, -0.0997788, 0.971289)
-bones/11/position = Vector3(-0.0146348, -0.353291, 1.39623)
 bones/11/rotation = Quaternion(0.5077, -0.5347, -0.440142, -0.512458)
-bones/12/rotation = Quaternion(-0.666187, 0.309205, 0.336918, 0.589129)
-bones/13/rotation = Quaternion(-0.00785932, 0.0265398, -0.563254, 0.82582)
-bones/14/position = Vector3(-0.09226, -0.446564, 1.02744)
-bones/14/rotation = Quaternion(0.335275, 0.534939, 0.422374, -0.650409)
+bones/12/rotation = Quaternion(-0.394342, 0.560764, -0.110534, 0.719597)
+bones/13/rotation = Quaternion(-0.00785933, 0.0265398, -0.563254, 0.82582)
+bones/14/rotation = Quaternion(0.0405117, 0.780687, 0.535773, -0.319114)
 bones/15/rotation = Quaternion(-0.820784, 0.110852, 0.0412851, 0.558857)
 bones/16/rotation = Quaternion(-0.0227034, -0.0113863, 0.398683, 0.916737)
 
 [node name="BoneAttachment3D" parent="skin/skeleton/Skeleton3D" index="1"]
-transform = Transform3D(-0.120077, 0.100301, 0.987685, -0.992751, -0.00697225, -0.119985, -0.00514814, -0.994933, 0.100411, 0.852806, -0.245922, 1.07133)
+transform = Transform3D(0.03289, 0.954785, 0.295473, -0.99764, 0.0491924, -0.0479091, -0.0602778, -0.2932, 0.954149, 0.412586, 0.1926, 0.751554)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
