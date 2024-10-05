@@ -79,4 +79,4 @@ size = Vector3(2, 3, 7)
 transform = Transform3D(-0.927745, 0, -0.373215, 0, 1, 0, 0.373215, 0, -0.927745, -3.39082, 0, -5.41142)
 
 [node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50615, 0, -6.02427)
+transform = Transform3D(-0.906123, 0, -0.423014, 0, 1, 0, 0.423014, 0, -0.906123, -1.50615, 0, -6.02427)

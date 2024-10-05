@@ -1,46 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://db3sblc285eoy"]
+[gd_scene load_steps=3 format=3 uid="uid://db3sblc285eoy"]
 
 [ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/BlenderEnemy/enemy.glb" id="1_qynyj"]
-[ext_resource type="Script" path="res://Actors/BlenderEnemy/blender_enemy_skin.gd" id="2_psdxe"]
 [ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/BlenderEnemy/sword.glb" id="2_yq5uk"]
 
 [node name="enemy2" instance=ExtResource("1_qynyj")]
-script = ExtResource("2_psdxe")
-
-[node name="RootMotionView" type="RootMotionView" parent="." index="0"]
-animation_path = NodePath("../AnimationPlayer")
-color = Color(1, 0.497983, 0.934443, 1)
-radius = 5.0
 
 [node name="Skeleton3D" parent="skeleton" index="0"]
-bones/1/rotation = Quaternion(-0.0983646, -0.0598465, -0.192776, 0.974464)
-bones/2/rotation = Quaternion(0.182236, -0.0648668, 0.00438515, 0.981103)
-bones/3/rotation = Quaternion(0.0727844, 0.614694, 0.0688968, 0.782373)
-bones/4/rotation = Quaternion(4.18128e-08, -4.57921e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.202815, 0.254836, 0.561572, 0.760632)
-bones/6/rotation = Quaternion(0.722442, 0.273122, 0.0610574, 0.632261)
-bones/7/rotation = Quaternion(0.0367467, 0.32502, 0.0541912, 0.943438)
-bones/8/rotation = Quaternion(0.136074, -0.376018, -0.811118, 0.426827)
-bones/9/rotation = Quaternion(0.3323, -0.204208, -0.616478, 0.683982)
-bones/10/rotation = Quaternion(0.241967, -0.161413, -0.329471, 0.898246)
-bones/11/position = Vector3(4.1636e-09, 9.67429e-09, 7.45058e-09)
-bones/11/rotation = Quaternion(0.737682, -0.312442, -0.422119, -0.424288)
+bones/0/position = Vector3(0, -0.387421, 0)
+bones/0/rotation = Quaternion(0.00119676, 0.553248, -0.0457368, 0.831759)
+bones/1/rotation = Quaternion(0.0489209, -0.137456, -0.0682971, 0.986939)
+bones/2/rotation = Quaternion(0.0596225, 0.310644, 0.111649, 0.942062)
+bones/3/rotation = Quaternion(-0.125364, -0.609261, 0.0645456, 0.780332)
+bones/4/rotation = Quaternion(0.0305394, 0.304062, 0.8598, 0.409095)
+bones/5/rotation = Quaternion(0.0916903, 0.312542, 0.552526, 0.767219)
+bones/6/rotation = Quaternion(0.207871, 0.0755264, 0.124945, 0.967199)
+bones/7/rotation = Quaternion(-0.465212, 0.247495, 0.217642, 0.821557)
+bones/8/rotation = Quaternion(-0.453862, -0.463279, -0.607489, 0.458627)
+bones/9/rotation = Quaternion(-0.126514, 0.220979, -0.646983, 0.718732)
+bones/10/rotation = Quaternion(0.15223, -0.153191, -0.0997788, 0.971289)
+bones/11/position = Vector3(-3.80957e-09, 2.97917e-08, 1.86264e-09)
+bones/11/rotation = Quaternion(0.5077, -0.5347, -0.440142, -0.512458)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.00852791, 0.248969, 0.00698309, 0.968449)
-bones/13/rotation = Quaternion(-0.0436851, -0.0862409, -0.142657, 0.98504)
-bones/14/position = Vector3(9.31322e-10, -1.29221e-08, 6.51926e-09)
-bones/14/rotation = Quaternion(0.504075, 0.525189, 0.435883, -0.529236)
-bones/15/rotation = Quaternion(-0.77748, 0.00414754, -0.033813, 0.627985)
-bones/16/rotation = Quaternion(0.00287951, -0.00975866, 0.169191, 0.985531)
+bones/12/rotation = Quaternion(-0.394342, 0.560764, -0.110534, 0.719597)
+bones/13/rotation = Quaternion(-0.00785933, 0.0265398, -0.563254, 0.82582)
+bones/14/position = Vector3(-3.72529e-09, 2.98023e-08, 1.86264e-09)
+bones/14/rotation = Quaternion(0.0405117, 0.780687, 0.535773, -0.319114)
+bones/15/rotation = Quaternion(-0.820784, 0.110852, 0.0412851, 0.558857)
+bones/16/rotation = Quaternion(-0.0227034, -0.0113863, 0.398683, 0.916737)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="skeleton/Skeleton3D" index="1"]
-transform = Transform3D(-0.932042, -0.140365, -0.334058, -0.318378, 0.757425, 0.570037, 0.17301, 0.637656, -0.750641, -0.458268, 0.803052, 0.353015)
+transform = Transform3D(-0.120077, 0.100299, 0.987685, -0.992751, -0.00697145, -0.119985, -0.00514892, -0.994933, 0.100409, 0.866359, -0.245922, -0.0986324)
 bone_name = "r-hand"
 bone_idx = 7
 
 [node name="sword2" parent="skeleton/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_yq5uk")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 unique_name_in_owner = true
-root_motion_track = NodePath("skeleton/Skeleton3D:root")
