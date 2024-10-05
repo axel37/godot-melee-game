@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://db3sblc285eoy"]
+[gd_scene load_steps=4 format=3 uid="uid://db3sblc285eoy"]
 
 [ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/BlenderEnemy/enemy.glb" id="1_qynyj"]
+[ext_resource type="Script" path="res://Actors/BlenderEnemy/blender_enemy_skin.gd" id="2_psdxe"]
 [ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/BlenderEnemy/sword.glb" id="2_yq5uk"]
 
 [node name="enemy2" instance=ExtResource("1_qynyj")]
+script = ExtResource("2_psdxe")
 
 [node name="RootMotionView" type="RootMotionView" parent="." index="0"]
 animation_path = NodePath("../AnimationPlayer")
@@ -40,4 +42,5 @@ bone_idx = 7
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="AnimationPlayer" parent="." index="2"]
+unique_name_in_owner = true
 root_motion_track = NodePath("skeleton/Skeleton3D:root")
