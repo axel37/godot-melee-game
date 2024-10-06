@@ -73,7 +73,7 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x8kg2"]
-xfade_time = 0.08
+xfade_time = 0.03
 advance_mode = 2
 advance_condition = &"is_guarding"
 
@@ -159,6 +159,7 @@ animation = &"attack_swing_from-right"
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nm5wg"]
+graph_offset = Vector2(-315.098, -24.1999)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_8f005")
 nodes/Animation/position = Vector2(463.559, 321.164)
 nodes/Attack1StateMachine/node = SubResource("AnimationNodeStateMachine_gu7ok")

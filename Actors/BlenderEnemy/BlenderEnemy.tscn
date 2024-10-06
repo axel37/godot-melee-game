@@ -16,7 +16,7 @@ tracks/0/path = NodePath("skin/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": PackedStringArray("anim-attack-windup", "anim-attack-swing", "anim-attack-recover"),
+"clips": PackedStringArray("anim-attack-windup", "anim-attack-swing", "anim-swing-recover"),
 "times": PackedFloat32Array(0, 0.5, 1.2)
 }
 tracks/1/type = "method"
@@ -89,15 +89,18 @@ bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
 bones/9/rotation = Quaternion(1.43263e-07, -4.55206e-08, -0.707107, 0.707107)
 bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
+bones/11/position = Vector3(0, 0, 0)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
+bones/11/scale = Vector3(1, 1, 1)
 bones/12/rotation = Quaternion(-0.706106, 6.02471e-09, -1.31745e-07, 0.708106)
 bones/13/rotation = Quaternion(-1.16415e-10, 4.92132e-15, 1.47393e-14, 1)
+bones/14/position = Vector3(0, 0, 0)
 bones/14/rotation = Quaternion(0.5, 0.5, 0.5, -0.5)
 bones/15/rotation = Quaternion(-0.707107, 1.72636e-08, 8.96499e-08, 0.707107)
 bones/16/rotation = Quaternion(-7.23169e-22, -3.55271e-15, -7.10543e-15, 1)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38699e-09, -4.55889e-07, -3.29139e-10, -1, 0.319753, 0.948606, 0.044047)
+transform = Transform3D(0.999993, 0.00376442, -4.55887e-07, 0.00376442, -0.999991, -1.387e-09, -4.55889e-07, -3.29125e-10, -1, 0.319753, 0.948606, 0.044047)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -112,13 +115,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_5xobr")
 
 [node name="HandPosition" type="Node3D" parent="."]
-transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999993, -1.38699e-09, -4.55889e-07, -3.2914e-10, -1, 0.319753, 0.948606, 0.044047)
+transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999993, -1.387e-09, -4.55889e-07, -3.29126e-10, -1, 0.319753, 0.948606, 0.044047)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
 
 [node name="DamageDealerRemoteTransform" type="RemoteTransform3D" parent="HandPosition"]
-transform = Transform3D(1, 1.50045e-16, 0, 1.50058e-16, 1, -2.77556e-17, 0, -8.32667e-17, 1, 5.66244e-07, 0, 1.19196)
+transform = Transform3D(1, 1.50045e-16, 0, 1.50058e-16, 1, -2.77556e-17, 0, -8.32667e-17, 1, 0, -0.185, 1.192)
 remote_path = NodePath("../../DamageDealingHandler/DamageDealer/CollisionShape3D")
 
 [node name="DamageDealingHandler" type="Node3D" parent="."]
@@ -130,7 +133,7 @@ collision_mask = 0
 script = ExtResource("3_hkxnf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999993, -1.38699e-09, -4.55889e-07, -3.2914e-10, -1, 0.319753, 0.948606, -1.14792)
+transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999993, -1.387e-09, -4.55889e-07, -3.29126e-10, -1, 0.319056, 1.13361, -1.14795)
 shape = SubResource("BoxShape3D_gbsab")
 
 [editable path="skin"]

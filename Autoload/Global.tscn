@@ -11,7 +11,7 @@ script = ExtResource("1_cngxu")
 unique_name_in_owner = true
 script = ExtResource("2_lbwks")
 print_in_stdout = true
-codes_to_ignore = Array[String](["DAMAGE-002", "DAMAGE-001", "DAMAGE-005", "DAMAGE-004", "BLOCKER-002", "DAMAGE-003", "BLOCKER-001", "ENEMY-002", "DAMAGE-RECEIVING-HANDLER-002", "ENEMY-001", "DAMAGE-006", "DAMAGE-RECEIVING-HANDLER-001-disabled"])
+codes_to_ignore = Array[String](["DAMAGE-002", "DAMAGE-001", "DAMAGE-005", "DAMAGE-004", "BLOCKER-002", "DAMAGE-003", "BLOCKER-001", "ENEMY-002", "DAMAGE-RECEIVING-HANDLER-002", "ENEMY-001", "DAMAGE-006", "DAMAGE-RECEIVING-HANDLER-001"])
 
 [node name="MouseCaptureManager" type="Node" parent="."]
 script = ExtResource("3_0qs7t")
