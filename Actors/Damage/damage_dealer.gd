@@ -29,6 +29,7 @@ func block() -> void:
 	was_blocked.emit()
 	Global.log(LOG_CODE_WAS_BLOCKED, "%s was blocked()" % name)
 
+# On enabled = true, _renew() and _reset_child_shapes()
 func _set_enabled(value: bool):
 	if enabled == value:
 		return  # TODO : Avoid redundant sets (this is being called every frame !)
@@ -37,6 +38,7 @@ func _set_enabled(value: bool):
 	monitorable = value
 
 	if value == true:
+		_renew()
 		_reset_child_shapes()
 
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
