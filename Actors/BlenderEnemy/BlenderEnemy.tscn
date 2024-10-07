@@ -1,35 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://c705nchj22gd5"]
+[gd_scene load_steps=21 format=3 uid="uid://c705nchj22gd5"]
 
 [ext_resource type="PackedScene" uid="uid://db3sblc285eoy" path="res://Actors/BlenderEnemy/blenderEnemySkin.tscn" id="1_1kwts"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="2_vd2vx"]
 [ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/BlenderEnemy/sword.glb" id="2_wemg1"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_hkxnf"]
-
-[sub_resource type="Animation" id="Animation_enwmi"]
-resource_name = "test-swing"
-length = 2.0
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("skin/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("anim-attack-windup", "anim-attack-swing", "anim-swing-recover"),
-"times": PackedFloat32Array(0, 0.5, 1.2)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.633333, 0.766667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
 
 [sub_resource type="Animation" id="Animation_deftt"]
 length = 0.001
@@ -61,18 +35,63 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_enwmi"]
+resource_name = "attack-swing"
+length = 2.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skin/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("anim-attack-windup", "anim-attack-swing", "anim-swing-recover"),
+"times": PackedFloat32Array(0, 0.5, 1.2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageDealingHandler/DamageDealer:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.633333, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_hrvfv"]
+resource_name = "guard"
+length = 3.1
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skin/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("anim-guard"),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ehtx1"]
 _data = {
 "RESET": SubResource("Animation_deftt"),
-"idle": SubResource("Animation_7nf6k"),
-"test-swing": SubResource("Animation_enwmi")
+"attack-swing": SubResource("Animation_enwmi"),
+"guard": SubResource("Animation_hrvfv"),
+"idle": SubResource("Animation_7nf6k")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_osoje"]
+animation = &"guard"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ojri"]
 animation = &"idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqx4w"]
-animation = &"test-swing"
+animation = &"attack-swing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_incub"]
 advance_mode = 2
@@ -85,13 +104,20 @@ xfade_time = 0.2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7lq46"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ygpi"]
+xfade_time = 0.2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ouv7u"]
 states/Start/position = Vector2(133, 95)
+states/guard/node = SubResource("AnimationNodeAnimation_osoje")
+states/guard/position = Vector2(723, 78)
 states/idle/node = SubResource("AnimationNodeAnimation_1ojri")
-states/idle/position = Vector2(514, 95)
+states/idle/position = Vector2(522, 95)
 states/test-swing/node = SubResource("AnimationNodeAnimation_mqx4w")
 states/test-swing/position = Vector2(514, 208)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_incub"), "idle", "test-swing", SubResource("AnimationNodeStateMachineTransition_hve3p"), "test-swing", "idle", SubResource("AnimationNodeStateMachineTransition_ok2ib")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_incub"), "idle", "test-swing", SubResource("AnimationNodeStateMachineTransition_hve3p"), "test-swing", "idle", SubResource("AnimationNodeStateMachineTransition_ok2ib"), "idle", "guard", SubResource("AnimationNodeStateMachineTransition_7lq46"), "guard", "idle", SubResource("AnimationNodeStateMachineTransition_2ygpi")]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5xobr"]
 radius = 0.3
@@ -116,30 +142,30 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0585044, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/1/rotation = Quaternion(-0.00496594, -3.86559e-06, -6.0826e-06, 0.999988)
-bones/2/rotation = Quaternion(0.00578693, 1.66593e-06, 0.000142648, 0.999983)
-bones/3/rotation = Quaternion(-0.00383784, 2.07738e-06, 8.83843e-05, 0.999993)
-bones/4/rotation = Quaternion(4.33641e-08, -4.68723e-08, 0.70777, 0.706443)
-bones/5/rotation = Quaternion(1.91551e-07, -8.73325e-08, 0.707799, 0.706414)
-bones/6/rotation = Quaternion(-1.85073e-11, -3.47766e-14, -0.00150935, 0.999999)
-bones/7/rotation = Quaternion(6.6406e-08, 1.05433e-08, -0.00102834, 0.999999)
-bones/8/rotation = Quaternion(9.13051e-08, 8.33398e-08, -0.711397, 0.70279)
-bones/9/rotation = Quaternion(1.43038e-07, -4.61215e-08, -0.704008, 0.710193)
-bones/10/rotation = Quaternion(-8.52272e-12, -8.18265e-14, 0.00104952, 1)
+bones/0/position = Vector3(0, -0.194061, 0)
+bones/0/rotation = Quaternion(-0.0474461, -0.29806, 0.12407, 0.94526)
+bones/1/rotation = Quaternion(-0.0457888, -0.112073, -0.115738, 0.985874)
+bones/2/rotation = Quaternion(0.00253637, 0.0738179, -0.0678414, 0.994958)
+bones/3/rotation = Quaternion(0.0327078, 0.34896, 0.093519, 0.931886)
+bones/4/rotation = Quaternion(0.108825, 0.0852933, 0.614325, 0.776845)
+bones/5/rotation = Quaternion(0.495941, 0.3229, 0.677096, 0.437401)
+bones/6/rotation = Quaternion(0.0400918, -0.3338, -0.00845463, 0.941753)
+bones/7/rotation = Quaternion(6.92705e-08, 1.61828e-08, -0.00188222, 0.999998)
+bones/8/rotation = Quaternion(0.171264, 0.0232603, -0.735805, 0.654766)
+bones/9/rotation = Quaternion(0.536952, -0.254704, -0.533484, 0.601833)
+bones/10/rotation = Quaternion(0.151544, 0.0847873, 0.142815, 0.974397)
 bones/11/position = Vector3(0, 0, 0)
-bones/11/rotation = Quaternion(0.489576, -0.49284, -0.503241, -0.513977)
+bones/11/rotation = Quaternion(0.604753, -0.510517, -0.455316, -0.407839)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.71082, 0.0193576, 0.0204529, 0.70281)
-bones/13/rotation = Quaternion(-0.00363463, 0.000349941, -0.0244257, 0.999695)
+bones/12/rotation = Quaternion(-0.11615, 0.55437, -0.0588954, 0.822018)
+bones/13/rotation = Quaternion(0.043322, 0.00246064, -0.477986, 0.877295)
 bones/14/position = Vector3(0, 0, 0)
-bones/14/rotation = Quaternion(0.488961, 0.493164, 0.502787, -0.514696)
-bones/15/rotation = Quaternion(-0.711602, -0.019197, -0.0202094, 0.702029)
-bones/16/rotation = Quaternion(-0.00350521, -0.000231791, 0.0238111, 0.99971)
+bones/14/rotation = Quaternion(0.584821, 0.457092, 0.515345, -0.428335)
+bones/15/rotation = Quaternion(-0.575994, -0.433575, 0.0624833, 0.690173)
+bones/16/rotation = Quaternion(0.0250535, -5.43592e-09, 0.333829, 0.942301)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(1, 0.000967383, 2.37316e-06, 0.000967383, -0.999996, -0.00164184, 7.8486e-07, 0.00164185, -0.999999, 0.317837, 0.909574, 0.0466165)
+transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, 0.326381, 1.35875, -0.520627)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -153,7 +179,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_5xobr")
 
 [node name="HandPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0.000967383, 2.37316e-06, 0.000967383, -0.999996, -0.00164184, 7.8486e-07, 0.00164185, -0.999999, 0.317837, 0.909574, 0.0466165)
+transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, 0.326381, 1.35875, -0.520627)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
@@ -172,7 +198,7 @@ script = ExtResource("3_hkxnf")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(1, 0.000967383, 2.37316e-06, 0.000967383, -0.999996, -0.00164184, 7.8486e-07, 0.00164185, -0.999999, 0.317661, 1.09262, -1.14569)
+transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, -0.569255, 2.14881, -0.690113)
 shape = SubResource("BoxShape3D_gbsab")
 
 [editable path="skin"]
