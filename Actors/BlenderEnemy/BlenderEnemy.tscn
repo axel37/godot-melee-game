@@ -207,30 +207,30 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0741958, 0)
+bones/0/position = Vector3(0, -0.0671697, 0)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/1/rotation = Quaternion(-0.00959726, 0, 0, 0.999954)
-bones/2/rotation = Quaternion(0.0219733, 0, 0, 0.999759)
-bones/3/rotation = Quaternion(-0.0178196, 0, 0, 0.999841)
+bones/1/rotation = Quaternion(-0.00653206, 0, 0, 0.999979)
+bones/2/rotation = Quaternion(0.0138124, 0, 0, 0.999905)
+bones/3/rotation = Quaternion(-0.0110863, 0, 0, 0.999939)
 bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.0121155, 0.0121152, 0.707003, 0.707003)
+bones/5/rotation = Quaternion(0.0077405, 0.00774022, 0.707064, 0.707064)
 bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
 bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
-bones/9/rotation = Quaternion(0.0121154, -0.0121153, -0.707003, 0.707003)
+bones/9/rotation = Quaternion(0.00774045, -0.00774036, -0.707064, 0.707064)
 bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
 bones/11/position = Vector3(0, 0, 0)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.705446, 0.0305347, 0.0306211, 0.707444)
-bones/13/rotation = Quaternion(-1.15642e-10, -1.33847e-11, -0.114983, 0.993368)
+bones/12/rotation = Quaternion(-0.70584, 0.0193973, 0.0194521, 0.707839)
+bones/13/rotation = Quaternion(-1.16117e-10, -8.34776e-12, -0.0717243, 0.997425)
 bones/14/position = Vector3(0, 0, 0)
 bones/14/rotation = Quaternion(0.5, 0.5, 0.5, -0.5)
-bones/15/rotation = Quaternion(-0.706445, -0.030578, -0.0305779, 0.706445)
-bones/16/rotation = Quaternion(-4.94059e-16, -6.0485e-15, 0.114982, 0.993368)
+bones/15/rotation = Quaternion(-0.70684, -0.0194426, -0.0194425, 0.706839)
+bones/16/rotation = Quaternion(-4.85692e-16, -4.81954e-15, 0.0717243, 0.997425)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376466, -4.60236e-07, 0.00376447, -0.999945, 0.00951351, 3.53544e-05, -0.00951347, -0.999955, 0.319753, 0.894461, 0.0309286)
+transform = Transform3D(0.999993, 0.00376442, -4.56511e-07, 0.00376431, -0.999964, 0.00733191, 2.71422e-05, -0.00733188, -0.999973, 0.319753, 0.901567, 0.0352993)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -247,7 +247,7 @@ shape = SubResource("CylinderShape3D_5xobr")
 editor_description = "This Node tracks the intended sword position at all times.
 
 If you need to attach something to the sword / hand, use this node."
-transform = Transform3D(0.999993, 0.00376466, -4.60236e-07, 0.00376447, -0.999945, 0.00951351, 3.53544e-05, -0.00951347, -0.999955, 0.319753, 0.894461, 0.0309286)
+transform = Transform3D(0.999993, 0.00376442, -4.56511e-07, 0.00376431, -0.999964, 0.00733191, 2.71422e-05, -0.00733188, -0.999973, 0.319753, 0.901567, 0.0352993)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
@@ -266,7 +266,7 @@ script = ExtResource("3_hkxnf")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(0.999993, 0.00376466, -4.60236e-07, 0.00376447, -0.999945, 0.00951351, 3.53544e-05, -0.00951347, -0.999955, 0.319056, 1.09079, -1.15926)
+transform = Transform3D(0.999993, 0.00376442, -4.56511e-07, 0.00376431, -0.999964, 0.00733191, 2.71422e-05, -0.00733188, -0.999973, 0.319056, 1.0953, -1.15531)
 shape = SubResource("BoxShape3D_gbsab")
 
 [node name="TargetDetector" type="Area3D" parent="."]
