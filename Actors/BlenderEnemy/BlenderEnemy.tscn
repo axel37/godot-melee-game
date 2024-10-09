@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://c705nchj22gd5"]
+[gd_scene load_steps=23 format=3 uid="uid://c705nchj22gd5"]
 
 [ext_resource type="PackedScene" uid="uid://db3sblc285eoy" path="res://Actors/BlenderEnemy/blenderEnemySkin.tscn" id="1_1kwts"]
+[ext_resource type="Script" path="res://Actors/BlenderEnemy/blender_enemy.gd" id="1_nh15x"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="2_vd2vx"]
 [ext_resource type="PackedScene" uid="uid://cd1pjr3tsfd87" path="res://Actors/BlenderEnemy/sword.glb" id="2_wemg1"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_hkxnf"]
@@ -18,21 +19,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_7nf6k"]
-resource_name = "idle"
-length = 3.01
-loop_mode = 1
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("skin/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("anim-idle"),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_enwmi"]
@@ -76,6 +62,21 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_7nf6k"]
+resource_name = "idle"
+length = 3.01
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skin/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("anim-idle"),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ehtx1"]
 _data = {
 "RESET": SubResource("Animation_deftt"),
@@ -84,14 +85,14 @@ _data = {
 "idle": SubResource("Animation_7nf6k")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqx4w"]
+animation = &"attack-swing"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_osoje"]
 animation = &"guard"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ojri"]
 animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqx4w"]
-animation = &"attack-swing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_incub"]
 advance_mode = 2
@@ -111,13 +112,13 @@ xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ouv7u"]
 states/Start/position = Vector2(133, 95)
+states/attack/node = SubResource("AnimationNodeAnimation_mqx4w")
+states/attack/position = Vector2(514, 208)
 states/guard/node = SubResource("AnimationNodeAnimation_osoje")
 states/guard/position = Vector2(723, 78)
 states/idle/node = SubResource("AnimationNodeAnimation_1ojri")
 states/idle/position = Vector2(522, 95)
-states/test-swing/node = SubResource("AnimationNodeAnimation_mqx4w")
-states/test-swing/position = Vector2(514, 208)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_incub"), "idle", "test-swing", SubResource("AnimationNodeStateMachineTransition_hve3p"), "test-swing", "idle", SubResource("AnimationNodeStateMachineTransition_ok2ib"), "idle", "guard", SubResource("AnimationNodeStateMachineTransition_7lq46"), "guard", "idle", SubResource("AnimationNodeStateMachineTransition_2ygpi")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_incub"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_hve3p"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ok2ib"), "idle", "guard", SubResource("AnimationNodeStateMachineTransition_7lq46"), "guard", "idle", SubResource("AnimationNodeStateMachineTransition_2ygpi")]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5xobr"]
 radius = 0.3
@@ -125,7 +126,11 @@ radius = 0.3
 [sub_resource type="BoxShape3D" id="BoxShape3D_gbsab"]
 size = Vector3(0.3, 0.3, 2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_35y6p"]
+size = Vector3(2.08521, 1.50305, 2.17163)
+
 [node name="BlenderEnemy" type="CharacterBody3D"]
+script = ExtResource("1_nh15x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -134,6 +139,8 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_ouv7u")
 anim_player = NodePath("../AnimationPlayer")
 
@@ -142,30 +149,29 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.194061, 0)
-bones/0/rotation = Quaternion(-0.0474461, -0.29806, 0.12407, 0.94526)
-bones/1/rotation = Quaternion(-0.0457888, -0.112073, -0.115738, 0.985874)
-bones/2/rotation = Quaternion(0.00253637, 0.0738179, -0.0678414, 0.994958)
-bones/3/rotation = Quaternion(0.0327078, 0.34896, 0.093519, 0.931886)
-bones/4/rotation = Quaternion(0.108825, 0.0852933, 0.614325, 0.776845)
-bones/5/rotation = Quaternion(0.495941, 0.3229, 0.677096, 0.437401)
-bones/6/rotation = Quaternion(0.0400918, -0.3338, -0.00845463, 0.941753)
-bones/7/rotation = Quaternion(6.92705e-08, 1.61828e-08, -0.00188222, 0.999998)
-bones/8/rotation = Quaternion(0.171264, 0.0232603, -0.735805, 0.654766)
-bones/9/rotation = Quaternion(0.536952, -0.254704, -0.533484, 0.601833)
-bones/10/rotation = Quaternion(0.151544, 0.0847873, 0.142815, 0.974397)
+bones/0/position = Vector3(0, -0.0535461, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/1/rotation = Quaternion(-2.18059e-06, -1.74933e-09, -2.75447e-09, 1)
+bones/2/rotation = Quaternion(2.63248e-06, 7.54795e-10, 6.46889e-08, 1)
+bones/3/rotation = Quaternion(-1.76164e-06, 9.39282e-10, 3.99761e-08, 1)
+bones/4/rotation = Quaternion(4.34076e-08, -4.68315e-08, 0.707108, 0.707105)
+bones/5/rotation = Quaternion(1.91635e-07, -8.71476e-08, 0.707114, 0.707099)
+bones/6/rotation = Quaternion(1.46124e-14, -7.56442e-16, -6.72861e-07, 1)
+bones/7/rotation = Quaternion(6.6466e-08, 1.06e-08, -0.00188016, 0.999998)
+bones/8/rotation = Quaternion(9.17788e-08, 8.27542e-08, -0.70712, 0.707094)
+bones/9/rotation = Quaternion(1.43263e-07, -4.5522e-08, -0.7071, 0.707114)
+bones/10/rotation = Quaternion(1.72291e-14, -6.32785e-15, 1.85836e-06, 1)
 bones/11/position = Vector3(0, 0, 0)
-bones/11/rotation = Quaternion(0.604753, -0.510517, -0.455316, -0.407839)
-bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.11615, 0.55437, -0.0588954, 0.822018)
-bones/13/rotation = Quaternion(0.043322, 0.00246064, -0.477986, 0.877295)
+bones/11/rotation = Quaternion(0.500697, -0.499287, -0.500709, -0.499306)
+bones/12/rotation = Quaternion(-0.706115, 3.42825e-05, 3.60843e-05, 0.708097)
+bones/13/rotation = Quaternion(-3.26823e-06, 3.14616e-07, -2.19613e-05, 1)
 bones/14/position = Vector3(0, 0, 0)
-bones/14/rotation = Quaternion(0.584821, 0.457092, 0.515345, -0.428335)
-bones/15/rotation = Quaternion(-0.575994, -0.433575, 0.0624833, 0.690173)
-bones/16/rotation = Quaternion(0.0250535, -5.43592e-09, 0.333829, 0.942301)
+bones/14/rotation = Quaternion(0.499981, 0.499988, 0.500005, -0.500026)
+bones/15/rotation = Quaternion(-0.707117, -4.2137e-05, -4.42879e-05, 0.707096)
+bones/16/rotation = Quaternion(-1.58738e-06, -1.05005e-07, 1.07862e-05, 1)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, 0.326381, 1.35875, -0.520627)
+transform = Transform3D(0.999993, 0.00373674, -4.53895e-07, 0.00373673, -0.99999, -7.50642e-07, -4.56696e-07, 7.48942e-07, -1, 0.319734, 0.915224, 0.0440482)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -179,7 +185,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_5xobr")
 
 [node name="HandPosition" type="Node3D" parent="."]
-transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, 0.326381, 1.35875, -0.520627)
+editor_description = "This Node tracks the intended sword position at all times.
+
+If you need to attach something to the sword / hand, use this node."
+transform = Transform3D(0.999993, 0.00373674, -4.53895e-07, 0.00373673, -0.99999, -7.50642e-07, -4.56696e-07, 7.48942e-07, -1, 0.319734, 0.915224, 0.0440482)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
@@ -198,7 +207,17 @@ script = ExtResource("3_hkxnf")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(0.668933, 0.0789761, -0.739115, 0.713898, -0.345247, 0.609221, -0.207064, -0.935183, -0.287328, -0.569255, 2.14881, -0.690113)
+transform = Transform3D(0.999993, 0.00373674, -4.53895e-07, 0.00373673, -0.99999, -7.50642e-07, -4.56696e-07, 7.48942e-07, -1, 0.319042, 1.10022, -1.14795)
 shape = SubResource("BoxShape3D_gbsab")
+
+[node name="TargetDetector" type="Area3D" parent="."]
+editor_description = "When a target enters this zone, attempt to attack it"
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0274658, 1.06548, -1.16369)
+shape = SubResource("BoxShape3D_35y6p")
+
+[connection signal="body_entered" from="TargetDetector" to="." method="_on_target_detector_body_entered"]
 
 [editable path="skin"]

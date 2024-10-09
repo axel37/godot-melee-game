@@ -1,18 +1,20 @@
 extends CharacterBody3D
 
-@onready var skin: BlenderEnemySkin = %skin
+const LOG_CODE_TOOK_DAMAGE = "BLENDER-ENEMY-01"
+
+@onready var animation_tree: AnimationTree = %AnimationTree
+@onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
 
-func _physics_process(delta: float) -> void:
-	# TODO : Match self rotation on the z axis with skin's rotation
-	#rotation.y = skin.rotation.y
-	#var velocity: Vector3 = (skin.animation_player.get_root_motion_rotation_accumulator().inverse() * get_quaternion()) * skin.animation_player.get_root_motion_position() / delta
-	#if not is_on_floor():
-	#	velocity += get_gravity()
-	#set_velocity(velocity)
-	#move_and_slide()
-	pass
+func _on_damage_receiving_handler_received_damage() -> void:
+	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
+
+
+func _on_target_detector_body_entered(body: Node3D) -> void:
+	state_machine.travel("attack")
+
+
+func _on_hazard_detector_received_damage() -> void:
+	state_machine.travel("guard")
