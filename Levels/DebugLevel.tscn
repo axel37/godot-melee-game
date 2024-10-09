@@ -59,14 +59,14 @@ shadow_blur = 3.0
 environment = SubResource("Environment_4mnrn")
 
 [node name="Enemy" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.455549, 0, -6.56474)
+transform = Transform3D(-0.456632, 0, 0.889656, 0, 1, 0, -0.889656, 0, -0.456632, 3.50045, 0, -6.20179)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-0.81836, 0, -0.574705, 0, 1, 0, 0.574705, 0, -0.81836, -5.12978, -9.53674e-07, -3.4024)
+transform = Transform3D(-0.81836, 0, -0.574705, 0, 1, 0, 0.574705, 0, -0.81836, 5.09253, -4.76837e-07, -4.96694)
 is_attacking = true
 
 [node name="Enemy3" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-0.472797, 0, 0.881171, 0, 1, 0, -0.881171, 0, -0.472797, 4.86294, 0, -3.3579)
+transform = Transform3D(-0.472797, 0, 0.881171, 0, 1, 0, -0.881171, 0, -0.472797, 6.2064, 0, -3.48)
 is_attacking = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
@@ -76,7 +76,7 @@ use_collision = true
 size = Vector3(2, 3, 7)
 
 [node name="AiEnemy" parent="." instance=ExtResource("5_ppe6u")]
-transform = Transform3D(-0.927745, 0, -0.373215, 0, 1, 0, 0.373215, 0, -0.927745, -3.39082, 0, -5.41142)
+transform = Transform3D(-0.927745, 0, -0.373215, 0, 1, 0, 0.373215, 0, -0.927745, -6.04341, 4.76837e-07, -6.22882)
 
 [node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(-0.906123, 0, -0.423014, 0, 1, 0, 0.423014, 0, -0.906123, -1.50615, 0, -6.02427)
+transform = Transform3D(-0.942344, 0, -0.334646, 0, 1, 0, 0.334646, 0, -0.942344, -1.50615, 0, -6.02427)
