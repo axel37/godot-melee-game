@@ -10,6 +10,7 @@ const LOG_CODE_TOOK_DAMAGE = "BLENDER-ENEMY-01"
 
 func _on_damage_receiving_handler_received_damage() -> void:
 	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
+	state_machine.travel("hurt")
 
 
 func _on_target_detector_body_entered(body: Node3D) -> void:
