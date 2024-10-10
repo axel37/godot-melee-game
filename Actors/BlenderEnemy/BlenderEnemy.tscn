@@ -230,29 +230,30 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0556, 0)
+bones/0/position = Vector3(0, -0.0201647, 0)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/1/rotation = Quaternion(-0.000484007, 0, 0, 1)
-bones/2/rotation = Quaternion(0.000716589, 0, 0, 1)
-bones/3/rotation = Quaternion(-0.000659249, 0, 0, 1)
+bones/1/rotation = Quaternion(6.71794e-08, 0, 0, 1)
+bones/2/rotation = Quaternion(1.00769e-08, 0, 0, 1)
+bones/3/rotation = Quaternion(-2.53094e-08, 0, 0, 1)
 bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.000460455, 0.000460176, 0.707107, 0.707107)
-bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
+bones/5/rotation = Quaternion(1.91636e-07, -8.71456e-08, 0.707107, 0.707107)
+bones/6/rotation = Quaternion(7.10543e-15, -7.55327e-22, -3.93712e-21, 1)
 bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
-bones/9/rotation = Quaternion(0.000460406, -0.000460309, -0.707107, 0.707107)
-bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
+bones/9/rotation = Quaternion(1.43263e-07, -4.55206e-08, -0.707107, 0.707107)
+bones/10/rotation = Quaternion(7.10542e-15, -7.10543e-15, -2.04593e-21, 1)
 bones/11/position = Vector3(0, 0, 0)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
-bones/12/rotation = Quaternion(-0.706106, 0.000851717, 0.000853991, 0.708106)
-bones/13/rotation = Quaternion(-1.16415e-10, -2.94163e-13, -0.00253356, 0.999997)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.706106, 6.02473e-09, -1.31745e-07, 0.708106)
+bones/13/rotation = Quaternion(-1.16415e-10, -2.87233e-15, 1.26902e-14, 1)
 bones/14/position = Vector3(0, 0, 0)
 bones/14/rotation = Quaternion(0.5, 0.5, 0.5, -0.5)
-bones/15/rotation = Quaternion(-0.707106, -0.000852901, -0.000852828, 0.707106)
-bones/16/rotation = Quaternion(-6.46874e-18, -3.62886e-15, 0.00253355, 0.999997)
+bones/15/rotation = Quaternion(-0.707107, 1.72636e-08, 8.96499e-08, 0.707107)
+bones/16/rotation = Quaternion(-9.96859e-22, -3.55271e-15, -3.55271e-15, 1)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376448, -4.5593e-07, 0.00376447, -0.99999, 0.000836809, 2.69416e-06, -0.000836806, -1, 0.319753, 0.913171, 0.0433974)
+transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38703e-09, -4.55889e-07, -3.29125e-10, -1, 0.319753, 0.948606, 0.044047)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -270,7 +271,7 @@ shape = SubResource("CylinderShape3D_5xobr")
 editor_description = "This Node tracks the intended sword position at all times.
 
 If you need to attach something to the sword / hand, use this node."
-transform = Transform3D(0.999993, 0.00376448, -4.5593e-07, 0.00376447, -0.99999, 0.000836809, 2.69416e-06, -0.000836806, -1, 0.319753, 0.913171, 0.0433974)
+transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38703e-09, -4.55889e-07, -3.29125e-10, -1, 0.319753, 0.948606, 0.044047)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
@@ -290,7 +291,7 @@ script = ExtResource("3_hkxnf")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(0.999993, 0.00376448, -4.5593e-07, 0.00376447, -0.99999, 0.000836809, 2.69416e-06, -0.000836806, -1, 0.319056, 1.09917, -1.14845)
+transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38703e-09, -4.55889e-07, -3.29125e-10, -1, 0.319056, 1.1336, -1.14795)
 shape = SubResource("BoxShape3D_gbsab")
 
 [node name="TargetDetector" type="Area3D" parent="."]
