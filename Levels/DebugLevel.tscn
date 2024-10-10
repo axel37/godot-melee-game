@@ -76,7 +76,16 @@ use_collision = true
 size = Vector3(2, 3, 7)
 
 [node name="AiEnemy" parent="." instance=ExtResource("5_ppe6u")]
-transform = Transform3D(-0.927745, 0, -0.373215, 0, 1, 0, 0.373215, 0, -0.927745, -6.04341, 4.76837e-07, -6.22882)
+transform = Transform3D(-0.711855, 0, 0.702327, 0, 1, 0, -0.702327, 0, -0.711855, 5.47679, 4.76837e-07, -6.42009)
 
 [node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(-0.942344, 0, -0.334646, 0, 1, 0, 0.334646, 0, -0.942344, -1.50615, 0, -6.02427)
+transform = Transform3D(-0.999998, 0, -0.00223419, 0, 1, 0, 0.00223419, 0, -0.999998, 0.0824443, -4.76837e-07, -5.76111)
+
+[node name="BlenderEnemy2" parent="." instance=ExtResource("6_sgnd6")]
+transform = Transform3D(0.0724549, 0, -0.997372, 0, 1, 0, 0.997372, 0, 0.0724549, -5.65546, 0, -3.20656)
+
+[node name="BlenderEnemy3" parent="." instance=ExtResource("6_sgnd6")]
+transform = Transform3D(-0.38107, 0, -0.924546, 0, 1, 0, 0.924546, 0, -0.38107, -5.14934, -9.53674e-07, -4.70027)
+
+[node name="BlenderEnemy4" parent="." instance=ExtResource("6_sgnd6")]
+transform = Transform3D(0.72523, 0, -0.688506, 0, 1, 0, 0.688506, 0, 0.72523, -5.16855, 4.76837e-07, -1.81387)
