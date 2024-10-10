@@ -64,6 +64,7 @@ guard={
 
 [layer_names]
 
+3d_physics/layer_1="World"
 3d_physics/layer_30="DamageDomain:Friendly"
 3d_physics/layer_31="DamageDomain:Neutral"
 3d_physics/layer_32="DamageDomain:Enemy"
