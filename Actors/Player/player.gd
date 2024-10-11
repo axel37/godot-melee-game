@@ -5,6 +5,7 @@ extends CharacterBody3D
 
 const LOG_CODE_BLOCKED_INCOMING_DAMAGE = "PLAYER-001"
 const LOG_CODE_TOOK_DAMAGE = "PLAYER-002"
+const LOG_CODE_DIED = "PLAYER-003"
 
 
 ## Used to scale down mouse motion so that [member sensitivity] can match quake / source engine values.
@@ -23,6 +24,8 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 ## Designed to be replaceable.
 @export var movement_processor: MovementProcessor = null
 
+@export var health: int = 5
+
 ## Used for "vertical" camera rotation (looking up/down)
 @onready var camera_pivot: Node3D = %CameraPivot
 ## [AnimationTree] managing animations for the viewmodel.
@@ -37,19 +40,21 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 ## Toggled by animations to disable player rotation
 @export var _can_rotate: bool = true
 
+var dead: bool = false
+
 func _physics_process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
+	if Engine.is_editor_hint(): return
+	if dead: return
 	_process_movement(delta)
 
 func _process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
+	if Engine.is_editor_hint(): return
+	if dead: return
 	_update_animation_tree_inputs()
 
 func _input(event: InputEvent):
-	if Engine.is_editor_hint():
-		return
+	if Engine.is_editor_hint(): return
+	if dead: return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		var x_multiplier: float = 1.0 if _can_rotate else 0.1
 		_process_mouse_motion(event.screen_relative, x_multiplier, 1)
@@ -100,3 +105,13 @@ func _on_damage_receiving_handler_blocked_damage() -> void:
 
 func _on_damage_receiving_handler_received_damage() -> void:
 	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
+	health -= 1
+	if health <= 0:
+		die()
+
+func die():
+	dead = true
+	# Reset camera pivot to not break death animation
+	camera_pivot.rotation = Vector3.ZERO
+	state_machine.travel("death")
+	Global.log(LOG_CODE_DIED, "%s died." % name)
