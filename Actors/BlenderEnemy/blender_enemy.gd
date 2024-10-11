@@ -28,9 +28,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_damage_receiving_handler_received_damage() -> void:
-	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
+	# TODO : This is sometimes not shown
 	state_machine.travel("hurt")
 	health -= 1
+	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
 	if health <= 0:
 		die()
 
@@ -44,7 +45,6 @@ func _on_target_detector_body_entered(body: Node3D) -> void:
 
 func _on_hazard_detector_received_damage() -> void:
 	if not state_machine.get_current_node() == "idle": return
-
 	guard()
 
 func guard():
@@ -54,16 +54,19 @@ func guard():
 	guard_timer.start()
 
 func attack():
+	_look_at_target_if_exists()
 	state_machine.travel("attack")
 
 func _on_guard_timer_timeout() -> void:
+	if dead: return
 	state_machine.travel("idle")
 
 func _look_at_target_if_exists():
 	if target != null:
-			look_at(Vector3(target.position.x, position.y, target.position.z))
+		look_at(Vector3(target.position.x, position.y, target.position.z))
 
 func die():
+	# TODO : death anim somtimes plays late
 	dead = true
 	state_machine.travel("death")
 	%PhysicsShape.set_deferred("disabled", true)
