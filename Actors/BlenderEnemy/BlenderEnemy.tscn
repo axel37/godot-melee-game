@@ -212,6 +212,7 @@ size = Vector3(2.18896, 1.56104, 1)
 
 [node name="BlenderEnemy" type="CharacterBody3D"]
 script = ExtResource("1_nh15x")
+health = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -230,29 +231,29 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="skin/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0551361, 0)
+bones/0/position = Vector3(0, -0.0743934, 0)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/1/rotation = Quaternion(-0.000143322, 0, 0, 1)
-bones/2/rotation = Quaternion(0.000333902, 0, 0, 1)
-bones/3/rotation = Quaternion(-0.000242787, 0, 0, 1)
+bones/1/rotation = Quaternion(-0.00971641, 0, 0, 0.999953)
+bones/2/rotation = Quaternion(0.0217992, 0, 0, 0.999762)
+bones/3/rotation = Quaternion(-0.0174076, 0, 0, 0.999848)
 bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.000246427, 0.000246148, 0.707107, 0.707107)
+bones/5/rotation = Quaternion(0.0122393, 0.012239, 0.707001, 0.707001)
 bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
 bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
-bones/9/rotation = Quaternion(0.000246378, -0.000246281, -0.707107, 0.707107)
+bones/9/rotation = Quaternion(0.0122393, -0.0122392, -0.707001, 0.707001)
 bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
 bones/11/position = Vector3(0, 0, 0)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
-bones/12/rotation = Quaternion(-0.706106, 0.000425056, 0.000426123, 0.708106)
-bones/13/rotation = Quaternion(-1.16415e-10, -1.32122e-13, -0.00110244, 0.999999)
+bones/12/rotation = Quaternion(-0.705439, 0.0306945, 0.0307813, 0.707437)
+bones/13/rotation = Quaternion(-1.15666e-10, -1.31821e-11, -0.113284, 0.993563)
 bones/14/position = Vector3(0, 0, 0)
 bones/14/rotation = Quaternion(0.5, 0.5, 0.5, -0.5)
-bones/15/rotation = Quaternion(-0.707107, -0.000425636, -0.000425563, 0.707107)
-bones/16/rotation = Quaternion(-1.907e-18, -4.31237e-15, 0.00110242, 0.999999)
+bones/15/rotation = Quaternion(-0.706438, -0.030738, -0.0307379, 0.706438)
+bones/16/rotation = Quaternion(-7.59005e-16, -3.44341e-15, 0.113284, 0.993563)
 
 [node name="HandAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376448, -4.55842e-07, 0.00376447, -0.99999, 0.000315452, 7.31635e-07, -0.000315452, -1, 0.319753, 0.913635, 0.0437102)
+transform = Transform3D(0.999993, 0.00376442, -4.54647e-07, 0.0037642, -0.999936, 0.0104505, 3.88856e-05, -0.0104504, -0.999945, 0.319753, 0.894276, 0.0304551)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -270,7 +271,7 @@ shape = SubResource("CylinderShape3D_5xobr")
 editor_description = "This Node tracks the intended sword position at all times.
 
 If you need to attach something to the sword / hand, use this node."
-transform = Transform3D(0.999993, 0.00376448, -4.55842e-07, 0.00376447, -0.99999, 0.000315452, 7.31635e-07, -0.000315452, -1, 0.319753, 0.913635, 0.0437102)
+transform = Transform3D(0.999993, 0.00376442, -4.54647e-07, 0.0037642, -0.999936, 0.0104505, 3.88856e-05, -0.0104504, -0.999945, 0.319753, 0.894276, 0.0304551)
 
 [node name="sword" parent="HandPosition" instance=ExtResource("2_wemg1")]
 transform = Transform3D(-1, 8.7423e-08, 0, -8.74228e-08, -1, 0, 0, 0, 0.999998, 0, 0, 0)
@@ -290,7 +291,7 @@ script = ExtResource("3_hkxnf")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/DamageDealer"]
-transform = Transform3D(0.999993, 0.00376448, -4.55842e-07, 0.00376447, -0.99999, 0.000315452, 7.31635e-07, -0.000315452, -1, 0.319056, 1.09901, -1.14823)
+transform = Transform3D(0.999993, 0.00376442, -4.54647e-07, 0.0037642, -0.999936, 0.0104505, 3.88856e-05, -0.0104504, -0.999945, 0.319056, 1.09172, -1.15955)
 shape = SubResource("BoxShape3D_gbsab")
 
 [node name="TargetDetector" type="Area3D" parent="."]
