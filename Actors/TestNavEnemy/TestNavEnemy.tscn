@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://sogr1684iyrw"]
+
+[ext_resource type="Script" path="res://Actors/TestNavEnemy/test_nav_enemy.gd" id="1_dgib8"]
+[ext_resource type="Texture2D" uid="uid://b0nr4rwkjr0q6" path="res://addons/kenney_prototype_textures/red/texture_04.png" id="1_kocbp"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_aapdc"]
+radius = 0.4
+
+[sub_resource type="PrismMesh" id="PrismMesh_47lh5"]
+size = Vector3(0.705, 0.515, 0.395)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udiy7"]
+albedo_texture = ExtResource("1_kocbp")
+uv1_triplanar = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jxu3k"]
+material = SubResource("StandardMaterial3D_udiy7")
+radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rmdcv"]
+size = Vector3(1, 1.77649, 1.9375)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t6x38"]
+radius = 5.0
+
+[node name="TestNavEnemy" type="CharacterBody3D"]
+script = ExtResource("1_dgib8")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+debug_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_aapdc")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.39298, -0.418025)
+mesh = SubResource("PrismMesh_47lh5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_jxu3k")
+
+[node name="TargetDetectorArea3D" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetectorArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01112, -0.974191)
+shape = SubResource("BoxShape3D_rmdcv")
+
+[node name="KeepFollowingArea3D" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeepFollowingArea3D"]
+shape = SubResource("SphereShape3D_t6x38")
+
+[connection signal="body_entered" from="TargetDetectorArea3D" to="." method="_on_target_detector_area_3d_body_entered"]
+[connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]

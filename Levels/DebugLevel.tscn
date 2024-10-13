@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btjijot4c801v"]
+[gd_scene load_steps=16 format=3 uid="uid://btjijot4c801v"]
 
 [ext_resource type="Texture2D" uid="uid://bv2y5e7tfh7qe" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="1_8tg25"]
 [ext_resource type="PackedScene" uid="uid://dqy4c57ghd41i" path="res://Actors/Player/player.tscn" id="2_xnxel"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp3ao61ldxjvh" path="res://Actors/AiEnemy/AiEnemy.tscn" id="5_ppe6u"]
 [ext_resource type="PackedScene" uid="uid://c705nchj22gd5" path="res://Actors/BlenderEnemy/BlenderEnemy.tscn" id="6_sgnd6"]
 [ext_resource type="Texture2D" uid="uid://cw5jeao8eqky5" path="res://addons/kenney_prototype_textures/orange/texture_02.png" id="7_s5inq"]
+[ext_resource type="PackedScene" uid="uid://sogr1684iyrw" path="res://Actors/TestNavEnemy/TestNavEnemy.tscn" id="8_4m5w4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0n0sm"]
 sky_top_color = Color(0.530612, 0.340753, 0.723176, 1)
@@ -145,3 +146,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.5, 16)
 use_collision = true
 size = Vector3(9, 1, 17)
 material = SubResource("StandardMaterial3D_b8207")
+
+[node name="TestNavEnemy" parent="Level" instance=ExtResource("8_4m5w4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5539, 9.53674e-07, 12.18)
+
+[node name="TestNavEnemy2" parent="Level" instance=ExtResource("8_4m5w4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.93415, -4.76837e-07, 15.152)
+
+[node name="TestNavEnemy3" parent="Level" instance=ExtResource("8_4m5w4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5906, 0, 19.3659)
