@@ -17,7 +17,17 @@ config/icon="res://icon2.png"
 
 [autoload]
 
-Global="*res://Autoload/Global.tscn"
+Global="*res://Autoload/global.tscn"
+
+[file_customization]
+
+folder_colors={
+"res://Actors/": "red",
+"res://Assets/": "teal",
+"res://Autoload/": "yellow",
+"res://Levels/": "purple",
+"res://addons/": "green"
+}
 
 [input]
 
