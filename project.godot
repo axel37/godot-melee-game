@@ -26,7 +26,8 @@ folder_colors={
 "res://Assets/": "teal",
 "res://Autoload/": "yellow",
 "res://Levels/": "purple",
-"res://addons/": "green"
+"res://addons/": "green",
+"res://ai/": "pink"
 }
 
 [input]

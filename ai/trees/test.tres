@@ -1,0 +1,18 @@
+[gd_resource type="BehaviorTree" load_steps=5 format=3 uid="uid://0csb7rbgwgqb"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ber1j"]
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_vmhoe"]
+text = "Hello from limboai"
+
+[sub_resource type="BTCooldown" id="BTCooldown_dky8y"]
+duration = 1.0
+start_cooled = true
+children = [SubResource("BTConsolePrint_vmhoe")]
+
+[sub_resource type="BTSelector" id="BTSelector_18246"]
+children = [SubResource("BTCooldown_dky8y")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ber1j")
+root_task = SubResource("BTSelector_18246")
