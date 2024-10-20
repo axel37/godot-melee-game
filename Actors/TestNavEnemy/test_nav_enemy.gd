@@ -21,6 +21,8 @@ func _physics_process(delta):
 		return
 
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+	look_at(Vector3(next_path_position.x, global_position.y, next_path_position.z))
+
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
