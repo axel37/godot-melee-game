@@ -21,6 +21,8 @@ func _tick(delta: float) -> Status:
 	var agent_position: Vector3 = agent.global_position
 	var distance_to_target: float = agent_position.distance_to(target_position)
 
+	## TODO : Infinite loop (always RUNNING) if target is not reachable !
+	## Implement failsafe mechanism if not moving for too long ?
 	if distance_to_target <= tolerance:
 		return SUCCESS
 	else:

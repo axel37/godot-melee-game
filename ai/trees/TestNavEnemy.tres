@@ -1,15 +1,19 @@
-[gd_resource type="BehaviorTree" load_steps=9 format=3 uid="uid://0csb7rbgwgqb"]
+[gd_resource type="BehaviorTree" load_steps=12 format=3 uid="uid://0csb7rbgwgqb"]
 
 [ext_resource type="Script" path="res://ai/tasks/pick_random_position.gd" id="2_c44bl"]
 [ext_resource type="Script" path="res://ai/tasks/move_to_position.gd" id="2_ef3o0"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ber1j"]
 
+[sub_resource type="BTComment" id="BTComment_3yur3"]
+custom_name = "TODO : Follow player sequence"
+
 [sub_resource type="BTAction" id="BTAction_a682k"]
 script = ExtResource("2_c44bl")
 chosen_position_var = &"position"
 
-[sub_resource type="BTWait" id="BTWait_j1jl1"]
+[sub_resource type="BTComment" id="BTComment_ui4om"]
+custom_name = "TODO : Workaround as a legitimate position can take longer to move to"
 
 [sub_resource type="BTAction" id="BTAction_b5af2"]
 script = ExtResource("2_ef3o0")
@@ -17,12 +21,19 @@ target_position_var = &"position"
 speed_var = 3.0
 tolerance = 1.0
 
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_kr28d"]
+time_limit = 20.0
+children = [SubResource("BTAction_b5af2")]
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_hhxt7"]
+max_duration = 6.0
+
 [sub_resource type="BTSequence" id="BTSequence_jrhp3"]
 custom_name = "RandomMoveSequence"
-children = [SubResource("BTAction_a682k"), SubResource("BTWait_j1jl1"), SubResource("BTAction_b5af2")]
+children = [SubResource("BTAction_a682k"), SubResource("BTComment_ui4om"), SubResource("BTTimeLimit_kr28d"), SubResource("BTRandomWait_hhxt7")]
 
 [sub_resource type="BTSelector" id="BTSelector_18246"]
-children = [SubResource("BTSequence_jrhp3")]
+children = [SubResource("BTComment_3yur3"), SubResource("BTSequence_jrhp3")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ber1j")

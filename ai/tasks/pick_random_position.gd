@@ -7,6 +7,8 @@ extends BTAction
 
 const LOG_CODE_POSITION_PICKED: String = "TASK-PICKRANDOMPOSITION-001"
 const LOG_CODE_NO_NAV_AGENT: String = "TASK-PICKRANDOMPOSITION-002"
+const LOG_CODE_POSITION_ZERO: String = "TASK-PICKRANDOMPOSITION-003"
+
 
 ## Pick a position
 func _tick(_delta: float) -> Status:
@@ -18,6 +20,11 @@ func _tick(_delta: float) -> Status:
 
 	## Step 2 : Pick a random position
 	var chosen_position: Vector3 = _pick_position_for_agent(navigation_agent)
+
+	## If position was zero, something PROBABLY went wrong
+	if chosen_position == Vector3.ZERO:
+		Global.log(LOG_CODE_POSITION_ZERO, "Task Failed : Picked position was Vector3.ZERO, aborting (something probably went wrong). Agent : %s" % agent.name)
+		return FAILURE
 
 	## Step 3 : Save result to blackboard
 	_save_result_to_blackboard(chosen_position)
