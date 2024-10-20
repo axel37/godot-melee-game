@@ -3,10 +3,27 @@ extends CharacterBody3D
 @export var movement_speed: float = 2.0
 @onready var navigation_agent: NavigationAgent3D = %NavigationAgent3D
 
+@onready var limbo_hsm: LimboHSM = %LimboHSM
+@onready var roaming_state: BTState = %RoamingState
+@onready var combat_state: BTState = %CombatState
+
+
 var target: Node3D
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	_init_state_machine()
+
+func _init_state_machine() -> void:
+	#limbo_hsm.add_transition(roaming_state, combat_state, roaming_state.EVENT_FINISHED)
+	limbo_hsm.add_transition(roaming_state, combat_state, &"detected_target")
+	#limbo_hsm.add_transition(combat_state, roaming_state, combat_state.EVENT_FINISHED)
+	limbo_hsm.add_transition(combat_state, roaming_state, &"lost_target")
+
+
+	limbo_hsm.initialize(self)
+	limbo_hsm.set_active(true)
+
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
@@ -15,8 +32,6 @@ func _physics_process(_delta: float):
 	# Do not query when the map has never synchronized and is empty.
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
-	if target != null:
-		set_movement_target(target.position)
 	if navigation_agent.is_navigation_finished():
 		return
 
@@ -37,11 +52,11 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 
 func _on_target_detector_area_3d_body_entered(body: Node3D) -> void:
-	if body == self: return
-	print("Got target %s" % body.name)
+	## TODO : This does not immediately cancel the current state !
 	target = body
+	limbo_hsm.dispatch(&"detected_target")
 
 func _on_keep_following_area_3d_body_exited(body: Node3D) -> void:
 	if body == target:
-		print("Lost target %s" % target.name)
 		target = null
+		limbo_hsm.dispatch(&"lost_target")

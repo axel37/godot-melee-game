@@ -12,5 +12,5 @@ func _tick(delta: float) -> Status:
 	if message == null:
 		Global.log(LOG_CODE_NO_MESSAGE, "Task failed : Logger was called without a message.")
 
-	Global.log(LOG_CODE_LOGGED, message)
+	Global.log(LOG_CODE_LOGGED, "Agent %s logged : %s" % [agent.name, message])
 	return SUCCESS
