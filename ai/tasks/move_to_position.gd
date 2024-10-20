@@ -1,0 +1,30 @@
+## Move agent to desired position.
+## Fail if position is not reachable.
+extends BTAction
+
+const LOG_CODE_NO_TARGET: String = "TASK-MOVETOPOSITION-001"
+
+@export var target_position_var: StringName = &"position"
+
+## TODO : This looks like it should be in the agent's code ?
+## Should the task move the agent, or simply call code from the agent ? (agent.move_to_position)...
+@export var speed_var: float = 3
+@export var tolerance: float = 1
+
+func _tick(delta: float) -> Status:
+	## Step 1 : Retrieve target position from blackboard, or fail
+	var target_position: Vector3 = blackboard.get_var(target_position_var)
+	if  target_position == null:
+		Global.log(LOG_CODE_NO_TARGET, "Task Failure : No target position specified for agent %s" % agent.name)
+		return FAILURE
+
+	var agent_position: Vector3 = agent.global_position
+	var distance_to_target: float = agent_position.distance_to(target_position)
+
+	if distance_to_target <= tolerance:
+		return SUCCESS
+	else:
+		## Move agent
+		## TODO : Don't set target again if already set to current ?
+		agent.set_movement_target(target_position)
+		return RUNNING
