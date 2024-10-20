@@ -18,7 +18,7 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
 
 
-func _on_target_detector_body_entered(body: Node3D) -> void:
+func _on_target_detector_body_entered(_body: Node3D) -> void:
 	skin.attack()
 	state_machine.travel("attack")
 

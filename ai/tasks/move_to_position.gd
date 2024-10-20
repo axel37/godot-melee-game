@@ -11,7 +11,7 @@ const LOG_CODE_NO_TARGET: String = "TASK-MOVETOPOSITION-001"
 @export var speed_var: float = 3
 @export var tolerance: float = 1
 
-func _tick(delta: float) -> Status:
+func _tick(_delta: float) -> Status:
 	## Step 1 : Retrieve target position from blackboard, or fail
 	var target_position: Vector3 = blackboard.get_var(target_position_var)
 	if  target_position == null:

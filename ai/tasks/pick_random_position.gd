@@ -32,9 +32,9 @@ func _tick(_delta: float) -> Status:
 	return SUCCESS
 
 
-func _pick_position_for_agent(agent: NavigationAgent3D) -> Vector3:
-	var navigation_map: RID = agent.get_navigation_map()
-	var navigation_layer: int = agent.navigation_layers
+func _pick_position_for_agent(nav_agent: NavigationAgent3D) -> Vector3:
+	var navigation_map: RID = nav_agent.get_navigation_map()
+	var navigation_layer: int = nav_agent.navigation_layers
 
 	return NavigationServer3D.map_get_random_point(navigation_map, navigation_layer, false)
 

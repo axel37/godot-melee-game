@@ -14,7 +14,7 @@ var dead: bool = false
 
 var target: Node3D
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# We're gonna need better than this
 	if dead: return
 	if not state_machine.get_current_node() == "idle": return
