@@ -1,8 +1,8 @@
-[gd_resource type="BehaviorTree" load_steps=18 format=3 uid="uid://bhoa8f3pw8tpa"]
+[gd_resource type="BehaviorTree" load_steps=16 format=3 uid="uid://bhoa8f3pw8tpa"]
 
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_veo3o"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_0ivwp"]
-[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/move_to_position.gd" id="3_gmyno"]
+[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_tracking_position.gd" id="3_1webh"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_3drwe"]
 var/target_position/name = &"target_position"
@@ -27,7 +27,7 @@ target_position_var = &"target_position"
 script = ExtResource("2_0ivwp")
 target_position_to_check_var = &"target_position"
 is_in_range_var = &"target_in_range"
-max_distance_to_pass = 3.0
+max_distance_to_pass = 1.0
 
 [sub_resource type="BBVariant" id="BBVariant_d5sft"]
 type = 1
@@ -49,22 +49,14 @@ children = [SubResource("BTComment_430ck"), SubResource("BTAction_4p2cd"), SubRe
 script = ExtResource("1_veo3o")
 target_position_var = &"target_position"
 
-[sub_resource type="BTAction" id="BTAction_4bp6g"]
-script = ExtResource("3_gmyno")
+[sub_resource type="BTAction" id="BTAction_1p4mi"]
+script = ExtResource("3_1webh")
 target_position_var = "target_position"
-speed_var = 3.0
 tolerance = 1.0
-
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_81cwf"]
-time_limit = 0.1
-children = [SubResource("BTAction_4bp6g")]
-
-[sub_resource type="BTComment" id="BTComment_qrre4"]
-custom_name = "TODO : If target moves, agent will only update target position once it's done following the previous position !"
 
 [sub_resource type="BTSequence" id="BTSequence_aa3oi"]
 custom_name = "Move to target"
-children = [SubResource("BTAction_eqt2e"), SubResource("BTTimeLimit_81cwf"), SubResource("BTComment_qrre4")]
+children = [SubResource("BTAction_eqt2e"), SubResource("BTAction_1p4mi")]
 
 [sub_resource type="BTSelector" id="BTSelector_fd72t"]
 children = [SubResource("BTSequence_moms5"), SubResource("BTSequence_aa3oi")]

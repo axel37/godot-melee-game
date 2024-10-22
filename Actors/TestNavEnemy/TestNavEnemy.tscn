@@ -20,10 +20,10 @@ material = SubResource("StandardMaterial3D_udiy7")
 radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rmdcv"]
-size = Vector3(1, 1.77649, 1.9375)
+size = Vector3(1.43945, 1.77649, 3.8916)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t6x38"]
-radius = 5.0
+radius = 8.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_c7fvp"]
 
@@ -54,7 +54,7 @@ collision_layer = 0
 collision_mask = 536870912
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetectorArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01112, -0.974191)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01112, -1.95124)
 shape = SubResource("BoxShape3D_rmdcv")
 
 [node name="KeepFollowingArea3D" type="Area3D" parent="."]

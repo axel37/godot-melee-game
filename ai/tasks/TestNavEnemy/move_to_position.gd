@@ -6,9 +6,6 @@ const LOG_CODE_NO_TARGET: String = "TASK-MOVETOPOSITION-001"
 
 @export var target_position_var: StringName = &"position"
 
-## TODO : This looks like it should be in the agent's code ?
-## Should the task move the agent, or simply call code from the agent ? (agent.move_to_position)...
-@export var speed_var: float = 3
 @export var tolerance: float = 1
 
 func _tick(_delta: float) -> Status:
