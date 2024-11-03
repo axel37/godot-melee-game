@@ -104,26 +104,26 @@ debug_enabled = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="model/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0661568, 0)
-bones/1/rotation = Quaternion(-0.00598949, 0, 0, 0.999982)
-bones/2/rotation = Quaternion(0.0126547, 0, 0, 0.99992)
-bones/3/rotation = Quaternion(-0.0101447, 0, 0, 0.999949)
+bones/0/position = Vector3(0, -0.0724737, 0)
+bones/1/rotation = Quaternion(-0.00933285, 0, 0, 0.999956)
+bones/2/rotation = Quaternion(0.0197332, 0, 0, 0.999805)
+bones/3/rotation = Quaternion(-0.0158135, 0, 0, 0.999875)
 bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.00708306, 0.00708278, 0.707071, 0.707071)
+bones/5/rotation = Quaternion(0.0110501, 0.0110498, 0.70702, 0.70702)
 bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
 bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
-bones/9/rotation = Quaternion(0.00708302, -0.00708292, -0.707071, 0.707071)
+bones/9/rotation = Quaternion(0.01105, -0.0110499, -0.70702, 0.70702)
 bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.705883, 0.0177646, 0.0178148, 0.707882)
-bones/13/rotation = Quaternion(-1.16164e-10, -7.64979e-12, -0.0656343, 0.997844)
-bones/15/rotation = Quaternion(-0.706883, -0.0177907, -0.0177906, 0.706883)
-bones/16/rotation = Quaternion(-2.75855e-16, -1.76695e-15, 0.0656343, 0.997844)
+bones/12/rotation = Quaternion(-0.705562, 0.0277149, 0.0277932, 0.70756)
+bones/13/rotation = Quaternion(-1.15803e-10, -1.19169e-11, -0.102313, 0.994752)
+bones/15/rotation = Quaternion(-0.706562, -0.027746, -0.0277459, 0.706562)
+bones/16/rotation = Quaternion(-7.17146e-16, -6.81649e-15, 0.102313, 0.994752)
 
 [node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376442, -4.58373e-07, 0.00376433, -0.999968, 0.00670269, 2.47735e-05, -0.00670266, -0.999977, 0.319753, 0.902585, 0.0360496)
+transform = Transform3D(0.999993, 0.00376431, -4.55578e-07, 0.0037642, -0.999936, 0.0104519, 3.889e-05, -0.0104519, -0.999945, 0.319753, 0.896226, 0.0315682)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -137,6 +137,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_eb0p3")
 
 [node name="BlenderAnimationTree" type="AnimationTree" parent="."]
+active = false
 root_node = NodePath("../model")
 tree_root = SubResource("AnimationNodeStateMachine_1tapv")
 anim_player = NodePath("../model/AnimationPlayer")

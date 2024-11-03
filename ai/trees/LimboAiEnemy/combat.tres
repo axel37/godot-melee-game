@@ -1,9 +1,8 @@
-[gd_resource type="BehaviorTree" load_steps=16 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=22 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_7b5t1"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_tracking_position.gd" id="3_pwfc1"]
-[ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/doAttack.gd" id="3_tvxtr"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_bwcuf"]
 
@@ -26,12 +25,42 @@ resource_name = "true"
 variable = &"target_in_range"
 value = SubResource("BBVariant_6kvqs")
 
-[sub_resource type="BTAction" id="BTAction_kda67"]
-script = ExtResource("3_tvxtr")
+[sub_resource type="BTComment" id="BTComment_5tid1"]
+custom_name = "TODO : Look at target before attacking"
+
+[sub_resource type="BTComment" id="BTComment_ld5uq"]
+custom_name = "TODO : Stop moving before attacking"
+
+[sub_resource type="BBNode" id="BBNode_wn5sm"]
+saved_value = NodePath("model/AnimationPlayer")
+resource_name = "model/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_otdys"]
+await_completion = 3.0
+animation_player = SubResource("BBNode_wn5sm")
+animation_name = &"anim-attack-windup"
+
+[sub_resource type="BBNode" id="BBNode_qxfi7"]
+saved_value = NodePath("model/AnimationPlayer")
+resource_name = "model/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_vbsvo"]
+await_completion = 3.0
+animation_player = SubResource("BBNode_qxfi7")
+animation_name = &"anim-attack-swing"
+
+[sub_resource type="BBNode" id="BBNode_dksss"]
+saved_value = NodePath("model/AnimationPlayer")
+resource_name = "model/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_u170p"]
+await_completion = 3.0
+animation_player = SubResource("BBNode_dksss")
+animation_name = &"anim-attack-recover"
 
 [sub_resource type="BTSequence" id="BTSequence_7a1uh"]
 custom_name = "Attack Target"
-children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTAction_kda67")]
+children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_ld5uq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTPlayAnimation_u170p")]
 
 [sub_resource type="BTAction" id="BTAction_f3m2n"]
 script = ExtResource("1_7b5t1")
