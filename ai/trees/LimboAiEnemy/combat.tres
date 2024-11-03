@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=26 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=32 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_7b5t1"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
@@ -28,8 +28,8 @@ value = SubResource("BBVariant_6kvqs")
 [sub_resource type="BTComment" id="BTComment_5tid1"]
 custom_name = "TODO : Look at target before attacking"
 
-[sub_resource type="BTComment" id="BTComment_r655s"]
-custom_name = "TODO : Set up damage dealing and receiving"
+[sub_resource type="BTComment" id="BTComment_amgk8"]
+custom_name = "TODO : Use the 3D overlay addon to visualize shapes !"
 
 [sub_resource type="BBVariant" id="BBVariant_vbgk4"]
 type = 3
@@ -48,6 +48,20 @@ await_completion = 3.0
 animation_player = SubResource("BBNode_wn5sm")
 animation_name = &"anim-attack-windup"
 
+[sub_resource type="BBVariant" id="BBVariant_i7l8d"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BBNode" id="BBNode_gbym0"]
+saved_value = NodePath("HandPositionAttachment/DamageDealingHandler/DamageDealer")
+resource_name = "HandPositionAttachment/DamageDealingHandler/DamageDealer"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_dg7n2"]
+node = SubResource("BBNode_gbym0")
+method = &"_set_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_i7l8d")])
+
 [sub_resource type="BBNode" id="BBNode_qxfi7"]
 saved_value = NodePath("model/AnimationPlayer")
 resource_name = "model/AnimationPlayer"
@@ -56,6 +70,20 @@ resource_name = "model/AnimationPlayer"
 await_completion = 3.0
 animation_player = SubResource("BBNode_qxfi7")
 animation_name = &"anim-attack-swing"
+
+[sub_resource type="BBVariant" id="BBVariant_ixmaq"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BBNode" id="BBNode_5jaur"]
+saved_value = NodePath("HandPositionAttachment/DamageDealingHandler/DamageDealer")
+resource_name = "HandPositionAttachment/DamageDealingHandler/DamageDealer"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_ftml0"]
+node = SubResource("BBNode_5jaur")
+method = &"_set_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_ixmaq")])
 
 [sub_resource type="BBNode" id="BBNode_dksss"]
 saved_value = NodePath("model/AnimationPlayer")
@@ -77,7 +105,7 @@ value = SubResource("BBVariant_plkvn")
 
 [sub_resource type="BTSequence" id="BTSequence_7a1uh"]
 custom_name = "Attack Target"
-children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_r655s"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
+children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_amgk8"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTCallMethod_dg7n2"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTCallMethod_ftml0"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
 
 [sub_resource type="BTAction" id="BTAction_f3m2n"]
 script = ExtResource("1_7b5t1")

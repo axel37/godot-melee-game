@@ -6,6 +6,13 @@ extends CharacterBody3D
 @onready var limbo_hsm: LimboHSM = %LimboHSM
 @onready var roaming_state: BTState = %RoamingState
 @onready var combat_state: BTState = %CombatState
+@onready var hurt_state: LimboState = %HurtState
+
+
+## TODO : Health management and death
+## Death should probably be a state (in which everything is disabled and nothing else happens)
+
+## TODO : Bouncing corpse ?
 
 # Used to stop moving while attacking
 var movement_speed_multiplier: float = 1.0
@@ -21,6 +28,9 @@ func _init_state_machine() -> void:
 	limbo_hsm.add_transition(roaming_state, combat_state, &"detected_target")
 	#limbo_hsm.add_transition(combat_state, roaming_state, combat_state.EVENT_FINISHED)
 	limbo_hsm.add_transition(combat_state, roaming_state, &"lost_target")
+	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, hurt_state, &"got_hurt")
+	limbo_hsm.add_transition(hurt_state, combat_state, hurt_state.EVENT_FINISHED)
+
 
 
 	limbo_hsm.initialize(self)
@@ -61,3 +71,8 @@ func _on_keep_following_area_3d_body_exited(body: Node3D) -> void:
 	if body == target:
 		target = null
 		limbo_hsm.dispatch(&"lost_target")
+
+
+func _on_damage_receiving_handler_received_damage() -> void:
+	print("detected hurt")
+	limbo_hsm.dispatch(&"got_hurt")
