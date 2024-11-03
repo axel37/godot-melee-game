@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp3ao61ldxjvh" path="res://Actors/AiEnemy/AiEnemy.tscn" id="5_ppe6u"]
 [ext_resource type="PackedScene" uid="uid://c705nchj22gd5" path="res://Actors/BlenderEnemy/BlenderEnemy.tscn" id="6_sgnd6"]
 [ext_resource type="Texture2D" uid="uid://cw5jeao8eqky5" path="res://addons/kenney_prototype_textures/orange/texture_02.png" id="7_s5inq"]
-[ext_resource type="PackedScene" uid="uid://sogr1684iyrw" path="res://Actors/TestNavEnemy/TestNavEnemy.tscn" id="8_4m5w4"]
+[ext_resource type="PackedScene" uid="uid://bgx45e0mxvfwf" path="res://Actors/LimboAiEnemy/LimboAiEnemy.tscn" id="9_8jvgd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0n0sm"]
 sky_top_color = Color(0.530612, 0.340753, 0.723176, 1)
@@ -78,16 +78,16 @@ is_attacking = true
 transform = Transform3D(-0.711855, 0, 0.702327, 0, 1, 0, -0.702327, 0, -0.711855, 5.47679, 4.76837e-07, -6.42009)
 
 [node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(-0.999998, 0, -0.00223419, 0, 1, 0, 0.00223419, 0, -0.999998, 0.0824443, -4.76837e-07, -5.76111)
+transform = Transform3D(-0.997574, 0, -0.0696174, 0, 1, 0, 0.0696174, 0, -0.997574, 8.0936, 1.50364, -0.778993)
 
 [node name="BlenderEnemy2" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(0.0724549, 0, -0.997372, 0, 1, 0, 0.997372, 0, 0.0724549, -5.65546, 0, -3.20656)
+transform = Transform3D(0.0724549, 0, -0.997372, 0, 1, 0, 0.997372, 0, 0.0724549, -7.17357, 0, -5.15946)
 
 [node name="BlenderEnemy3" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(-0.38107, 0, -0.924546, 0, 1, 0, 0.924546, 0, -0.38107, -5.14934, -9.53674e-07, -4.70027)
+transform = Transform3D(-0.38107, 0, -0.924546, 0, 1, 0, 0.924546, 0, -0.38107, -6.66745, -9.53674e-07, -6.65317)
 
 [node name="BlenderEnemy4" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(0.72523, 0, -0.688506, 0, 1, 0, 0.688506, 0, 0.72523, -5.16855, 4.76837e-07, -1.81387)
+transform = Transform3D(0.72523, 0, -0.688506, 0, 1, 0, 0.688506, 0, 0.72523, -6.68666, 4.76837e-07, -3.76677)
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -147,11 +147,5 @@ use_collision = true
 size = Vector3(9, 1, 17)
 material = SubResource("StandardMaterial3D_b8207")
 
-[node name="TestNavEnemy" parent="Level" instance=ExtResource("8_4m5w4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5539, 9.53674e-07, 12.18)
-
-[node name="TestNavEnemy2" parent="Level" instance=ExtResource("8_4m5w4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.93415, -4.76837e-07, 15.152)
-
-[node name="TestNavEnemy3" parent="Level" instance=ExtResource("8_4m5w4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5906, 0, 19.3659)
+[node name="LimboAiEnemy" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.999992, 0, -0.00394454, 0, 1, 0, 0.00394454, 0, -0.999992, -0.192311, 0, -5.75918)

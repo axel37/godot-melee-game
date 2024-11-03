@@ -1,7 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=29 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
+[ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
 [ext_resource type="PackedScene" uid="uid://b57sy8bb34nw7" path="res://Actors/LimboAiEnemy/sword.glb" id="2_5glsx"]
+[ext_resource type="BehaviorTree" uid="uid://cj3dbrwwunx7r" path="res://ai/trees/LimboAiEnemy/idle.tres" id="4_uvef0"]
+[ext_resource type="BehaviorTree" uid="uid://ckn41oejogsuw" path="res://ai/trees/LimboAiEnemy/combat.tres" id="5_xoe8a"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_eb0p3"]
 radius = 0.35
@@ -80,31 +83,47 @@ states/anim-idle/position = Vector2(338, 93)
 transitions = ["Start", "anim-idle", SubResource("AnimationNodeStateMachineTransition_45x41"), "anim-idle", "anim-attack-windup", SubResource("AnimationNodeStateMachineTransition_ubpik"), "anim-attack-windup", "anim-attack-swing", SubResource("AnimationNodeStateMachineTransition_uin68"), "anim-attack-swing", "anim-attack-recover", SubResource("AnimationNodeStateMachineTransition_xthuk"), "anim-attack-recover", "anim-idle", SubResource("AnimationNodeStateMachineTransition_g5u14"), "anim-idle", "anim-guard", SubResource("AnimationNodeStateMachineTransition_ayoh0"), "anim-guard", "anim-idle", SubResource("AnimationNodeStateMachineTransition_doc1x"), "anim-attack-windup", "anim-guard", SubResource("AnimationNodeStateMachineTransition_e8ujc"), "anim-attack-recover", "anim-guard", SubResource("AnimationNodeStateMachineTransition_08afh"), "anim-hurt", "anim-idle", SubResource("AnimationNodeStateMachineTransition_tnpy6")]
 graph_offset = Vector2(-64, -49)
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_wlei4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e1p1f"]
+radius = 8.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os25c"]
+size = Vector3(1.43945, 1.77649, 3.8916)
+
 [node name="LimboAiEnemy" type="CharacterBody3D"]
+script = ExtResource("1_sjejd")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+debug_enabled = true
 
 [node name="model" parent="." instance=ExtResource("1_fodfn")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="model/skeleton" index="0"]
-bones/0/position = Vector3(0, -0.0665041, 0)
-bones/1/rotation = Quaternion(-0.00617935, 0, 0, 0.999981)
-bones/2/rotation = Quaternion(0.013054, 0, 0, 0.999915)
-bones/3/rotation = Quaternion(-0.0104623, 0, 0, 0.999945)
+bones/0/position = Vector3(0, -0.0661568, 0)
+bones/1/rotation = Quaternion(-0.00598949, 0, 0, 0.999982)
+bones/2/rotation = Quaternion(0.0126547, 0, 0, 0.99992)
+bones/3/rotation = Quaternion(-0.0101447, 0, 0, 0.999949)
 bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
-bones/5/rotation = Quaternion(0.00730483, 0.00730455, 0.707069, 0.707069)
+bones/5/rotation = Quaternion(0.00708306, 0.00708278, 0.707071, 0.707071)
 bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
 bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
 bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
-bones/9/rotation = Quaternion(0.00730478, -0.00730468, -0.707069, 0.707069)
+bones/9/rotation = Quaternion(0.00708302, -0.00708292, -0.707071, 0.707071)
 bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
 bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.705868, 0.0183261, 0.0183779, 0.707868)
-bones/13/rotation = Quaternion(-1.16148e-10, -7.88413e-12, -0.0676996, 0.997706)
-bones/15/rotation = Quaternion(-0.706869, -0.0183509, -0.0183508, 0.706869)
-bones/16/rotation = Quaternion(-2.56296e-16, -2.14512e-15, 0.0676877, 0.997707)
+bones/12/rotation = Quaternion(-0.705883, 0.0177646, 0.0178148, 0.707882)
+bones/13/rotation = Quaternion(-1.16164e-10, -7.64979e-12, -0.0656343, 0.997844)
+bones/15/rotation = Quaternion(-0.706883, -0.0177907, -0.0177906, 0.706883)
+bones/16/rotation = Quaternion(-2.75855e-16, -1.76695e-15, 0.0656343, 0.997844)
 
 [node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-0.999993, -0.00376448, 3.70021e-07, 0.00376438, -0.999967, 0.00691115, -2.56458e-05, 0.00691112, 0.999976, -0.319753, 0.902236, -0.0358007)
+transform = Transform3D(0.999993, 0.00376442, -4.58373e-07, 0.00376433, -0.999968, 0.00670269, 2.47735e-05, -0.00670266, -0.999977, 0.319753, 0.902585, 0.0360496)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -121,5 +140,38 @@ shape = SubResource("CylinderShape3D_eb0p3")
 root_node = NodePath("../model")
 tree_root = SubResource("AnimationNodeStateMachine_1tapv")
 anim_player = NodePath("../model/AnimationPlayer")
+
+[node name="LimboHSM" type="LimboHSM" parent="."]
+unique_name_in_owner = true
+
+[node name="RoamingState" type="BTState" parent="LimboHSM"]
+behavior_tree = ExtResource("4_uvef0")
+blackboard_plan = SubResource("BlackboardPlan_k733v")
+unique_name_in_owner = true
+
+[node name="CombatState" type="BTState" parent="LimboHSM"]
+behavior_tree = ExtResource("5_xoe8a")
+blackboard_plan = SubResource("BlackboardPlan_wlei4")
+unique_name_in_owner = true
+
+[node name="KeepFollowingArea3D" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeepFollowingArea3D"]
+shape = SubResource("SphereShape3D_e1p1f")
+
+[node name="TargetDetectorArea3D" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetDetectorArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01112, -1.95124)
+shape = SubResource("BoxShape3D_os25c")
+
+[connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]
+[connection signal="body_entered" from="TargetDetectorArea3D" to="." method="_on_target_detector_area_3d_body_entered"]
 
 [editable path="model"]

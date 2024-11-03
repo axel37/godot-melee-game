@@ -1,0 +1,54 @@
+[gd_resource type="BehaviorTree" load_steps=16 format=3 uid="uid://ckn41oejogsuw"]
+
+[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_7b5t1"]
+[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
+[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_tracking_position.gd" id="3_pwfc1"]
+[ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/doAttack.gd" id="3_tvxtr"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_bwcuf"]
+
+[sub_resource type="BTAction" id="BTAction_8xljn"]
+script = ExtResource("1_7b5t1")
+target_position_var = &"target_position"
+
+[sub_resource type="BTAction" id="BTAction_81esk"]
+script = ExtResource("2_51ny3")
+target_position_to_check_var = &"target_position"
+is_in_range_var = &"target_in_range"
+max_distance_to_pass = 3.0
+
+[sub_resource type="BBVariant" id="BBVariant_6kvqs"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_eo4fy"]
+variable = &"target_in_range"
+value = SubResource("BBVariant_6kvqs")
+
+[sub_resource type="BTAction" id="BTAction_kda67"]
+script = ExtResource("3_tvxtr")
+
+[sub_resource type="BTSequence" id="BTSequence_7a1uh"]
+custom_name = "Attack Target"
+children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTAction_kda67")]
+
+[sub_resource type="BTAction" id="BTAction_f3m2n"]
+script = ExtResource("1_7b5t1")
+target_position_var = &"target_position"
+
+[sub_resource type="BTAction" id="BTAction_qbbml"]
+script = ExtResource("3_pwfc1")
+target_position_var = "target_position"
+tolerance = 1.0
+
+[sub_resource type="BTSequence" id="BTSequence_itepf"]
+custom_name = "Move to Target"
+children = [SubResource("BTAction_f3m2n"), SubResource("BTAction_qbbml")]
+
+[sub_resource type="BTSelector" id="BTSelector_r2med"]
+children = [SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_bwcuf")
+root_task = SubResource("BTSelector_r2med")
