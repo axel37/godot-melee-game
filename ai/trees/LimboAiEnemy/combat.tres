@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=22 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=26 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_7b5t1"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
@@ -28,8 +28,16 @@ value = SubResource("BBVariant_6kvqs")
 [sub_resource type="BTComment" id="BTComment_5tid1"]
 custom_name = "TODO : Look at target before attacking"
 
-[sub_resource type="BTComment" id="BTComment_ld5uq"]
-custom_name = "TODO : Stop moving before attacking"
+[sub_resource type="BTComment" id="BTComment_r655s"]
+custom_name = "TODO : Set up damage dealing and receiving"
+
+[sub_resource type="BBVariant" id="BBVariant_vbgk4"]
+type = 3
+saved_value = 0.0
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_a80qq"]
+property = &"movement_speed_multiplier"
+value = SubResource("BBVariant_vbgk4")
 
 [sub_resource type="BBNode" id="BBNode_wn5sm"]
 saved_value = NodePath("model/AnimationPlayer")
@@ -58,9 +66,18 @@ await_completion = 3.0
 animation_player = SubResource("BBNode_dksss")
 animation_name = &"anim-attack-recover"
 
+[sub_resource type="BBVariant" id="BBVariant_plkvn"]
+type = 3
+saved_value = 1.0
+resource_name = "1"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_cfdka"]
+property = &"movement_speed_multiplier"
+value = SubResource("BBVariant_plkvn")
+
 [sub_resource type="BTSequence" id="BTSequence_7a1uh"]
 custom_name = "Attack Target"
-children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_ld5uq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTPlayAnimation_u170p")]
+children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_r655s"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
 
 [sub_resource type="BTAction" id="BTAction_f3m2n"]
 script = ExtResource("1_7b5t1")
