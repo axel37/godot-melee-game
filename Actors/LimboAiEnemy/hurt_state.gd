@@ -6,6 +6,7 @@ extends LimboState
 
 func _enter() -> void:
 	## TODO : State isn't called before it's over (= new hurt animation won't play before previous is over)
+	##		Even the guard isn't called...
 	## TODO : Enemy gets hurt once even if the player isn't attacking
 	animation_player.stop()
 	animation_player.play(animation_name, 1)
