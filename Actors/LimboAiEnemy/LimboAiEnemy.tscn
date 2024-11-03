@@ -1,0 +1,125 @@
+[gd_scene load_steps=22 format=3 uid="uid://bgx45e0mxvfwf"]
+
+[ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
+[ext_resource type="PackedScene" uid="uid://b57sy8bb34nw7" path="res://Actors/LimboAiEnemy/sword.glb" id="2_5glsx"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eb0p3"]
+radius = 0.35
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vkh05"]
+animation = &"anim-attack-recover"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hj8ke"]
+animation = &"anim-attack-swing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lyca"]
+animation = &"anim-attack-windup"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_knfv8"]
+animation = &"anim-death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3a7xr"]
+animation = &"anim-guard"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5hu7l"]
+animation = &"anim-hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_67mqs"]
+animation = &"anim-idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_45x41"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ubpik"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uin68"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xthuk"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g5u14"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayoh0"]
+xfade_time = 0.15
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_doc1x"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e8ujc"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_08afh"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tnpy6"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1tapv"]
+states/End/position = Vector2(1054, 102)
+states/Start/position = Vector2(159, 87)
+states/anim-attack-recover/node = SubResource("AnimationNodeAnimation_vkh05")
+states/anim-attack-recover/position = Vector2(746, 283)
+states/anim-attack-swing/node = SubResource("AnimationNodeAnimation_hj8ke")
+states/anim-attack-swing/position = Vector2(338, 288)
+states/anim-attack-windup/node = SubResource("AnimationNodeAnimation_8lyca")
+states/anim-attack-windup/position = Vector2(338, 193)
+states/anim-death/node = SubResource("AnimationNodeAnimation_knfv8")
+states/anim-death/position = Vector2(527, -48)
+states/anim-guard/node = SubResource("AnimationNodeAnimation_3a7xr")
+states/anim-guard/position = Vector2(658, 47)
+states/anim-hurt/node = SubResource("AnimationNodeAnimation_5hu7l")
+states/anim-hurt/position = Vector2(338, -35)
+states/anim-idle/node = SubResource("AnimationNodeAnimation_67mqs")
+states/anim-idle/position = Vector2(338, 93)
+transitions = ["Start", "anim-idle", SubResource("AnimationNodeStateMachineTransition_45x41"), "anim-idle", "anim-attack-windup", SubResource("AnimationNodeStateMachineTransition_ubpik"), "anim-attack-windup", "anim-attack-swing", SubResource("AnimationNodeStateMachineTransition_uin68"), "anim-attack-swing", "anim-attack-recover", SubResource("AnimationNodeStateMachineTransition_xthuk"), "anim-attack-recover", "anim-idle", SubResource("AnimationNodeStateMachineTransition_g5u14"), "anim-idle", "anim-guard", SubResource("AnimationNodeStateMachineTransition_ayoh0"), "anim-guard", "anim-idle", SubResource("AnimationNodeStateMachineTransition_doc1x"), "anim-attack-windup", "anim-guard", SubResource("AnimationNodeStateMachineTransition_e8ujc"), "anim-attack-recover", "anim-guard", SubResource("AnimationNodeStateMachineTransition_08afh"), "anim-hurt", "anim-idle", SubResource("AnimationNodeStateMachineTransition_tnpy6")]
+graph_offset = Vector2(-64, -49)
+
+[node name="LimboAiEnemy" type="CharacterBody3D"]
+
+[node name="model" parent="." instance=ExtResource("1_fodfn")]
+
+[node name="Skeleton3D" parent="model/skeleton" index="0"]
+bones/0/position = Vector3(0, -0.0665041, 0)
+bones/1/rotation = Quaternion(-0.00617935, 0, 0, 0.999981)
+bones/2/rotation = Quaternion(0.013054, 0, 0, 0.999915)
+bones/3/rotation = Quaternion(-0.0104623, 0, 0, 0.999945)
+bones/4/rotation = Quaternion(4.34077e-08, -4.68314e-08, 0.707107, 0.707107)
+bones/5/rotation = Quaternion(0.00730483, 0.00730455, 0.707069, 0.707069)
+bones/6/rotation = Quaternion(7.10542e-15, -1.51065e-21, -3.21555e-21, 1)
+bones/7/rotation = Quaternion(6.64661e-08, 1.06001e-08, -0.00188222, 0.999998)
+bones/8/rotation = Quaternion(9.17803e-08, 8.27525e-08, -0.707107, 0.707107)
+bones/9/rotation = Quaternion(0.00730478, -0.00730468, -0.707069, 0.707069)
+bones/10/rotation = Quaternion(7.10542e-15, -7.10542e-15, 5.66816e-22, 1)
+bones/11/rotation = Quaternion(0.500707, -0.499292, -0.500707, -0.499292)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.705868, 0.0183261, 0.0183779, 0.707868)
+bones/13/rotation = Quaternion(-1.16148e-10, -7.88413e-12, -0.0676996, 0.997706)
+bones/15/rotation = Quaternion(-0.706869, -0.0183509, -0.0183508, 0.706869)
+bones/16/rotation = Quaternion(-2.56296e-16, -2.14512e-15, 0.0676877, 0.997707)
+
+[node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
+transform = Transform3D(-0.999993, -0.00376448, 3.70021e-07, 0.00376438, -0.999967, 0.00691115, -2.56458e-05, 0.00691112, 0.999976, -0.319753, 0.902236, -0.0358007)
+bone_name = "r-hand"
+bone_idx = 7
+use_external_skeleton = true
+external_skeleton = NodePath("../model/skeleton/Skeleton3D")
+
+[node name="swordmodel" parent="HandPositionAttachment" instance=ExtResource("2_5glsx")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PhysicsShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_eb0p3")
+
+[node name="BlenderAnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../model")
+tree_root = SubResource("AnimationNodeStateMachine_1tapv")
+anim_player = NodePath("../model/AnimationPlayer")
+
+[editable path="model"]

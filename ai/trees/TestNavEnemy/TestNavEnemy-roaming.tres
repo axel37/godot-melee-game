@@ -15,7 +15,6 @@ custom_name = "TODO : Workaround as a legitimate position can take longer to mov
 [sub_resource type="BTAction" id="BTAction_b5af2"]
 script = ExtResource("2_3cjj4")
 target_position_var = &"position"
-speed_var = 3.0
 tolerance = 1.0
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_kr28d"]
