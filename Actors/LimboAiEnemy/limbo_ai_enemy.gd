@@ -6,11 +6,13 @@ extends CharacterBody3D
 @onready var limbo_hsm: LimboHSM = %LimboHSM
 @onready var roaming_state: BTState = %RoamingState
 @onready var combat_state: BTState = %CombatState
-@onready var hurt_state: LimboState = %HurtState
+@onready var stagger_state: LimboState = %StaggerState
 
 
 ## TODO : Health management and death
 ## Death should probably be a state (in which everything is disabled and nothing else happens)
+
+## TODO : Enemy gets hurt once even if the player isn't attacking
 
 ## TODO : Bouncing corpse ?
 
@@ -28,8 +30,8 @@ func _init_state_machine() -> void:
 	limbo_hsm.add_transition(roaming_state, combat_state, &"detected_target")
 	#limbo_hsm.add_transition(combat_state, roaming_state, combat_state.EVENT_FINISHED)
 	limbo_hsm.add_transition(combat_state, roaming_state, &"lost_target")
-	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, hurt_state, &"got_hurt")
-	limbo_hsm.add_transition(hurt_state, combat_state, hurt_state.EVENT_FINISHED)
+	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, stagger_state, &"got_hurt")
+	limbo_hsm.add_transition(stagger_state, combat_state, stagger_state.EVENT_FINISHED)
 
 
 

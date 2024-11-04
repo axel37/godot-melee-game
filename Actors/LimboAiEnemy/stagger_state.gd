@@ -1,15 +1,11 @@
-
+# Plays a stagger animation, during which the enemy can't do anything
 extends LimboState
 
 @export var animation_player: AnimationPlayer
 @export var animation_name: StringName
 
 func _enter() -> void:
-	## TODO : State isn't called before it's over (= new hurt animation won't play before previous is over)
-	##		Even the guard isn't called...
-	## TODO : Enemy gets hurt once even if the player isn't attacking
-	animation_player.stop()
-	animation_player.play(animation_name, 1)
+	animation_player.play(animation_name)
 
 
 func _update(_delta: float) -> void:

@@ -34,6 +34,7 @@ custom_name = "TODO : Use the 3D overlay addon to visualize shapes !"
 [sub_resource type="BBVariant" id="BBVariant_vbgk4"]
 type = 3
 saved_value = 0.0
+resource_name = "0"
 
 [sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_a80qq"]
 property = &"movement_speed_multiplier"
