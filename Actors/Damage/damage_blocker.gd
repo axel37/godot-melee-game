@@ -43,7 +43,7 @@ func _set_enabled(value: bool):
 
 ## Draw a wireframe box around collision shapes
 func _draw_debug() -> void:
-	var color: Color = Color.DARK_ORANGE if enabled else Color.TAN
+	var color: Color = Color.ORANGE if enabled else Color.SADDLE_BROWN
 	for child in get_children():
 		if child is CollisionShape3D:
 			Global.debug_overlay.draw_collision_shape_3d(
