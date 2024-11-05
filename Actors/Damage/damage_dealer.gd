@@ -8,6 +8,7 @@ const LOG_CODE_DAMAGE_DEALT = "DAMAGE-001"
 const LOG_CODE_SET_ENABLED = "DAMAGE-005"
 const LOG_CODE_RECEIVER_ALREADY_HIT = "DAMAGE-003"
 const LOG_CODE_WAS_BLOCKED = "DAMAGE-006"
+const LOG_CODE_DEBUG_SHAPE_NOT_SUPPORTED = "DAMAGE-007"
 
 signal was_blocked
 
@@ -61,7 +62,9 @@ func _reset_child_shapes():
 				shape.disabled = true
 				shape.disabled = false
 
+## Draw a wireframe box around collision shapes
 func _draw_debug() -> void:
+	# TODO : Position / Rotation seems to come out of sync over time
 	var color: Color = Color.FIREBRICK if enabled else Color.DIM_GRAY
 	DebugDraw3D.scoped_config().set_thickness(0.01)
 	for child in get_children():
@@ -73,3 +76,5 @@ func _draw_debug() -> void:
 				var rotation: Quaternion = Quaternion(child.global_transform.basis)
 				var size: Vector3 = box.size
 				DebugDraw3D.draw_box(position, rotation, size, color, true)
+			else:
+				Global.log(LOG_CODE_DEBUG_SHAPE_NOT_SUPPORTED, "Shape of type %s not supported" % shape.get_class())
