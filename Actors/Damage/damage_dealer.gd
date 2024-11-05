@@ -67,9 +67,4 @@ func _draw_debug() -> void:
 	var color: Color = Color.FIREBRICK if enabled else Color(.3, 0, 0)
 	for child in get_children():
 		if child is CollisionShape3D:
-			Global.debug_overlay.draw_collision_shape_3d(
-				child,
-				child.global_transform.origin,
-				child.global_transform.basis.get_rotation_quaternion(),
-				color
-			)
+			Global.debug_overlay.draw_collision_shape_3d(child, color)

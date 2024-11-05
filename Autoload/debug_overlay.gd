@@ -4,8 +4,11 @@ extends Node
 const LOG_CODE_SHAPE_NOT_SUPPORTED = "DEBUG-OVERLAY-001"
 
 ## Draw a wireframe box around collision shapes
-func draw_collision_shape_3d(collision_shape: CollisionShape3D, position: Vector3, rotation: Quaternion, color: Color = Color.WHITE) -> void:
+func draw_collision_shape_3d(collision_shape: CollisionShape3D, color: Color = Color.WHITE) -> void:
 	var shape: Shape3D = collision_shape.shape
+	var position: Vector3 = collision_shape.global_transform.origin
+	var rotation: Quaternion = collision_shape.global_transform.basis.get_rotation_quaternion()
+
 	if shape is BoxShape3D:
 		DebugDraw3D.scoped_config().set_thickness(0.01)
 
