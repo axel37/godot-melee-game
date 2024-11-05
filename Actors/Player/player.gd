@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 	if dead: return
 	_update_animation_tree_inputs()
 
-func _input(event: InputEvent):
+func _unhandled_input(event: InputEvent):
 	if Engine.is_editor_hint(): return
 	if dead: return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -89,6 +89,8 @@ func _step_forward(amount: float):
 
 ## Give animation trees their needed input
 func _update_animation_tree_inputs():
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
+
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking"] = Input.is_action_pressed("attack_1")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_attacking_thrust"] = Input.is_action_pressed("attack_2")
 	weapon_animation_tree["parameters/Attack1StateMachine/conditions/is_guarding"] = Input.is_action_pressed("guard")
