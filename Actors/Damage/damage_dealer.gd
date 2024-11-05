@@ -24,6 +24,9 @@ func _ready() -> void:
 	monitoring = false
 	_renew()
 
+func _process(delta: float) -> void:
+	_draw_debug()
+
 ## Called by external entities who blocked this attack
 func block() -> void:
 	was_blocked.emit()
@@ -58,7 +61,9 @@ func _reset_child_shapes():
 				shape.disabled = true
 				shape.disabled = false
 
-func _process(delta: float) -> void:
+func _draw_debug() -> void:
+	var color: Color = Color.FIREBRICK if enabled else Color.DIM_GRAY
+	DebugDraw3D.scoped_config().set_thickness(0.01)
 	for child in get_children():
 		if child is CollisionShape3D:
 			var shape: Shape3D = child.shape
@@ -67,4 +72,4 @@ func _process(delta: float) -> void:
 				var position: Vector3 = child.global_position
 				var rotation: Quaternion = Quaternion(child.global_transform.basis)
 				var size: Vector3 = box.size
-				DebugDraw3D.draw_box(position, rotation, size, Color.FIREBRICK, true)
+				DebugDraw3D.draw_box(position, rotation, size, color, true)
