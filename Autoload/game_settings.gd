@@ -1,3 +1,4 @@
+## This manages game settings
 class_name GameSettings
 extends Node
 

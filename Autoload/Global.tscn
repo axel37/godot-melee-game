@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c57q24kdxmoif"]
+[gd_scene load_steps=7 format=3 uid="uid://c57q24kdxmoif"]
 
 [ext_resource type="Script" path="res://Autoload/global.gd" id="1_cngxu"]
 [ext_resource type="Script" path="res://Autoload/logger.gd" id="2_lbwks"]
 [ext_resource type="Script" path="res://Autoload/mouse_capture_manager.gd" id="3_0qs7t"]
 [ext_resource type="Script" path="res://Autoload/debug_overlay.gd" id="4_q5qxf"]
 [ext_resource type="Script" path="res://Autoload/game_settings.gd" id="5_dcfqm"]
+[ext_resource type="Script" path="res://Autoload/debug_menu.gd" id="6_p8qa4"]
 
 [node name="global" type="Node"]
 script = ExtResource("1_cngxu")
@@ -25,3 +26,6 @@ script = ExtResource("4_q5qxf")
 [node name="GameSettings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_dcfqm")
+
+[node name="DebugMenu" type="Node" parent="."]
+script = ExtResource("6_p8qa4")
