@@ -12,8 +12,23 @@ signal detected_damage(damage_dealer: DamageDealer)
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
+func _process(delta: float) -> void:
+	_draw_debug()
+
 func _on_area_entered(area: Area3D) -> void:
 	if area is DamageDealer:
 		var damage_dealer: DamageDealer = area as DamageDealer
 		Global.log(LOG_CODE_DAMAGE_RECEIVED, "%s received damage from %s" % [name, damage_dealer.name])
 		detected_damage.emit(damage_dealer)
+
+## Draw a wireframe box around collision shapes
+func _draw_debug() -> void:
+	var color: Color = Color.CHARTREUSE
+	for child in get_children():
+		if child is CollisionShape3D:
+			Global.debug_overlay.draw_collision_shape_3d(
+				child,
+				child.global_transform.origin,
+				child.global_transform.basis.get_rotation_quaternion(),
+				color
+			)

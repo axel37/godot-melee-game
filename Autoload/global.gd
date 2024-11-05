@@ -11,6 +11,9 @@ const LOG_CODE_TIMESCALE_CHANGED = "[GLOBAL-001]"
 @export_range(0, 2, 0.1) var time_scale: float = 1.0:
 	set = _set_time_scale
 
+@onready var debug_overlay: DebugOverlay = %DebugOverlay
+
+
 ## Centralized logging. See the [_logger] child node for configuration options !
 func log(code: String, message: String) -> void:
 	if _logger == null:

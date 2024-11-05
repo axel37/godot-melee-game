@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c57q24kdxmoif"]
+[gd_scene load_steps=5 format=3 uid="uid://c57q24kdxmoif"]
 
 [ext_resource type="Script" path="res://Autoload/global.gd" id="1_cngxu"]
 [ext_resource type="Script" path="res://Autoload/logger.gd" id="2_lbwks"]
 [ext_resource type="Script" path="res://Autoload/mouse_capture_manager.gd" id="3_0qs7t"]
+[ext_resource type="Script" path="res://Autoload/debug_overlay.gd" id="4_q5qxf"]
 
 [node name="global" type="Node"]
 script = ExtResource("1_cngxu")
@@ -15,3 +16,7 @@ codes_to_ignore = Array[String](["DAMAGE-002", "DAMAGE-001", "DAMAGE-005", "DAMA
 
 [node name="MouseCaptureManager" type="Node" parent="."]
 script = ExtResource("3_0qs7t")
+
+[node name="DebugOverlay" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_q5qxf")

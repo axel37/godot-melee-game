@@ -19,6 +19,10 @@ func _ready() -> void:
 	_renew()
 	area_entered.connect(_on_area_entered)
 
+func _process(delta: float) -> void:
+	time_blocking += delta
+	_draw_debug()
+
 func _on_area_entered(area: Area3D) -> void:
 	if area is DamageDealer:
 		var damage_dealer: DamageDealer = area as DamageDealer
@@ -28,9 +32,6 @@ func _on_area_entered(area: Area3D) -> void:
 func _renew() -> void:
 	time_blocking = 0
 
-func _process(delta: float) -> void:
-	time_blocking += delta
-
 func _set_enabled(value: bool):
 	if enabled == value:
 		return  # TODO : Avoid redundant sets (this is being called every frame !)
@@ -39,3 +40,15 @@ func _set_enabled(value: bool):
 	set_deferred("monitorable", value)
 	set_deferred("monitoring", value)
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
+
+## Draw a wireframe box around collision shapes
+func _draw_debug() -> void:
+	var color: Color = Color.DARK_ORANGE if enabled else Color.TAN
+	for child in get_children():
+		if child is CollisionShape3D:
+			Global.debug_overlay.draw_collision_shape_3d(
+				child,
+				child.global_transform.origin,
+				child.global_transform.basis.get_rotation_quaternion(),
+				color
+			)
