@@ -57,3 +57,14 @@ func _reset_child_shapes():
 				var shape: CollisionShape3D = child as CollisionShape3D
 				shape.disabled = true
 				shape.disabled = false
+
+func _process(delta: float) -> void:
+	for child in get_children():
+		if child is CollisionShape3D:
+			var shape: Shape3D = child.shape
+			if shape is BoxShape3D:
+				var box: BoxShape3D = shape
+				var position: Vector3 = child.global_position
+				var rotation: Quaternion = Quaternion(child.global_transform.basis)
+				var size: Vector3 = box.size
+				DebugDraw3D.draw_box(position, rotation, size, Color.FIREBRICK, true)
