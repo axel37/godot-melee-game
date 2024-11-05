@@ -23,6 +23,8 @@ func _on_area_entered(area: Area3D) -> void:
 
 ## Draw a wireframe box around collision shapes
 func _draw_debug() -> void:
+	if not Global.game_settings.debug_overlay_enable_damage_receiver : return
+
 	var color: Color = Color.CHARTREUSE
 	for child in get_children():
 		if child is CollisionShape3D:

@@ -64,6 +64,8 @@ func _reset_child_shapes():
 
 ## Draw a wireframe box around collision shapes
 func _draw_debug() -> void:
+	if not Global.game_settings.debug_overlay_enable_damage_dealer : return
+
 	var color: Color = Color.FIREBRICK if enabled else Color(.3, 0, 0)
 	for child in get_children():
 		if child is CollisionShape3D:

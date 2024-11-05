@@ -12,6 +12,7 @@ const LOG_CODE_TIMESCALE_CHANGED = "[GLOBAL-001]"
 	set = _set_time_scale
 
 @onready var debug_overlay: DebugOverlay = %DebugOverlay
+@onready var game_settings: GameSettings = %GameSettings
 
 
 ## Centralized logging. See the [_logger] child node for configuration options !
