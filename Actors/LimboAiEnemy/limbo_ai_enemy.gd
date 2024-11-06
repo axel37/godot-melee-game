@@ -81,4 +81,5 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	var particles: GPUParticles3D = hurt_particles.duplicate()
 	add_child(particles)
 	particles.emitting = true
-	limbo_hsm.dispatch(&"got_hurt")
+	if randf_range(0, 1) > 0.7:
+		limbo_hsm.dispatch(&"got_hurt")
