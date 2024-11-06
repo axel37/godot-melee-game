@@ -28,9 +28,11 @@ func _process(_delta: float) -> void:
 		ImGui.Begin("Debug menu")
 		ImGui.SeparatorText("Debug overlays")
 		ImGui.Checkbox("Enable", debug_overlay_enable)
+		ImGui.BeginDisabled(!debug_overlay_enable[0])
 		ImGui.Checkbox("Damage Receivers", debug_overlay_enable_damage_receiver)
 		ImGui.Checkbox("Damage Blockers", debug_overlay_enable_damage_blocker)
 		ImGui.Checkbox("Damage Dealers", debug_overlay_enable_damage_dealer)
+		ImGui.EndDisabled()
 
 		ImGui.End()
 
