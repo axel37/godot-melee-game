@@ -8,6 +8,8 @@ extends CharacterBody3D
 @onready var combat_state: BTState = %CombatState
 @onready var stagger_state: LimboState = %StaggerState
 
+@onready var hurt_particles: GPUParticles3D = %HurtParticles
+
 
 ## TODO : Health management and death
 ## Death should probably be a state (in which everything is disabled and nothing else happens)
@@ -76,5 +78,7 @@ func _on_keep_following_area_3d_body_exited(body: Node3D) -> void:
 
 
 func _on_damage_receiving_handler_received_damage() -> void:
-	print("detected hurt")
+	var particles: GPUParticles3D = hurt_particles.duplicate()
+	add_child(particles)
+	particles.emitting = true
 	limbo_hsm.dispatch(&"got_hurt")

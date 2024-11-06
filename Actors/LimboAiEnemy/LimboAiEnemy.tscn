@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=41 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -104,6 +104,42 @@ size = Vector3(1.43945, 1.77649, 3.8916)
 [sub_resource type="BoxShape3D" id="BoxShape3D_p4ltd"]
 size = Vector3(0.65, 2, 0.65)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xi3h3"]
+emission_shape = 2
+emission_sphere_radius = 0.3
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+
+[sub_resource type="Gradient" id="Gradient_ru15v"]
+offsets = PackedFloat32Array(0, 0.169611, 0.773852, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.953833, 0.97, 0.485, 0.882353, 0, 0.595, 0.85, 0.294118, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4if05"]
+gradient = SubResource("Gradient_ru15v")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxh8x"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_4if05")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_nvjgq"]
+material = SubResource("StandardMaterial3D_fxh8x")
+size = Vector2(0.1, 0.1)
+
 [node name="LimboAiEnemy" type="CharacterBody3D"]
 script = ExtResource("1_sjejd")
 
@@ -131,7 +167,7 @@ bones/15/rotation = Quaternion(-0.707107, 1.72636e-08, 8.96499e-08, 0.707107)
 bones/16/rotation = Quaternion(-7.23169e-22, -3.55271e-15, -7.10543e-15, 1)
 
 [node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38699e-09, -4.55889e-07, -3.29139e-10, -1, 0.319753, 0.913905, 0.044047)
+transform = Transform3D(0.999993, 0.00376443, -4.55888e-07, 0.00376443, -0.999991, -1.38631e-09, -4.5589e-07, -3.29851e-10, -1, 0.319753, 0.913905, 0.044047)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -209,6 +245,15 @@ script = ExtResource("7_k88rw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageReceiver"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_p4ltd")
+
+[node name="HurtParticles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19033, 0)
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xi3h3")
+draw_pass_1 = SubResource("QuadMesh_nvjgq")
 
 [connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]
 [connection signal="body_entered" from="TargetDetectorArea3D" to="." method="_on_target_detector_area_3d_body_entered"]
