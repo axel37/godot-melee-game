@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=25 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -19,80 +19,6 @@ size = Vector3(0.2, 0.2, 2)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_eb0p3"]
 radius = 0.35
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vkh05"]
-animation = &"anim-attack-recover"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hj8ke"]
-animation = &"anim-attack-swing"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lyca"]
-animation = &"anim-attack-windup"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_knfv8"]
-animation = &"anim-death"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3a7xr"]
-animation = &"anim-guard"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5hu7l"]
-animation = &"anim-hurt"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_67mqs"]
-animation = &"anim-idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_45x41"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ubpik"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uin68"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xthuk"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g5u14"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayoh0"]
-xfade_time = 0.15
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_doc1x"]
-xfade_time = 0.3
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e8ujc"]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_08afh"]
-xfade_time = 0.3
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tnpy6"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1tapv"]
-states/End/position = Vector2(1054, 102)
-states/Start/position = Vector2(159, 87)
-states/anim-attack-recover/node = SubResource("AnimationNodeAnimation_vkh05")
-states/anim-attack-recover/position = Vector2(746, 283)
-states/anim-attack-swing/node = SubResource("AnimationNodeAnimation_hj8ke")
-states/anim-attack-swing/position = Vector2(338, 288)
-states/anim-attack-windup/node = SubResource("AnimationNodeAnimation_8lyca")
-states/anim-attack-windup/position = Vector2(338, 193)
-states/anim-death/node = SubResource("AnimationNodeAnimation_knfv8")
-states/anim-death/position = Vector2(527, -48)
-states/anim-guard/node = SubResource("AnimationNodeAnimation_3a7xr")
-states/anim-guard/position = Vector2(658, 47)
-states/anim-hurt/node = SubResource("AnimationNodeAnimation_5hu7l")
-states/anim-hurt/position = Vector2(338, -35)
-states/anim-idle/node = SubResource("AnimationNodeAnimation_67mqs")
-states/anim-idle/position = Vector2(338, 93)
-transitions = ["Start", "anim-idle", SubResource("AnimationNodeStateMachineTransition_45x41"), "anim-idle", "anim-attack-windup", SubResource("AnimationNodeStateMachineTransition_ubpik"), "anim-attack-windup", "anim-attack-swing", SubResource("AnimationNodeStateMachineTransition_uin68"), "anim-attack-swing", "anim-attack-recover", SubResource("AnimationNodeStateMachineTransition_xthuk"), "anim-attack-recover", "anim-idle", SubResource("AnimationNodeStateMachineTransition_g5u14"), "anim-idle", "anim-guard", SubResource("AnimationNodeStateMachineTransition_ayoh0"), "anim-guard", "anim-idle", SubResource("AnimationNodeStateMachineTransition_doc1x"), "anim-attack-windup", "anim-guard", SubResource("AnimationNodeStateMachineTransition_e8ujc"), "anim-attack-recover", "anim-guard", SubResource("AnimationNodeStateMachineTransition_08afh"), "anim-hurt", "anim-idle", SubResource("AnimationNodeStateMachineTransition_tnpy6")]
-graph_offset = Vector2(-64, -49)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_e1p1f"]
 radius = 8.0
 
@@ -103,8 +29,8 @@ size = Vector3(1.43945, 1.77649, 3.8916)
 size = Vector3(0.65, 2, 0.65)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xi3h3"]
-emission_shape = 2
-emission_sphere_radius = 0.3
+emission_shape = 3
+emission_box_extents = Vector3(0.1, 1, 0.1)
 angle_min = -180.0
 angle_max = 180.0
 direction = Vector3(0, 1, 0)
@@ -112,8 +38,8 @@ initial_velocity_min = 1.0
 initial_velocity_max = 2.0
 
 [sub_resource type="Gradient" id="Gradient_ru15v"]
-offsets = PackedFloat32Array(0, 0.169611, 0.773852, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.953833, 0.97, 0.485, 0.882353, 0, 0.595, 0.85, 0.294118, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.144295, 0.449664, 0.469799, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.122228, 1, 0.897887, 0, 0, 0.716667, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4if05"]
 gradient = SubResource("Gradient_ru15v")
@@ -123,10 +49,8 @@ fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxh8x"]
-transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
-blend_mode = 1
+transparency = 1
+blend_mode = 4
 shading_mode = 0
 albedo_texture = SubResource("GradientTexture2D_4if05")
 billboard_mode = 3
@@ -187,6 +111,7 @@ script = ExtResource("4_b2qui")
 collision_layer = 2147483648
 collision_mask = 1610612736
 script = ExtResource("5_in27c")
+enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HandPositionAttachment/DamageDealingHandler/DamageDealer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 1.195)
@@ -195,12 +120,6 @@ shape = SubResource("BoxShape3D_kkf48")
 [node name="PhysicsShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_eb0p3")
-
-[node name="BlenderAnimationTree" type="AnimationTree" parent="."]
-active = false
-root_node = NodePath("../model")
-tree_root = SubResource("AnimationNodeStateMachine_1tapv")
-anim_player = NodePath("../model/AnimationPlayer")
 
 [node name="KeepFollowingArea3D" type="Area3D" parent="."]
 unique_name_in_owner = true
@@ -235,6 +154,7 @@ shape = SubResource("BoxShape3D_p4ltd")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19033, 0)
 emitting = false
+amount = 10
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xi3h3")
