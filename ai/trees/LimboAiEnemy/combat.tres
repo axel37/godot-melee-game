@@ -1,14 +1,29 @@
-[gd_resource type="BehaviorTree" load_steps=32 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=35 format=3 uid="uid://ckn41oejogsuw"]
 
-[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/get_target_position.gd" id="1_7b5t1"]
+[ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/write_node_position_to_blackboard.gd" id="1_2twpc"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
-[ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_tracking_position.gd" id="3_pwfc1"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_bwcuf"]
+var/target_position/name = &"target_position"
+var/target_position/type = 9
+var/target_position/value = Vector3(0, 0, 0)
+var/target_position/hint = 0
+var/target_position/hint_string = "Holds current target's position"
 
-[sub_resource type="BTAction" id="BTAction_8xljn"]
-script = ExtResource("1_7b5t1")
-target_position_var = &"target_position"
+[sub_resource type="BTComment" id="BTComment_vfg71"]
+custom_name = "it may be better to implement them in code directly"
+
+[sub_resource type="BTComment" id="BTComment_ypu1j"]
+custom_name = "Some tasks might be bloat"
+children = [SubResource("BTComment_vfg71")]
+
+[sub_resource type="BTAction" id="BTAction_4j3he"]
+script = ExtResource("1_2twpc")
+source_node_var = &"target"
+position_var = &"target_position"
+
+[sub_resource type="BTComment" id="BTComment_fkbrq"]
+custom_name = "Custom condition : isTargetInRange(range) ?"
 
 [sub_resource type="BTAction" id="BTAction_81esk"]
 script = ExtResource("2_51ny3")
@@ -27,9 +42,6 @@ value = SubResource("BBVariant_6kvqs")
 
 [sub_resource type="BTComment" id="BTComment_5tid1"]
 custom_name = "TODO : Look at target before attacking"
-
-[sub_resource type="BTComment" id="BTComment_amgk8"]
-custom_name = "TODO : Use the 3D overlay addon to visualize shapes !"
 
 [sub_resource type="BBVariant" id="BBVariant_vbgk4"]
 type = 3
@@ -106,23 +118,34 @@ value = SubResource("BBVariant_plkvn")
 
 [sub_resource type="BTSequence" id="BTSequence_7a1uh"]
 custom_name = "Attack Target"
-children = [SubResource("BTAction_8xljn"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTComment_amgk8"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTCallMethod_dg7n2"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTCallMethod_ftml0"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
+children = [SubResource("BTAction_4j3he"), SubResource("BTComment_fkbrq"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTCallMethod_dg7n2"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTCallMethod_ftml0"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
 
-[sub_resource type="BTAction" id="BTAction_f3m2n"]
-script = ExtResource("1_7b5t1")
-target_position_var = &"target_position"
+[sub_resource type="BTAction" id="BTAction_sxpfx"]
+script = ExtResource("1_2twpc")
+source_node_var = &"target"
+position_var = &"target_position"
 
-[sub_resource type="BTAction" id="BTAction_qbbml"]
-script = ExtResource("3_pwfc1")
-target_position_var = "target_position"
-tolerance = 1.0
+[sub_resource type="BBVariant" id="BBVariant_ceni3"]
+type = 9
+value_source = 1
+variable = &"target_position"
+resource_name = "$target_position"
+
+[sub_resource type="BBNode" id="BBNode_wdeal"]
+saved_value = NodePath("StateMachine/AliveState")
+resource_name = "StateMachine/AliveState"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_5q4lt"]
+node = SubResource("BBNode_wdeal")
+method = &"set_movement_target"
+args = Array[BBVariant]([SubResource("BBVariant_ceni3")])
 
 [sub_resource type="BTSequence" id="BTSequence_itepf"]
 custom_name = "Move to Target"
-children = [SubResource("BTAction_f3m2n"), SubResource("BTAction_qbbml")]
+children = [SubResource("BTAction_sxpfx"), SubResource("BTCallMethod_5q4lt")]
 
 [sub_resource type="BTSelector" id="BTSelector_r2med"]
-children = [SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]
+children = [SubResource("BTComment_ypu1j"), SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_bwcuf")

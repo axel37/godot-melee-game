@@ -1,8 +1,17 @@
-[gd_resource type="BehaviorTree" load_steps=3 format=3 uid="uid://cj3dbrwwunx7r"]
+[gd_resource type="BehaviorTree" load_steps=5 format=3 uid="uid://cj3dbrwwunx7r"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_0elwj"]
 
+[sub_resource type="BBNode" id="BBNode_2nec6"]
+saved_value = NodePath("model/AnimationPlayer")
+resource_name = "model/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_0tmu8"]
+animation_player = SubResource("BBNode_2nec6")
+animation_name = &"anim-idle"
+
 [sub_resource type="BTSelector" id="BTSelector_oamc4"]
+children = [SubResource("BTPlayAnimation_0tmu8")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_0elwj")

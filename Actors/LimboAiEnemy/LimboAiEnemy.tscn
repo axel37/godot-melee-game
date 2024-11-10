@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=43 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -10,7 +10,8 @@
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="6_6uon2"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="7_k88rw"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/stagger_state.gd" id="8_5nv8m"]
-[ext_resource type="Script" path="res://Actors/LimboAiEnemy/death_state.gd" id="9_xyjtj"]
+[ext_resource type="Script" path="res://Actors/LimboAiEnemy/alive_state_machine.gd" id="8_yxr7p"]
+[ext_resource type="Script" path="res://Actors/LimboAiEnemy/dying_state.gd" id="9_xyjtj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kkf48"]
 size = Vector3(0.2, 0.2, 2)
@@ -92,10 +93,6 @@ states/anim-idle/position = Vector2(338, 93)
 transitions = ["Start", "anim-idle", SubResource("AnimationNodeStateMachineTransition_45x41"), "anim-idle", "anim-attack-windup", SubResource("AnimationNodeStateMachineTransition_ubpik"), "anim-attack-windup", "anim-attack-swing", SubResource("AnimationNodeStateMachineTransition_uin68"), "anim-attack-swing", "anim-attack-recover", SubResource("AnimationNodeStateMachineTransition_xthuk"), "anim-attack-recover", "anim-idle", SubResource("AnimationNodeStateMachineTransition_g5u14"), "anim-idle", "anim-guard", SubResource("AnimationNodeStateMachineTransition_ayoh0"), "anim-guard", "anim-idle", SubResource("AnimationNodeStateMachineTransition_doc1x"), "anim-attack-windup", "anim-guard", SubResource("AnimationNodeStateMachineTransition_e8ujc"), "anim-attack-recover", "anim-guard", SubResource("AnimationNodeStateMachineTransition_08afh"), "anim-hurt", "anim-idle", SubResource("AnimationNodeStateMachineTransition_tnpy6")]
 graph_offset = Vector2(-64, -49)
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_wlei4"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_e1p1f"]
 radius = 8.0
 
@@ -141,6 +138,10 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_fxh8x")
 size = Vector2(0.1, 0.1)
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_wlei4"]
+
 [node name="LimboAiEnemy" type="CharacterBody3D"]
 collision_layer = 2147483648
 collision_mask = 1610612737
@@ -175,7 +176,7 @@ bones/15/rotation = Quaternion(-0.820784, 0.110852, 0.0412851, 0.558857)
 bones/16/rotation = Quaternion(-0.0227034, -0.0113863, 0.398683, 0.916737)
 
 [node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.120077, -0.100299, -0.987685, -0.992749, -0.00697143, -0.119984, 0.00514891, 0.994933, -0.100409, -0.866359, 0.78754, 0.142679)
+transform = Transform3D(0.120077, -0.100301, -0.987685, -0.992749, -0.00697224, -0.119985, 0.00514813, 0.994933, -0.100411, -0.86636, 0.787539, 0.142679)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -205,31 +206,6 @@ active = false
 root_node = NodePath("../model")
 tree_root = SubResource("AnimationNodeStateMachine_1tapv")
 anim_player = NodePath("../model/AnimationPlayer")
-
-[node name="LimboHSM" type="LimboHSM" parent="."]
-unique_name_in_owner = true
-
-[node name="RoamingState" type="BTState" parent="LimboHSM"]
-behavior_tree = ExtResource("4_uvef0")
-blackboard_plan = SubResource("BlackboardPlan_k733v")
-unique_name_in_owner = true
-
-[node name="CombatState" type="BTState" parent="LimboHSM"]
-behavior_tree = ExtResource("5_xoe8a")
-blackboard_plan = SubResource("BlackboardPlan_wlei4")
-unique_name_in_owner = true
-
-[node name="StaggerState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animation_player")]
-unique_name_in_owner = true
-script = ExtResource("8_5nv8m")
-animation_player = NodePath("../../model/AnimationPlayer")
-animation_name = &"anim-hurt"
-
-[node name="DeathState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animation_player")]
-unique_name_in_owner = true
-script = ExtResource("9_xyjtj")
-animation_player = NodePath("../../model/AnimationPlayer")
-animation_name = &"anim-death"
 
 [node name="KeepFollowingArea3D" type="Area3D" parent="."]
 unique_name_in_owner = true
@@ -269,8 +245,43 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xi3h3")
 draw_pass_1 = SubResource("QuadMesh_nvjgq")
 
+[node name="StateMachine" type="LimboHSM" parent="."]
+unique_name_in_owner = true
+
+[node name="AliveState" type="LimboHSM" parent="StateMachine"]
+unique_name_in_owner = true
+script = ExtResource("8_yxr7p")
+health = 5
+
+[node name="RoamingState" type="BTState" parent="StateMachine/AliveState"]
+behavior_tree = ExtResource("4_uvef0")
+blackboard_plan = SubResource("BlackboardPlan_k733v")
+unique_name_in_owner = true
+
+[node name="CombatState" type="BTState" parent="StateMachine/AliveState"]
+behavior_tree = ExtResource("5_xoe8a")
+blackboard_plan = SubResource("BlackboardPlan_wlei4")
+unique_name_in_owner = true
+
+[node name="StaggerState" type="LimboState" parent="StateMachine/AliveState" node_paths=PackedStringArray("animation_player")]
+unique_name_in_owner = true
+script = ExtResource("8_5nv8m")
+animation_player = NodePath("../../../model/AnimationPlayer")
+animation_name = &"anim-hurt"
+
+[node name="DyingState" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
+unique_name_in_owner = true
+script = ExtResource("9_xyjtj")
+animation_player = NodePath("../../model/AnimationPlayer")
+animation_name = &"anim-death"
+
+[node name="DeadState" type="LimboState" parent="StateMachine"]
+unique_name_in_owner = true
+
 [connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]
-[connection signal="body_entered" from="TargetDetectorArea3D" to="." method="_on_target_detector_area_3d_body_entered"]
+[connection signal="body_exited" from="KeepFollowingArea3D" to="StateMachine/AliveState" method="_on_keep_following_area_3d_body_exited"]
+[connection signal="body_entered" from="TargetDetectorArea3D" to="StateMachine/AliveState" method="_on_target_detector_area_3d_body_entered"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
+[connection signal="received_damage" from="DamageReceivingHandler" to="StateMachine/AliveState" method="_on_damage_receiving_handler_received_damage"]
 
 [editable path="model"]

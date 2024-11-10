@@ -1,96 +1,36 @@
 extends CharacterBody3D
 
-@export var health: int = 2
 
-@export var movement_speed: float = 2.0
-@onready var navigation_agent: NavigationAgent3D = %NavigationAgent3D
+# AI : State machines and states
+@onready var state_machine: LimboHSM = %StateMachine
 
-@onready var limbo_hsm: LimboHSM = %LimboHSM
-@onready var roaming_state: BTState = %RoamingState
-@onready var combat_state: BTState = %CombatState
-@onready var stagger_state: LimboState = %StaggerState
-@onready var death_state: LimboState = %DeathState
+@onready var alive_state: LimboHSM = %AliveState
+@onready var dying_state: LimboState = %DyingState
+@onready var dead_state: LimboState = %DeadState
 
 
-@onready var hurt_particles: GPUParticles3D = %HurtParticles
 
-
-## TODO : Health management and death
-## Death should probably be a state (in which everything is disabled and nothing else happens)
-
-## TODO : Enemy gets hurt once even if the player isn't attacking
-
-## TODO : Bouncing corpse ?
+## TODO : Next two variables may belong in alive_state...
 
 # Used to stop moving while attacking
 var movement_speed_multiplier: float = 1.0
-
+## Enemy to attack (from this entity's point of view)
 var target: Node3D
 
+
+## TODO : Bouncing corpse ?
+
+
 func _ready() -> void:
-	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	_init_state_machine()
 
 func _init_state_machine() -> void:
-	#limbo_hsm.add_transition(roaming_state, combat_state, roaming_state.EVENT_FINISHED)
-	limbo_hsm.add_transition(roaming_state, combat_state, &"detected_target")
-	#limbo_hsm.add_transition(combat_state, roaming_state, combat_state.EVENT_FINISHED)
-	limbo_hsm.add_transition(combat_state, roaming_state, &"lost_target")
-	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, stagger_state, &"got_hurt")
-	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, death_state, &"died")
-	limbo_hsm.add_transition(stagger_state, combat_state, stagger_state.EVENT_FINISHED)
+	state_machine.add_transition(state_machine.ANYSTATE, dying_state, &"died")
+	state_machine.add_transition(dying_state, dead_state, &"finished_dying")
 
+	# Note : 'initialize' also calls '_setup' on all children
+	state_machine.initialize(self)
+	state_machine.set_active(true)
 
-
-	limbo_hsm.initialize(self)
-	limbo_hsm.set_active(true)
-
-
-func set_movement_target(movement_target: Vector3):
-	navigation_agent.set_target_position(movement_target)
-
-func _physics_process(_delta: float):
-	# Do not query when the map has never synchronized and is empty.
-	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
-		return
-	if navigation_agent.is_navigation_finished():
-		return
-
-	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
-	look_at(Vector3(next_path_position.x, global_position.y, next_path_position.z))
-
-	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed * movement_speed_multiplier
-	if navigation_agent.avoidance_enabled:
-		navigation_agent.set_velocity(new_velocity)
-	else:
-		_on_velocity_computed(new_velocity)
-
-func _on_velocity_computed(safe_velocity: Vector3):
-	velocity = safe_velocity
-	if not is_on_floor():
-		velocity += get_gravity()
-	move_and_slide()
-
-
-func _on_target_detector_area_3d_body_entered(body: Node3D) -> void:
-	target = body
-	limbo_hsm.dispatch(&"detected_target")
-
-func _on_keep_following_area_3d_body_exited(body: Node3D) -> void:
-	if body == target:
-		target = null
-		limbo_hsm.dispatch(&"lost_target")
-
-
-func _on_damage_receiving_handler_received_damage() -> void:
-	var particles: GPUParticles3D = hurt_particles.duplicate()
-	add_child(particles)
-	particles.emitting = true
-	health -= 1
-
-	if health <= 0:
-		limbo_hsm.dispatch(&"died")
-		return
-
-	if randf_range(0, 1) > 0.7:
-		limbo_hsm.dispatch(&"got_hurt")
+func _init_alive_state_machine() -> void:
+	alive_state._init_state_machine()
