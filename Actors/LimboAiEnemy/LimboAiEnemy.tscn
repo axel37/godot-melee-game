@@ -141,6 +141,8 @@ material = SubResource("StandardMaterial3D_fxh8x")
 size = Vector2(0.1, 0.1)
 
 [node name="LimboAiEnemy" type="CharacterBody3D"]
+collision_layer = 2147483648
+collision_mask = 1610612737
 script = ExtResource("1_sjejd")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -180,7 +182,7 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 
 script = ExtResource("4_b2qui")
 
 [node name="DamageDealer" type="Area3D" parent="HandPositionAttachment/DamageDealingHandler"]
-collision_layer = 1610612736
+collision_layer = 2147483648
 collision_mask = 1610612736
 script = ExtResource("5_in27c")
 
