@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@export var health: int = 2
+
 @export var movement_speed: float = 2.0
 @onready var navigation_agent: NavigationAgent3D = %NavigationAgent3D
 
@@ -7,6 +9,8 @@ extends CharacterBody3D
 @onready var roaming_state: BTState = %RoamingState
 @onready var combat_state: BTState = %CombatState
 @onready var stagger_state: LimboState = %StaggerState
+@onready var death_state: LimboState = %DeathState
+
 
 @onready var hurt_particles: GPUParticles3D = %HurtParticles
 
@@ -33,6 +37,7 @@ func _init_state_machine() -> void:
 	#limbo_hsm.add_transition(combat_state, roaming_state, combat_state.EVENT_FINISHED)
 	limbo_hsm.add_transition(combat_state, roaming_state, &"lost_target")
 	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, stagger_state, &"got_hurt")
+	limbo_hsm.add_transition(limbo_hsm.ANYSTATE, death_state, &"died")
 	limbo_hsm.add_transition(stagger_state, combat_state, stagger_state.EVENT_FINISHED)
 
 
@@ -81,5 +86,11 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	var particles: GPUParticles3D = hurt_particles.duplicate()
 	add_child(particles)
 	particles.emitting = true
+	health -= 1
+
+	if health <= 0:
+		limbo_hsm.dispatch(&"died")
+		return
+
 	if randf_range(0, 1) > 0.7:
 		limbo_hsm.dispatch(&"got_hurt")
