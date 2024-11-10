@@ -933,7 +933,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1.14917, -0.75)]
+"values": [Vector3(-0.26941, 1.14917, -0.75)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -945,7 +945,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(2.3418, 1.26416, 1.00336)]
+"values": [Vector3(2.17066, 1.26416, 1.00336)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
