@@ -64,30 +64,30 @@ shadow_blur = 3.0
 environment = SubResource("Environment_4mnrn")
 
 [node name="Enemy" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-0.456632, 0, 0.889656, 0, 1, 0, -0.889656, 0, -0.456632, 3.50045, 0, -6.20179)
+transform = Transform3D(0.884825, 0, 0.465923, 0, 1, 0, -0.465923, 0, 0.884825, 7.03326, 0, 13.3096)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-0.81836, 0, -0.574705, 0, 1, 0, 0.574705, 0, -0.81836, 5.09253, -4.76837e-07, -4.96694)
+transform = Transform3D(-0.583243, 0, 0.812297, 0, 1, 0, -0.812297, 0, -0.583243, 5.83351, -4.76837e-07, 14.9016)
 is_attacking = true
 
 [node name="Enemy3" parent="." instance=ExtResource("3_ekqdv")]
-transform = Transform3D(-0.472797, 0, 0.881171, 0, 1, 0, -0.881171, 0, -0.472797, 6.2064, 0, -3.48)
+transform = Transform3D(0.876172, 0, 0.481999, 0, 1, 0, -0.481999, 0, 0.876172, 4.33995, 0, 16.0439)
 is_attacking = true
 
 [node name="AiEnemy" parent="." instance=ExtResource("5_ppe6u")]
-transform = Transform3D(-0.711855, 0, 0.702327, 0, 1, 0, -0.702327, 0, -0.711855, 5.47679, 4.76837e-07, -6.42009)
+transform = Transform3D(0.694834, 0, 0.719171, 0, 1, 0, -0.719171, 0, 0.694834, 7.27224, 4.76837e-07, 15.2836)
 
 [node name="BlenderEnemy" parent="." instance=ExtResource("6_sgnd6")]
 transform = Transform3D(-0.997574, 0, -0.0696174, 0, 1, 0, 0.0696174, 0, -0.997574, 8.0936, 1.50364, -0.778993)
 
 [node name="BlenderEnemy2" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(0.0724549, 0, -0.997372, 0, 1, 0, 0.997372, 0, 0.0724549, -7.17357, 0, -5.15946)
+transform = Transform3D(0.0724549, 0, -0.997372, 0, 1, 0, 0.997372, 0, 0.0724549, -15.7601, 0, 9.70392)
 
 [node name="BlenderEnemy3" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(-0.38107, 0, -0.924546, 0, 1, 0, 0.924546, 0, -0.38107, -6.66745, -9.53674e-07, -6.65317)
+transform = Transform3D(-0.38107, 0, -0.924546, 0, 1, 0, 0.924546, 0, -0.38107, -15.254, -9.53674e-07, 8.21021)
 
 [node name="BlenderEnemy4" parent="." instance=ExtResource("6_sgnd6")]
-transform = Transform3D(0.72523, 0, -0.688506, 0, 1, 0, 0.688506, 0, 0.72523, -6.68666, 4.76837e-07, -3.76677)
+transform = Transform3D(0.72523, 0, -0.688506, 0, 1, 0, 0.688506, 0, 0.72523, -15.2732, 4.76837e-07, 11.0966)
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -148,4 +148,31 @@ size = Vector3(9, 1, 17)
 material = SubResource("StandardMaterial3D_b8207")
 
 [node name="LimboAiEnemy" parent="Level" instance=ExtResource("9_8jvgd")]
-transform = Transform3D(-0.999992, 0, -0.00394454, 0, 1, 0, 0.00394454, 0, -0.999992, -0.192311, 0, -5.75918)
+transform = Transform3D(-0.999992, 0, -0.00394454, 0, 1, 0, 0.00394454, 0, -0.999992, -0.192311, 0, -4.83053)
+
+[node name="LimboAiEnemy4" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.0688163, 0, 0.997629, 0, 1, 0, -0.997629, 0, -0.0688163, 6.51415, 9.53674e-07, 21.2044)
+
+[node name="LimboAiEnemy5" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(0.194953, 0, 0.980812, 0, 1, 0, -0.980812, 0, 0.194953, 6.51415, 9.53674e-07, 23.0824)
+
+[node name="LimboAiEnemy6" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.0176095, 0, 0.999845, 0, 1, 0, -0.999845, 0, -0.0176095, 6.51415, 9.53674e-07, 24.5186)
+
+[node name="LimboAiEnemy7" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(0.362064, 0, 0.932153, 0, 1, 0, -0.932153, 0, 0.362064, 6.51415, 9.53674e-07, 26.1696)
+
+[node name="LimboAiEnemy8" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(0.109127, 0, -0.994028, 0, 1, 0, 0.994028, 0, 0.109127, 2.76356, 9.53674e-07, 25.9927)
+
+[node name="LimboAiEnemy9" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.67247, 0, -0.740124, 0, 1, 0, 0.740124, 0, -0.67247, 2.26385, 9.53674e-07, 27.1624)
+
+[node name="LimboAiEnemy10" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(0.916027, 0, 0.401117, 0, 1, 0, -0.401117, 0, 0.916027, 4.75212, 9.53674e-07, 28.4326)
+
+[node name="LimboAiEnemy2" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.783509, 0, -0.62138, 0, 1, 0, 0.62138, 0, -0.783509, -5.07268, 0, -5.75918)
+
+[node name="LimboAiEnemy3" parent="Level" instance=ExtResource("9_8jvgd")]
+transform = Transform3D(-0.660002, 0, 0.751264, 0, 1, 0, -0.751264, 0, -0.660002, 4.88301, 0, -5.75918)
