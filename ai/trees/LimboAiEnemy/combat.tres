@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=50 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=56 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/write_node_position_to_blackboard.gd" id="1_2twpc"]
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/set_damage_blocker_enabled.gd" id="1_am5wd"]
@@ -27,7 +27,7 @@ children = [SubResource("BTComment_vfg71")]
 variable = &"is_hazard_detected"
 
 [sub_resource type="BTFail" id="BTFail_tnclq"]
-metadata/_weight_ = 0.0
+metadata/_weight_ = 0.333333
 
 [sub_resource type="BBVariant" id="BBVariant_8luuy"]
 type = 3
@@ -38,14 +38,14 @@ resource_name = "0"
 property = &"movement_speed_multiplier"
 value = SubResource("BBVariant_8luuy")
 
-[sub_resource type="BBNode" id="BBNode_yicyr"]
+[sub_resource type="BBNode" id="BBNode_uoj02"]
 saved_value = NodePath("DamageReceivingHandler/DamageBlocker")
 resource_name = "DamageReceivingHandler/DamageBlocker"
 
-[sub_resource type="BTAction" id="BTAction_7sj1b"]
+[sub_resource type="BTAction" id="BTAction_vvorx"]
 script = ExtResource("1_am5wd")
 value = true
-damage_blocker = SubResource("BBNode_yicyr")
+damage_blocker = SubResource("BBNode_uoj02")
 
 [sub_resource type="BBNode" id="BBNode_aajbt"]
 saved_value = NodePath("model/AnimationPlayer")
@@ -70,14 +70,14 @@ animation_player = SubResource("BBNode_ral5d")
 animation_name = &"anim-idle"
 blend = 0.3
 
-[sub_resource type="BBNode" id="BBNode_2dyq6"]
+[sub_resource type="BBNode" id="BBNode_eom6d"]
 saved_value = NodePath("DamageReceivingHandler/DamageBlocker")
 resource_name = "DamageReceivingHandler/DamageBlocker"
 
-[sub_resource type="BTAction" id="BTAction_2ww0s"]
+[sub_resource type="BTAction" id="BTAction_lglvj"]
 script = ExtResource("1_am5wd")
 value = false
-damage_blocker = SubResource("BBNode_2dyq6")
+damage_blocker = SubResource("BBNode_eom6d")
 
 [sub_resource type="BBVariant" id="BBVariant_qwpju"]
 type = 3
@@ -90,7 +90,7 @@ value = SubResource("BBVariant_qwpju")
 
 [sub_resource type="BTSequence" id="BTSequence_wlb1j"]
 custom_name = "DoGuard"
-children = [SubResource("BTSetAgentProperty_t4mqs"), SubResource("BTAction_7sj1b"), SubResource("BTPlayAnimation_25vvm"), SubResource("BTRandomWait_l1oo1"), SubResource("BTPlayAnimation_wxtes"), SubResource("BTAction_2ww0s"), SubResource("BTSetAgentProperty_8igpn")]
+children = [SubResource("BTSetAgentProperty_t4mqs"), SubResource("BTAction_vvorx"), SubResource("BTPlayAnimation_25vvm"), SubResource("BTRandomWait_l1oo1"), SubResource("BTPlayAnimation_wxtes"), SubResource("BTAction_lglvj"), SubResource("BTSetAgentProperty_8igpn")]
 
 [sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_h1jtf"]
 children = [SubResource("BTFail_tnclq"), SubResource("BTSequence_wlb1j")]
@@ -111,7 +111,7 @@ custom_name = "Custom condition : isTargetInRange(range) ?"
 script = ExtResource("2_51ny3")
 target_position_to_check_var = &"target_position"
 is_in_range_var = &"target_in_range"
-max_distance_to_pass = 2.0
+max_distance_to_pass = 2.75
 
 [sub_resource type="BBVariant" id="BBVariant_6kvqs"]
 type = 1
@@ -143,6 +143,20 @@ await_completion = 3.0
 animation_player = SubResource("BBNode_wn5sm")
 animation_name = &"anim-attack-windup"
 
+[sub_resource type="BBVariant" id="BBVariant_i7l8d"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BBNode" id="BBNode_gbym0"]
+saved_value = NodePath("HandPositionAttachment/DamageDealingHandler/DamageDealer")
+resource_name = "HandPositionAttachment/DamageDealingHandler/DamageDealer"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_dg7n2"]
+node = SubResource("BBNode_gbym0")
+method = &"_set_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_i7l8d")])
+
 [sub_resource type="BBNode" id="BBNode_qxfi7"]
 saved_value = NodePath("model/AnimationPlayer")
 resource_name = "model/AnimationPlayer"
@@ -151,6 +165,20 @@ resource_name = "model/AnimationPlayer"
 await_completion = 3.0
 animation_player = SubResource("BBNode_qxfi7")
 animation_name = &"anim-attack-swing"
+
+[sub_resource type="BBVariant" id="BBVariant_ixmaq"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BBNode" id="BBNode_5jaur"]
+saved_value = NodePath("HandPositionAttachment/DamageDealingHandler/DamageDealer")
+resource_name = "HandPositionAttachment/DamageDealingHandler/DamageDealer"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_ftml0"]
+node = SubResource("BBNode_5jaur")
+method = &"_set_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_ixmaq")])
 
 [sub_resource type="BBNode" id="BBNode_dksss"]
 saved_value = NodePath("model/AnimationPlayer")
@@ -172,7 +200,7 @@ value = SubResource("BBVariant_plkvn")
 
 [sub_resource type="BTSequence" id="BTSequence_7a1uh"]
 custom_name = "Attack Target"
-children = [SubResource("BTAction_4j3he"), SubResource("BTComment_fkbrq"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
+children = [SubResource("BTAction_4j3he"), SubResource("BTComment_fkbrq"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTCallMethod_dg7n2"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTCallMethod_ftml0"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
 
 [sub_resource type="BBVariant" id="BBVariant_wu4o2"]
 type = 3
