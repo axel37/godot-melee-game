@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=57 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=58 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/write_node_position_to_blackboard.gd" id="1_2twpc"]
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/set_damage_blocker_enabled.gd" id="1_am5wd"]
@@ -95,8 +95,12 @@ value = SubResource("BBVariant_qwpju")
 custom_name = "DoGuard"
 children = [SubResource("BTSetAgentProperty_t4mqs"), SubResource("BTAction_vvorx"), SubResource("BTPlayAnimation_25vvm"), SubResource("BTRandomWait_l1oo1"), SubResource("BTPlayAnimation_wxtes"), SubResource("BTAction_lglvj"), SubResource("BTSetAgentProperty_8igpn")]
 
+[sub_resource type="BTCooldown" id="BTCooldown_armbf"]
+duration = 3.0
+children = [SubResource("BTSequence_wlb1j")]
+
 [sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_h1jtf"]
-children = [SubResource("BTFail_tnclq"), SubResource("BTSequence_wlb1j")]
+children = [SubResource("BTFail_tnclq"), SubResource("BTCooldown_armbf")]
 
 [sub_resource type="BTSequence" id="BTSequence_3wqnn"]
 custom_name = "Guard"

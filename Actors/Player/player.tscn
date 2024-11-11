@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=64 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -1043,6 +1043,49 @@ size = Vector3(1, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_f60r3"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="Curve" id="Curve_sld7y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xuuf7"]
+curve = SubResource("Curve_sld7y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jhanw"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0, 1, -1)
+spread = 30.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_xuuf7")
+
+[sub_resource type="Gradient" id="Gradient_105rj"]
+offsets = PackedFloat32Array(0, 0.325503, 0.654362, 1)
+colors = PackedColorArray(0.9, 0.2169, 0.00899999, 1, 1, 0, 0, 1, 0.611012, 0, 0.0176932, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dx8mu"]
+gradient = SubResource("Gradient_105rj")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymyjj"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_dx8mu")
+backlight = Color(1, 1, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_psjfx"]
+material = SubResource("StandardMaterial3D_ymyjj")
+size = Vector2(0.2, 0.2)
+orientation = 2
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movement_processor")]
 collision_layer = 536870912
 script = ExtResource("1_cmb4o")
@@ -1131,6 +1174,16 @@ enabled = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDealingHandler/PlayerDamageDealer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0.974, -0.68)
 shape = SubResource("BoxShape3D_f60r3")
+
+[node name="HurtParticles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04724, 0)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jhanw")
+draw_pass_1 = SubResource("PlaneMesh_psjfx")
 
 [connection signal="blocked_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
