@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=28 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/stagger_state.gd" id="8_5nv8m"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/alive_state_machine.gd" id="8_yxr7p"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/dying_state.gd" id="9_xyjtj"]
-[ext_resource type="Script" path="res://Actors/LimboAiEnemy/guard_state.gd" id="12_7v4kb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kkf48"]
 size = Vector3(0.2, 0.2, 2)
@@ -68,7 +67,7 @@ material = SubResource("StandardMaterial3D_fxh8x")
 size = Vector2(0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fm5vg"]
-size = Vector3(1.9939, 1.6377, 2.07104)
+size = Vector3(1.9939, 1.6377, 2.64343)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
 
@@ -126,6 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 1.195)
 shape = SubResource("BoxShape3D_kkf48")
 
 [node name="PhysicsShape" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_eb0p3")
 
@@ -184,7 +184,7 @@ collision_mask = 1610612736
 script = ExtResource("7_k88rw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HazardDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16302, -1.16222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16302, -1.44842)
 shape = SubResource("BoxShape3D_fm5vg")
 
 [node name="StateMachine" type="LimboHSM" parent="."]
@@ -210,13 +210,6 @@ unique_name_in_owner = true
 script = ExtResource("8_5nv8m")
 animation_player = NodePath("../../../model/AnimationPlayer")
 animation_name = &"anim-hurt"
-
-[node name="GuardState" type="LimboState" parent="StateMachine/AliveState" node_paths=PackedStringArray("animation_player", "damage_blocker")]
-unique_name_in_owner = true
-script = ExtResource("12_7v4kb")
-animation_player = NodePath("../../../model/AnimationPlayer")
-animation_name = &"anim-guard"
-damage_blocker = NodePath("../../../DamageReceivingHandler/DamageBlocker")
 
 [node name="DyingState" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
 unique_name_in_owner = true

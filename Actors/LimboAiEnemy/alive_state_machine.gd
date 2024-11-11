@@ -3,7 +3,6 @@ extends LimboHSM
 @onready var roaming_state: BTState = %RoamingState
 @onready var combat_state: BTState = %CombatState
 @onready var stagger_state: LimboState = %StaggerState
-@onready var guard_state: LimboState = %GuardState
 
 
 ## Amount of damage to sustain before death occurs
@@ -48,12 +47,6 @@ func _init_state_machine() -> void:
 	add_transition(ANYSTATE, stagger_state, &"got_hurt")
 	add_transition(stagger_state, combat_state, stagger_state.EVENT_FINISHED)
 
-	# Guard state
-	# TODO : Prevent guarding when attacking (- how ? attacking is a task of a BTTree... maybe we need an attack state ?)
-	add_transition(roaming_state, guard_state, &"detected_hazard")
-	add_transition(combat_state, guard_state, &"detected_hazard")
-	add_transition(guard_state, combat_state, guard_state.EVENT_FINISHED)
-
 
 func _on_target_detector_area_3d_body_entered(body: Node3D) -> void:
 	agent.target = body
@@ -90,4 +83,6 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 
 func _on_hazard_detector_detected_damage(damage_dealer: DamageDealer) -> void:
-	dispatch(&"detected_hazard")
+	if combat_state.blackboard.has_var(&"is_hazard_detected") and combat_state.blackboard.get_var(&"is_hazard_detected") == true:
+		return
+	combat_state.blackboard.set_var(&"is_hazard_detected", true)

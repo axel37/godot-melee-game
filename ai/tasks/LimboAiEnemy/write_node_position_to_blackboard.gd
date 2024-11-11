@@ -17,5 +17,5 @@ func _tick(delta: float) -> Status:
 	var target: Node3D = blackboard_var_target
 
 	## Step 2 : Write target Node3D's position to blackboard
-	blackboard.set_var(position_var, blackboard_var_target.global_position)
+	blackboard.set_var(position_var, target.global_position)
 	return SUCCESS
