@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=35 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=39 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/write_node_position_to_blackboard.gd" id="1_2twpc"]
 [ext_resource type="Script" path="res://ai/tasks/TestNavEnemy/update_target_is_in_range.gd" id="2_51ny3"]
@@ -120,6 +120,23 @@ value = SubResource("BBVariant_plkvn")
 custom_name = "Attack Target"
 children = [SubResource("BTAction_4j3he"), SubResource("BTComment_fkbrq"), SubResource("BTAction_81esk"), SubResource("BTCheckVar_eo4fy"), SubResource("BTComment_5tid1"), SubResource("BTSetAgentProperty_a80qq"), SubResource("BTPlayAnimation_otdys"), SubResource("BTCallMethod_dg7n2"), SubResource("BTPlayAnimation_vbsvo"), SubResource("BTCallMethod_ftml0"), SubResource("BTPlayAnimation_u170p"), SubResource("BTSetAgentProperty_cfdka")]
 
+[sub_resource type="BBNode" id="BBNode_8basi"]
+saved_value = NodePath("model/AnimationPlayer")
+resource_name = "model/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_4sunj"]
+animation_player = SubResource("BBNode_8basi")
+animation_name = &"anim-idle"
+
+[sub_resource type="BBVariant" id="BBVariant_wu4o2"]
+type = 3
+saved_value = 1.0
+resource_name = "1"
+
+[sub_resource type="BTSetAgentProperty" id="BTSetAgentProperty_xh575"]
+property = &"movement_speed_multiplier"
+value = SubResource("BBVariant_wu4o2")
+
 [sub_resource type="BTAction" id="BTAction_sxpfx"]
 script = ExtResource("1_2twpc")
 source_node_var = &"target"
@@ -142,7 +159,7 @@ args = Array[BBVariant]([SubResource("BBVariant_ceni3")])
 
 [sub_resource type="BTSequence" id="BTSequence_itepf"]
 custom_name = "Move to Target"
-children = [SubResource("BTAction_sxpfx"), SubResource("BTCallMethod_5q4lt")]
+children = [SubResource("BTPlayAnimation_4sunj"), SubResource("BTSetAgentProperty_xh575"), SubResource("BTAction_sxpfx"), SubResource("BTCallMethod_5q4lt")]
 
 [sub_resource type="BTSelector" id="BTSelector_r2med"]
 children = [SubResource("BTComment_ypu1j"), SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]

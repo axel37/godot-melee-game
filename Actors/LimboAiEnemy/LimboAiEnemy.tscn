@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=29 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -9,9 +9,11 @@
 [ext_resource type="BehaviorTree" uid="uid://ckn41oejogsuw" path="res://ai/trees/LimboAiEnemy/combat.tres" id="5_xoe8a"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="6_6uon2"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="7_k88rw"]
+[ext_resource type="Script" path="res://Actors/Damage/damage_blocker.gd" id="8_04eoc"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/stagger_state.gd" id="8_5nv8m"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/alive_state_machine.gd" id="8_yxr7p"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/dying_state.gd" id="9_xyjtj"]
+[ext_resource type="Script" path="res://Actors/LimboAiEnemy/guard_state.gd" id="12_7v4kb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kkf48"]
 size = Vector3(0.2, 0.2, 2)
@@ -27,6 +29,9 @@ size = Vector3(1.43945, 1.77649, 3.8916)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p4ltd"]
 size = Vector3(0.65, 2, 0.65)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5ub6"]
+size = Vector3(1.59277, 1.41235, 1.18652)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xi3h3"]
 emission_shape = 3
@@ -62,12 +67,15 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_fxh8x")
 size = Vector2(0.1, 0.1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_fm5vg"]
+size = Vector3(1.9939, 1.6377, 2.07104)
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wlei4"]
 
 [node name="LimboAiEnemy" type="CharacterBody3D"]
-collision_layer = 2147483648
+collision_layer = 2147483649
 collision_mask = 1610612737
 script = ExtResource("1_sjejd")
 
@@ -95,7 +103,7 @@ bones/15/rotation = Quaternion(-0.707107, 1.72636e-08, 8.96499e-08, 0.707107)
 bones/16/rotation = Quaternion(-7.23169e-22, -3.55271e-15, -7.10543e-15, 1)
 
 [node name="HandPositionAttachment" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.999993, 0.00376443, -4.55887e-07, 0.00376442, -0.999991, -1.38699e-09, -4.55889e-07, -3.29139e-10, -1, 0.319753, 0.913905, 0.044047)
+transform = Transform3D(0.999993, 0.00376443, -4.55888e-07, 0.00376443, -0.999991, -1.38631e-09, -4.5589e-07, -3.29851e-10, -1, 0.319753, 0.913905, 0.044047)
 bone_name = "r-hand"
 bone_idx = 7
 use_external_skeleton = true
@@ -150,6 +158,16 @@ script = ExtResource("7_k88rw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_p4ltd")
 
+[node name="DamageBlocker" type="Area3D" parent="DamageReceivingHandler"]
+collision_layer = 0
+collision_mask = 1610612736
+script = ExtResource("8_04eoc")
+enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageBlocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07646, -0.56559)
+shape = SubResource("BoxShape3D_j5ub6")
+
 [node name="HurtParticles" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19033, 0)
@@ -159,6 +177,15 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xi3h3")
 draw_pass_1 = SubResource("QuadMesh_nvjgq")
+
+[node name="HazardDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1610612736
+script = ExtResource("7_k88rw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HazardDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16302, -1.16222)
+shape = SubResource("BoxShape3D_fm5vg")
 
 [node name="StateMachine" type="LimboHSM" parent="."]
 unique_name_in_owner = true
@@ -184,6 +211,13 @@ script = ExtResource("8_5nv8m")
 animation_player = NodePath("../../../model/AnimationPlayer")
 animation_name = &"anim-hurt"
 
+[node name="GuardState" type="LimboState" parent="StateMachine/AliveState" node_paths=PackedStringArray("animation_player", "damage_blocker")]
+unique_name_in_owner = true
+script = ExtResource("12_7v4kb")
+animation_player = NodePath("../../../model/AnimationPlayer")
+animation_name = &"anim-guard"
+damage_blocker = NodePath("../../../DamageReceivingHandler/DamageBlocker")
+
 [node name="DyingState" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
 unique_name_in_owner = true
 script = ExtResource("9_xyjtj")
@@ -198,5 +232,6 @@ unique_name_in_owner = true
 [connection signal="body_entered" from="TargetDetectorArea3D" to="StateMachine/AliveState" method="_on_target_detector_area_3d_body_entered"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="StateMachine/AliveState" method="_on_damage_receiving_handler_received_damage"]
+[connection signal="detected_damage" from="HazardDetector" to="StateMachine/AliveState" method="_on_hazard_detector_detected_damage"]
 
 [editable path="model"]
