@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=56 format=3 uid="uid://ckn41oejogsuw"]
+[gd_resource type="BehaviorTree" load_steps=57 format=3 uid="uid://ckn41oejogsuw"]
 
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/write_node_position_to_blackboard.gd" id="1_2twpc"]
 [ext_resource type="Script" path="res://ai/tasks/LimboAiEnemy/set_damage_blocker_enabled.gd" id="1_am5wd"]
@@ -22,6 +22,9 @@ custom_name = "it may be better to implement them in code directly"
 [sub_resource type="BTComment" id="BTComment_ypu1j"]
 custom_name = "Some tasks might be bloat"
 children = [SubResource("BTComment_vfg71")]
+
+[sub_resource type="BTComment" id="BTComment_vo21g"]
+custom_name = "TODO : Guard is sometimes triggered for seemingly no reason"
 
 [sub_resource type="BTCheckTrigger" id="BTCheckTrigger_42sq2"]
 variable = &"is_hazard_detected"
@@ -236,7 +239,7 @@ custom_name = "Move to Target"
 children = [SubResource("BTSetAgentProperty_xh575"), SubResource("BTAction_sxpfx"), SubResource("BTCallMethod_5q4lt")]
 
 [sub_resource type="BTSelector" id="BTSelector_r2med"]
-children = [SubResource("BTComment_ypu1j"), SubResource("BTSequence_3wqnn"), SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]
+children = [SubResource("BTComment_ypu1j"), SubResource("BTComment_vo21g"), SubResource("BTSequence_3wqnn"), SubResource("BTSequence_7a1uh"), SubResource("BTSequence_itepf")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_bwcuf")

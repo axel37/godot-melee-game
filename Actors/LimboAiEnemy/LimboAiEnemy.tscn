@@ -30,7 +30,7 @@ size = Vector3(1.43945, 1.77649, 3.8916)
 size = Vector3(0.65, 2, 0.65)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j5ub6"]
-size = Vector3(1.59277, 1.41235, 1.18652)
+size = Vector3(1.11035, 1.41235, 0.986328)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xi3h3"]
 emission_shape = 3
@@ -165,7 +165,7 @@ script = ExtResource("8_04eoc")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageBlocker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07646, -0.56559)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07646, -0.767981)
 shape = SubResource("BoxShape3D_j5ub6")
 
 [node name="HurtParticles" type="GPUParticles3D" parent="."]
