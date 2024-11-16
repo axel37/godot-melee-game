@@ -1,4 +1,5 @@
 ## Script emulating Quake / Source-style movement
+## Assumes gravity points down. This is not (yet ?) compatible with exotic gravity setups.
 class_name QuakeMovementProcessor
 extends MovementProcessor
 
@@ -138,7 +139,7 @@ func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, max_sp
 	return input_velocity + wishdir * add_speed
 
 ## Apply gravity, if terminal velocity hasn't yet been reached
-# TODO : This only works if gravity points down / is incompatible with local gravity zones
+# TODO : This only works if gravity points down / this is incompatible with local gravity zones
 func _gravity(current_vertical_velocity: float, character: CharacterBody3D, delta: float) -> float:
 	if current_vertical_velocity <= terminal_velocity:
 		return current_vertical_velocity
