@@ -29,7 +29,7 @@ extends MovementProcessor
 @export var debug_next_velocity_scale: float = 0.5
 @export var debug_next_velocity_color: Color = Color.BLUE_VIOLET
 
-func process_movement(character: Player, delta: float, move_max_speed: float, move_jump_impulse: float) -> void:
+func compute_next_velocity(character: Player, delta: float, move_max_speed: float, move_jump_impulse: float) -> Vector3:
 	# If on ground, move_ground else move_air
 	# TODO : Debug draw vectors
 	# TODO : Passing _character here feels weird ?
@@ -49,16 +49,14 @@ func process_movement(character: Player, delta: float, move_max_speed: float, mo
 		var next_velocity: Vector3 = _move_ground(current_velocity, current_vertical_velocity, wishdir, delta)
 		if debug_draw_next_velocity:
 			DebugDraw3D.draw_arrow(character.global_position, character.global_position + (next_velocity * debug_next_velocity_scale), debug_next_velocity_color, .25)
-		character.velocity = next_velocity
-		character.move_and_slide()
+		return next_velocity
 	else:
 		# TODO : GRAVITY IS VECTOR3 !
 		current_vertical_velocity = _gravity(current_vertical_velocity, character, delta)
 		var next_velocity: Vector3 = _move_air(current_velocity, current_vertical_velocity, wishdir, delta)
 		if debug_draw_next_velocity:
 			DebugDraw3D.draw_arrow(character.global_position, character.global_position + (next_velocity * debug_next_velocity_scale), debug_next_velocity_color, .25)
-		character.velocity = next_velocity
-		character.move_and_slide()
+		return next_velocity
 
 ## Check Input singleton for forward / strafe inputs
 ## wishdir is our horizontal input, with a max length of 1.0
@@ -121,6 +119,8 @@ func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, max_sp
 
 	return input_velocity + wishdir * add_speed
 
+## Apply gravity, if terminal velocity hasn't yet been reached
+# TODO : This only works if gravity points down / is incompatible with local gravity zones
 func _gravity(current_vertical_velocity: float, character: CharacterBody3D, delta: float) -> float:
 	if current_vertical_velocity <= terminal_velocity:
 		return current_vertical_velocity

@@ -4,14 +4,9 @@
 class_name MovementProcessor
 extends Node
 
-func process_movement(_character: Player, _delta: float, _move_max_speed: float, _move_jump_impulse: float) -> void:
+func compute_next_velocity(_character: Player, _delta: float, _move_max_speed: float, _move_jump_impulse: float) -> Vector3:
 	_warn_abstract_class()
-	pass
-
-func rotate_camera(_node_to_rotate: Node3D, _motion: Vector2, _sensitivity: float) -> void:
-	_warn_abstract_class()
-	pass
-
+	return Vector3.ZERO
 
 func _warn_abstract_class():
 	print("MovementProcessor is considered an abstract class and should not be used directly.")
