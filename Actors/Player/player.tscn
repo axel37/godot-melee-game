@@ -1,7 +1,8 @@
-[gd_scene load_steps=64 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=65 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
+[ext_resource type="Script" path="res://Actors/Player/Movement/quake_movement_processor.gd" id="2_71uxp"]
 [ext_resource type="PackedScene" uid="uid://kigmv8xm1oxv" path="res://Actors/Player/sword_skin.tscn" id="3_c3wxg"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealer.gd" id="3_t1aey"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_dealing_handler.gd" id="3_wgo13"]
@@ -1087,10 +1088,11 @@ size = Vector2(0.2, 0.2)
 orientation = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movement_processor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0102062)
 collision_layer = 536870912
 script = ExtResource("1_cmb4o")
 move_jump_impulse = 5.0
-movement_processor = NodePath("StandardMovementProcessor")
+movement_processor = NodePath("QuakeMovementProcessor")
 
 [node name="WeaponAnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
@@ -1111,6 +1113,9 @@ parameters/ThrustAttack/request = 0
 libraries = {
 "": SubResource("AnimationLibrary_hkxal")
 }
+
+[node name="QuakeMovementProcessor" type="Node" parent="."]
+script = ExtResource("2_71uxp")
 
 [node name="StandardMovementProcessor" type="Node" parent="."]
 script = ExtResource("2_2ya5d")
