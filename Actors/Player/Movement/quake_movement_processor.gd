@@ -2,11 +2,13 @@
 class_name QuakeMovementProcessor
 extends MovementProcessor
 
+@export_group("Action names", "action_name")
 @export var action_name_move_forward: String = "move_front"
 @export var action_name_move_back: String = "move_back"
 @export var action_name_move_left: String = "move_left"
 @export var action_name_move_right: String = "move_right"
 
+@export_group("Movement parameters")
 ## (Theoretical) Acceleration, in meters / second
 @export var accel: float = 60.0
 ## (Theoretical) Maximum speed (at which we stop accelerating), in meters / second
@@ -14,22 +16,25 @@ extends MovementProcessor
 ## (Theoretical) Maximum speed allowed while in the air, in meters / second.
 ## Note that it is very different from the actual maximum air speed, and is only used to skew calculations
 @export var max_air_speed: float = 0.6
-## Max climbable angle
-@export var max_ramp_angle: float = 45.0
 ## Stop adding gravity when reached
-# TODO : UNCLEAR
 @export var terminal_velocity: float = -5
+## Friction applied to ground movement. In quake-based games, usually between 1 and 5
+@export var friction: float = 5
 
-@export var friction: float = 2
+## Whether the jump button can be held to continuously jump
+@export var auto_jump: bool = false
 
+@export_group("Debug options", "debug")
 @export var debug_draw_wishdir: bool = true
 @export var debug_wishdir_color: Color = Color.GREEN_YELLOW
 
 @export var debug_draw_next_velocity: bool = true
 @export var debug_next_velocity_scale: float = 0.5
-@export var debug_next_velocity_color: Color = Color.BLUE_VIOLET
+@export var debug_next_velocity_color_ground: Color = Color.BLUE_VIOLET
+@export var debug_next_velocity_color_air: Color = Color.STEEL_BLUE
 
-func compute_next_velocity(character: Player, delta: float, move_max_speed: float, move_jump_impulse: float) -> Vector3:
+
+func compute_next_velocity(character: CharacterBody3D, delta: float, move_max_speed: float, move_jump_impulse: float) -> Vector3:
 	# If on ground, move_ground else move_air
 	# TODO : Debug draw vectors
 	# TODO : Passing _character here feels weird ?
@@ -38,24 +43,42 @@ func compute_next_velocity(character: Player, delta: float, move_max_speed: floa
 	# TODO : Turn long param list into inner classes ?
 	# TODO : Bring back the comments
 	# TODO : Debug arrows are lagging behind ??
+	# TODO : Jump
+	## Step 1 : Get input. "wishdir" represents the input direction (back/front/left/right)
 	var wishdir: Vector3 = _get_wishdir_from_input(character)
 	if debug_draw_wishdir && wishdir.length_squared() > 0:
-		DebugDraw3D.draw_arrow(character.global_position, character.global_position + wishdir, debug_wishdir_color, .25)
+		_debug_draw_vector(character, wishdir, 1.0, debug_wishdir_color)
+	var should_jump: bool = _should_jump()
 
-	var current_vertical_velocity: float = character.velocity.y
+	# It's easier to work on "movement" velocity and "jump/gravity" velocity separately
+	# so we extract the vertical component of the current velocity inside current_vertical_velocity
 	var current_velocity: Vector3 = character.velocity
+	var current_vertical_velocity: float = character.velocity.y
+
 	if character.is_on_floor():
-		current_vertical_velocity = 0
-		var next_velocity: Vector3 = _move_ground(current_velocity, current_vertical_velocity, wishdir, delta)
-		if debug_draw_next_velocity:
-			DebugDraw3D.draw_arrow(character.global_position, character.global_position + (next_velocity * debug_next_velocity_scale), debug_next_velocity_color, .25)
-		return next_velocity
+		if should_jump:
+			should_jump = false
+			current_vertical_velocity = move_jump_impulse
+			# Mimic Quake's way of treating first frame after landing as still in the air
+			var next_velocity: Vector3 = _move_air(current_velocity, current_vertical_velocity, wishdir, delta)
+			## TODO : Only draw HORIZONTAL velocity
+			if debug_draw_next_velocity:
+				_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_ground)
+			return next_velocity
+
+		else:
+			current_vertical_velocity = 0
+			var next_velocity: Vector3 = _move_ground(current_velocity, current_vertical_velocity, wishdir, delta)
+			## TODO : Only draw HORIZONTAL velocity
+			if debug_draw_next_velocity:
+				_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_ground)
+			return next_velocity
 	else:
-		# TODO : GRAVITY IS VECTOR3 !
 		current_vertical_velocity = _gravity(current_vertical_velocity, character, delta)
 		var next_velocity: Vector3 = _move_air(current_velocity, current_vertical_velocity, wishdir, delta)
+		## TODO : Only draw HORIZONTAL velocity
 		if debug_draw_next_velocity:
-			DebugDraw3D.draw_arrow(character.global_position, character.global_position + (next_velocity * debug_next_velocity_scale), debug_next_velocity_color, .25)
+			_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_air)
 		return next_velocity
 
 ## Check Input singleton for forward / strafe inputs
@@ -125,3 +148,23 @@ func _gravity(current_vertical_velocity: float, character: CharacterBody3D, delt
 	if current_vertical_velocity <= terminal_velocity:
 		return current_vertical_velocity
 	return current_vertical_velocity + (character.get_gravity().y * delta)
+
+## Draw a debug arrow corresponding to a vector
+func _debug_draw_vector(character: CharacterBody3D, vector: Vector3, scale: float = 1.0, color: Color = Color.GRAY):
+		DebugDraw3D.draw_arrow(character.global_position, character.global_position + (vector * scale), color, .25)
+
+## If the character should jump when given the occasion
+func _should_jump()-> bool:
+	var should_jump: bool = false
+
+	# If auto_jump is true, the player keeps jumping as long as the key is kept down
+	if auto_jump:
+		should_jump = true if Input.is_action_pressed("move_jump") else false
+		return should_jump
+
+	if Input.is_action_just_pressed("move_jump"):
+		should_jump = true
+	if Input.is_action_just_released("move_jump"):
+		should_jump = false
+
+	return should_jump

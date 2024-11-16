@@ -28,7 +28,7 @@ func compute_next_velocity(character: Player, delta: float, move_max_speed: floa
 	return next_velocity
 
 func _friction(current_velocity: Vector3, factor: float) -> Vector3:
-	var next_velocity: Vector3
+	var next_velocity: Vector3 = current_velocity
 	next_velocity.x *= factor
 	next_velocity.z *= factor
 	return next_velocity

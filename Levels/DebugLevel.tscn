@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://btjijot4c801v"]
+[gd_scene load_steps=19 format=3 uid="uid://btjijot4c801v"]
 
 [ext_resource type="Texture2D" uid="uid://bv2y5e7tfh7qe" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="1_8tg25"]
 [ext_resource type="PackedScene" uid="uid://dqy4c57ghd41i" path="res://Actors/Player/player.tscn" id="2_xnxel"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp3ao61ldxjvh" path="res://Actors/AiEnemy/AiEnemy.tscn" id="5_ppe6u"]
 [ext_resource type="PackedScene" uid="uid://c705nchj22gd5" path="res://Actors/BlenderEnemy/BlenderEnemy.tscn" id="6_sgnd6"]
 [ext_resource type="Texture2D" uid="uid://cw5jeao8eqky5" path="res://addons/kenney_prototype_textures/orange/texture_02.png" id="7_s5inq"]
+[ext_resource type="Texture2D" uid="uid://2oj5ijo1ebrl" path="res://addons/kenney_prototype_textures/light/texture_02.png" id="8_2i2a7"]
 [ext_resource type="PackedScene" uid="uid://bgx45e0mxvfwf" path="res://Actors/LimboAiEnemy/LimboAiEnemy.tscn" id="9_8jvgd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0n0sm"]
@@ -48,6 +49,14 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8207"]
 albedo_texture = ExtResource("7_s5inq")
 uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxq25"]
+albedo_texture = ExtResource("8_2i2a7")
+uv1_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_4cgrq"]
+left_to_right = 0.0
+size = Vector3(5, 2, 5)
 
 [node name="DebugLevel" type="Node3D"]
 
@@ -146,6 +155,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.5, 16)
 use_collision = true
 size = Vector3(9, 1, 17)
 material = SubResource("StandardMaterial3D_b8207")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Level/NavigationRegion3D"]
+transform = Transform3D(-0.849442, 0, -0.527682, 0, 1, 0, 0.527682, 0, -0.849442, 7.37199, 1, 7.32689)
+material_override = SubResource("StandardMaterial3D_cxq25")
+use_collision = true
+collision_mask = 0
+mesh = SubResource("PrismMesh_4cgrq")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="Level/NavigationRegion3D"]
+transform = Transform3D(-0.849442, 0, -0.527682, 0, 1, 0, 0.527682, 0, -0.849442, 10.9964, 2.2378, 5.81187)
+material_override = SubResource("StandardMaterial3D_cxq25")
+use_collision = true
+collision_mask = 0
+mesh = SubResource("PrismMesh_4cgrq")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="Level/NavigationRegion3D"]
+transform = Transform3D(-0.960444, 0, 0.278471, 0, 1, 0, -0.278471, 0, -0.960444, 10.4381, 1.71335, 8.78604)
+material_override = SubResource("StandardMaterial3D_cxq25")
+use_collision = true
+collision_mask = 0
+mesh = SubResource("PrismMesh_4cgrq")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="Level/NavigationRegion3D"]
+transform = Transform3D(-0.960444, 0, 0.278471, 0.0650882, 0.972301, 0.224488, -0.270758, 0.233734, -0.933841, 13.1895, 2.53663, 8.73032)
+material_override = SubResource("StandardMaterial3D_cxq25")
+use_collision = true
+collision_mask = 0
+mesh = SubResource("PrismMesh_4cgrq")
 
 [node name="LimboAiEnemy" parent="Level" instance=ExtResource("9_8jvgd")]
 transform = Transform3D(-0.999992, 0, -0.00394454, 0, 1, 0, 0.00394454, 0, -0.999992, -0.192311, 0, -4.83053)
