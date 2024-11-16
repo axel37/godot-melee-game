@@ -6,7 +6,7 @@ extends BTAction
 @export var max_distance_to_pass: float = 3
 
 ## TODO : Too naive ! This doesn't check whether the enemy is FACING the target !
-func _tick(delta: float) -> Status:
+func _tick(_delta: float) -> Status:
 	var target_position: Vector3 = blackboard.get_var(target_position_to_check_var)
 	if target_position == null:
 		return FAILURE

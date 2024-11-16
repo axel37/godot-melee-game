@@ -35,8 +35,6 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 
 ## Toggled by animations to disable movement.
 @export var ignore_movement_input: bool = false
-## Toggled by animations to disabled attacking
-@export var _can_attack: bool = true
 ## Toggled by animations to disable player rotation
 @export var _can_rotate: bool = true
 

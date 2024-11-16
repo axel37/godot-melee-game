@@ -21,7 +21,7 @@ extends LimboHSM
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
 
@@ -82,7 +82,7 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	agent.move_and_slide()
 
 
-func _on_hazard_detector_detected_damage(damage_dealer: DamageDealer) -> void:
+func _on_hazard_detector_detected_damage(_damage_dealer: DamageDealer) -> void:
 	if combat_state.blackboard.has_var(&"is_hazard_detected") and combat_state.blackboard.get_var(&"is_hazard_detected") == true:
 		return
 	combat_state.blackboard.set_var(&"is_hazard_detected", true)

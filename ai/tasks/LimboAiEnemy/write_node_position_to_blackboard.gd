@@ -8,7 +8,7 @@ extends BTAction
 
 const LOG_CODE_NOT_NODE3D = "TASK-SETNODEPOSITIONTOBLACKBOARD-001"
 
-func _tick(delta: float) -> Status:
+func _tick(_delta: float) -> Status:
 	## Step 1 : Get target Node3D (or fail)
 	var blackboard_var_target = blackboard.get_var(source_node_var)
 	if blackboard_var_target is not Node3D or blackboard_var_target == null:

@@ -25,7 +25,7 @@ func _ready() -> void:
 	monitoring = false
 	_renew()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_draw_debug()
 
 ## Called by external entities who blocked this attack
