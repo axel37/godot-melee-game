@@ -1115,6 +1115,12 @@ libraries = {
 
 [node name="QuakeMovementProcessor" type="Node" parent="."]
 script = ExtResource("2_71uxp")
+accel = 35.0
+max_speed = 4.5
+max_air_speed = 0.3
+terminal_velocity = -6.5
+friction = 4.5
+auto_jump = false
 
 [node name="StandardMovementProcessor" type="Node" parent="."]
 script = ExtResource("2_2ya5d")

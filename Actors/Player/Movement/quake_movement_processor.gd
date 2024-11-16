@@ -10,18 +10,18 @@ extends MovementProcessor
 
 @export_group("Movement parameters")
 ## (Theoretical) Acceleration, in meters / second
-@export var accel: float = 60.0
+@export_range(0, 120, 5) var accel: float = 60.0
 ## (Theoretical) Maximum speed (at which we stop accelerating), in meters / second
-@export var max_speed: float = 6.0
+@export_range(0, 12, .5) var max_speed: float = 6.0
 ## (Theoretical) Maximum speed allowed while in the air, in meters / second.
 ## Note that it is very different from the actual maximum air speed, and is only used to skew calculations
-@export var max_air_speed: float = 0.6
+@export_range(0, 1.2, .05) var max_air_speed: float = 0.6
 ## Stop adding gravity when reached
-@export var terminal_velocity: float = -5
+@export_range(-10, 0, 0.5) var terminal_velocity: float = -5
 ## Friction applied to ground movement. In quake-based games, usually between 1 and 5
-@export var friction: float = 5
+@export_range(0, 10, .5) var friction: float = 5
 ## Vertical velocity to be added upon a jump
-@export var jump_impulse: float = 5
+@export_range(0, 10, .5) var jump_impulse: float = 5
 ## Whether the jump button can be held to continuously jump
 @export var auto_jump: bool = true
 
@@ -39,7 +39,7 @@ func compute_next_velocity(character: CharacterBody3D, delta: float) -> Vector3:
 	# TODO : Passing _character here feels weird ?
 	# TODO : Debug arrows are lagging behind ??
 	# TODO : Jump queuing
-	# TODO : Set horizontal velocity to 0 on ceiling collision
+	# TODO : Set vertical velocity to 0 on ceiling collision
 	## Step 1 : Collect input. "wishdir" represents the input direction (back/front/left/right)
 	var wishdir: Vector3 = _get_wishdir_from_input(character)
 	if Global.game_settings.debug_overlay_movement_enable_wishdir && wishdir.length_squared() > 0:
@@ -146,7 +146,8 @@ func _gravity(current_vertical_velocity: float, character: CharacterBody3D, delt
 
 ## Draw a debug arrow corresponding to a vector
 func _debug_draw_vector(character: Node3D, vector: Vector3, scale: float = 1.0, color: Color = Color.GRAY):
-		DebugDraw3D.draw_arrow(character.global_position, character.global_position + (vector * scale), color, .25)
+	if not Global.game_settings.debug_overlay_movement_enable: return
+	DebugDraw3D.draw_arrow(character.global_position, character.global_position + (vector * scale), color, .25)
 
 ## If the character should jump when given the occasion
 # TODO : Jump queuing (queue jump for x seconds after pressing button)
