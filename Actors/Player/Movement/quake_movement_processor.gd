@@ -21,10 +21,7 @@ func process_movement(_character: Player, _delta: float, _move_max_speed: float,
 	pass
 
 ## Check Input singleton for forward / strafe inputs
-## wishdir is our normalized horizontal input
+## wishdir is our horizontal input, with a max length of 1.0
 func _get_wishdir_from_input(_character: Node3D) -> Vector3:
-	## TODO : This doesn't work great with joysticks (intensity is always 1)
-	var forward_input: float = Input.get_axis(action_name_move_forward, action_name_move_back)
-	var strafe_input: float = Input.get_axis(action_name_move_left, action_name_move_right)
-	return Vector3(strafe_input, 0, forward_input).normalized().rotated(Vector3.UP, _character.global_rotation.y)
-	# return Vector3(strafe_input, 0, forward_input).rotated(Vector3.UP, _character.global_transform.basis.get_euler().y).normalized()
+	var horizontal_input: Vector2 = Input.get_vector(action_name_move_left, action_name_move_right, action_name_move_forward, action_name_move_back)
+	return Vector3(horizontal_input.x, 0, horizontal_input.y).limit_length(1.0).rotated(Vector3.UP, _character.global_rotation.y)
