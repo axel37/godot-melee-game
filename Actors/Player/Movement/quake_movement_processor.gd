@@ -20,66 +20,52 @@ extends MovementProcessor
 @export var terminal_velocity: float = -5
 ## Friction applied to ground movement. In quake-based games, usually between 1 and 5
 @export var friction: float = 5
-
+## Vertical velocity to be added upon a jump
+@export var jump_impulse: float = 5
 ## Whether the jump button can be held to continuously jump
-@export var auto_jump: bool = false
+@export var auto_jump: bool = true
 
 @export_group("Debug options", "debug")
 @export var debug_draw_wishdir: bool = true
 @export var debug_wishdir_color: Color = Color.GREEN_YELLOW
 
-@export var debug_draw_next_velocity: bool = true
-@export var debug_next_velocity_scale: float = 0.5
-@export var debug_next_velocity_color_ground: Color = Color.BLUE_VIOLET
-@export var debug_next_velocity_color_air: Color = Color.STEEL_BLUE
+@export var debug_draw_draw_accelerate: bool = true
+@export var debug_draw_accelerate_scale: float = 0.5
+@export var debug_draw_accelerate_color_ground: Color = Color.BLUE_VIOLET
+@export var debug_draw_accelerate_color_air: Color = Color.STEEL_BLUE
 
 
-func compute_next_velocity(character: CharacterBody3D, delta: float, move_max_speed: float, move_jump_impulse: float) -> Vector3:
-	# If on ground, move_ground else move_air
-	# TODO : Debug draw vectors
+func compute_next_velocity(character: CharacterBody3D, delta: float) -> Vector3:
 	# TODO : Passing _character here feels weird ?
-	## TODO : PREFER PURE FUNCTIONS
-	# TODO : Turn wishdir into vector2 ?
-	# TODO : Turn long param list into inner classes ?
-	# TODO : Bring back the comments
 	# TODO : Debug arrows are lagging behind ??
-	# TODO : Jump
-	## Step 1 : Get input. "wishdir" represents the input direction (back/front/left/right)
+	# TODO : Jump queuing
+	# TODO : Set horizontal velocity to 0 on ceiling collision
+	## Step 1 : Collect input. "wishdir" represents the input direction (back/front/left/right)
 	var wishdir: Vector3 = _get_wishdir_from_input(character)
-	if debug_draw_wishdir && wishdir.length_squared() > 0:
+	if Global.game_settings.debug_overlay_movement_enable_wishdir && wishdir.length_squared() > 0:
 		_debug_draw_vector(character, wishdir, 1.0, debug_wishdir_color)
 	var should_jump: bool = _should_jump()
 
-	# It's easier to work on "movement" velocity and "jump/gravity" velocity separately
+	# It's easier to work on "movement" (horizontal) velocity and "jump/gravity" (vertical) velocity separately
 	# so we extract the vertical component of the current velocity inside current_vertical_velocity
 	var current_velocity: Vector3 = character.velocity
 	var current_vertical_velocity: float = character.velocity.y
 
-	if character.is_on_floor():
-		if should_jump:
-			should_jump = false
-			current_vertical_velocity = move_jump_impulse
-			# Mimic Quake's way of treating first frame after landing as still in the air
-			var next_velocity: Vector3 = _move_air(current_velocity, current_vertical_velocity, wishdir, delta)
-			## TODO : Only draw HORIZONTAL velocity
-			if debug_draw_next_velocity:
-				_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_ground)
-			return next_velocity
-
-		else:
-			current_vertical_velocity = 0
-			var next_velocity: Vector3 = _move_ground(current_velocity, current_vertical_velocity, wishdir, delta)
-			## TODO : Only draw HORIZONTAL velocity
-			if debug_draw_next_velocity:
-				_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_ground)
-			return next_velocity
-	else:
+	## Step 2 : Move character
+	# If in air or jumping : move_air else : move_ground
+	if not character.is_on_floor():
 		current_vertical_velocity = _gravity(current_vertical_velocity, character, delta)
-		var next_velocity: Vector3 = _move_air(current_velocity, current_vertical_velocity, wishdir, delta)
-		## TODO : Only draw HORIZONTAL velocity
-		if debug_draw_next_velocity:
-			_debug_draw_vector(character, next_velocity, debug_next_velocity_scale, debug_next_velocity_color_air)
-		return next_velocity
+		return _move_air(current_velocity, current_vertical_velocity, wishdir, character, delta)
+	elif should_jump:
+		# Mimic Quake's way of treating first frame after landing as still in the air
+		should_jump = false
+		current_vertical_velocity = jump_impulse
+		return _move_air(current_velocity, current_vertical_velocity, wishdir, character, delta)
+	else:
+		current_vertical_velocity = 0
+		return _move_ground(current_velocity, current_vertical_velocity, wishdir, character, delta)
+
+
 
 ## Check Input singleton for forward / strafe inputs
 ## wishdir is our horizontal input, with a max length of 1.0
@@ -88,32 +74,39 @@ func _get_wishdir_from_input(_character: Node3D) -> Vector3:
 	return Vector3(horizontal_input.x, 0, horizontal_input.y).limit_length(1.0).rotated(Vector3.UP, _character.global_rotation.y)
 
 
-# Apply friction, then accelerate
-func _move_ground(current_horizontal_velocity: Vector3, current_vertical_velocity: float, wishdir: Vector3, delta: float)-> Vector3:
+## Apply friction, then accelerate
+func _move_ground(current_horizontal_velocity: Vector3, current_vertical_velocity: float, wishdir: Vector3, character: Node3D, delta: float)-> Vector3:
 	# We first work on the horizontal components of our current velocity
-	var nextVelocity: Vector3 = Vector3.ZERO
-	nextVelocity.x = current_horizontal_velocity.x
-	nextVelocity.z = current_horizontal_velocity.z
+	var next_velocity: Vector3 = Vector3.ZERO
+	next_velocity.x = current_horizontal_velocity.x
+	next_velocity.z = current_horizontal_velocity.z
 	# Scale down velocity
-	nextVelocity = _friction(nextVelocity, current_horizontal_velocity, delta)
-	nextVelocity = _accelerate(wishdir, nextVelocity, accel, max_speed, delta)
+	next_velocity = _friction(next_velocity, current_horizontal_velocity, delta)
+	next_velocity = _accelerate(wishdir, next_velocity, accel, max_speed, delta)
+
+	if Global.game_settings.debug_overlay_movement_enable_accelerate:
+		_debug_draw_vector(character, next_velocity, debug_draw_accelerate_scale, debug_draw_accelerate_color_ground)
 
 	# Then get back our vertical component, and move the player
-	nextVelocity.y = current_vertical_velocity
-	return nextVelocity
+	next_velocity.y = current_vertical_velocity
+	return next_velocity
 
-# Accelerate without applying friction (with a lower allowed max_speed)
-func _move_air(current_horizontal_velocity: Vector3, current_vertical_velocity: float, wishdir: Vector3, delta: float)-> Vector3:
+## Accelerate without applying friction (with a lower allowed max_speed)
+func _move_air(current_horizontal_velocity: Vector3, current_vertical_velocity: float, wishdir: Vector3, character: Node3D, delta: float)-> Vector3:
 	# We first work on only on the horizontal components of our current velocity
-	var nextVelocity: Vector3 = Vector3.ZERO
-	nextVelocity.x = current_horizontal_velocity.x
-	nextVelocity.z = current_horizontal_velocity.z
-	nextVelocity = _accelerate(wishdir, nextVelocity, accel, max_air_speed, delta)
+	var next_velocity: Vector3 = Vector3.ZERO
+	next_velocity.x = current_horizontal_velocity.x
+	next_velocity.z = current_horizontal_velocity.z
+	next_velocity = _accelerate(wishdir, next_velocity, accel, max_air_speed, delta)
+
+	if Global.game_settings.debug_overlay_movement_enable_accelerate:
+		_debug_draw_vector(character, next_velocity, debug_draw_accelerate_scale, debug_draw_accelerate_color_air)
 
 	# Then get back our vertical component, and move the player
-	nextVelocity.y = current_vertical_velocity
-	return nextVelocity
+	next_velocity.y = current_vertical_velocity
+	return next_velocity
 
+## Scale down horizontal velocityl
 func _friction(velocity: Vector3, input_velocity: Vector3, delta: float) -> Vector3:
 	var speed: float = input_velocity.length()
 	var scaled_velocity: Vector3
@@ -140,6 +133,8 @@ func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, max_sp
 	# If we're going too fast, our acceleration will be reduced (until it evenutually hits 0, where we don't add any more speed).
 	var add_speed: float = clamp(max_speed - current_speed, 0, accel * delta)
 
+	# TODO : Debug draw result
+
 	return input_velocity + wishdir * add_speed
 
 ## Apply gravity, if terminal velocity hasn't yet been reached
@@ -150,10 +145,11 @@ func _gravity(current_vertical_velocity: float, character: CharacterBody3D, delt
 	return current_vertical_velocity + (character.get_gravity().y * delta)
 
 ## Draw a debug arrow corresponding to a vector
-func _debug_draw_vector(character: CharacterBody3D, vector: Vector3, scale: float = 1.0, color: Color = Color.GRAY):
+func _debug_draw_vector(character: Node3D, vector: Vector3, scale: float = 1.0, color: Color = Color.GRAY):
 		DebugDraw3D.draw_arrow(character.global_position, character.global_position + (vector * scale), color, .25)
 
 ## If the character should jump when given the occasion
+# TODO : Jump queuing (queue jump for x seconds after pressing button)
 func _should_jump()-> bool:
 	var should_jump: bool = false
 

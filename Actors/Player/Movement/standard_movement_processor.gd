@@ -1,7 +1,12 @@
 class_name StandardMovementProcessor
 extends MovementProcessor
 
-func compute_next_velocity(character: Player, delta: float, move_max_speed: float, move_jump_impulse: float) -> Vector3:
+## The speed at which the player should stop accelerating (grounded, in a straight line)
+@export var move_max_speed: float = 5
+## The vertical velocity to add upon jumping
+@export var move_jump_impulse: float = 10
+
+func compute_next_velocity(character: Player, delta: float) -> Vector3:
 	var next_velocity: Vector3 = character.velocity
 
 	# Add the gravity.

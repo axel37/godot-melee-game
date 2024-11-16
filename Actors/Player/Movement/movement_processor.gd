@@ -4,7 +4,7 @@
 class_name MovementProcessor
 extends Node
 
-func compute_next_velocity(_character: Player, _delta: float, _move_max_speed: float, _move_jump_impulse: float) -> Vector3:
+func compute_next_velocity(_character: Player, _delta: float) -> Vector3:
 	_warn_abstract_class()
 	return Vector3.ZERO
 

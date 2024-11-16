@@ -16,10 +16,6 @@ const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 ## Should approximately match quake / source engine games.
 @export var mouse_sensitivity: float = 0.25
 
-## The speed at which the player should stop accelerating (grounded, in a straight line)
-@export var move_max_speed: float = 5
-## The vertical velocity to add upon jumping
-@export var move_jump_impulse: float = 10
 ## Used to tuck away movement code from main player script.
 ## Designed to be replaceable.
 @export var movement_processor: MovementProcessor = null
@@ -69,7 +65,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## Move the player according to input
 func _process_movement(delta: float) -> void:
 	if movement_processor:
-		velocity = movement_processor.compute_next_velocity(self, delta, move_max_speed, move_jump_impulse)
+		velocity = movement_processor.compute_next_velocity(self, delta)
 		move_and_slide()
 
 ## Rotate the camera and the player based on mouse motion
