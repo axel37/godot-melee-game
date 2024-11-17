@@ -65,7 +65,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## Move the player according to input
 func _process_movement(delta: float) -> void:
 	if movement_processor:
-		velocity = movement_processor.compute_next_velocity(self, delta)
+		velocity = movement_processor.compute_next_velocity(self, delta, ignore_movement_input)
 		move_and_slide()
 
 ## Rotate the camera and the player based on mouse motion

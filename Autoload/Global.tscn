@@ -26,8 +26,6 @@ script = ExtResource("4_q5qxf")
 [node name="GameSettings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_dcfqm")
-debug_overlay_enable = true
-debug_overlay_movement_enable = true
 
 [node name="DebugMenu" type="Node" parent="."]
 script = ExtResource("6_p8qa4")

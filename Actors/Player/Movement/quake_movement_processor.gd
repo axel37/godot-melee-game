@@ -35,17 +35,24 @@ extends MovementProcessor
 @export var debug_draw_accelerate_color_ground: Color = Color.BLUE_VIOLET
 @export var debug_draw_accelerate_color_air: Color = Color.STEEL_BLUE
 
-
-func compute_next_velocity(character: CharacterBody3D, delta: float) -> Vector3:
+## Compute a next velocity for character based on input (collected from Input singleton)
+## character : Needs to be a CharacterBody3D (we need is_on_floor and get_gravity)
+## delta : delta-time since last frame
+## ignore input : whether movement/jump inputs should be ignored (which amounts to only applying friction / gravity)
+func compute_next_velocity(character: CharacterBody3D, delta: float, ignore_input: bool = false) -> Vector3:
 	# TODO : Passing _character here feels weird ?
 	# TODO : Debug arrows are lagging behind ??
 	# TODO : Jump queuing
 	# TODO : Set vertical velocity to 0 on ceiling collision
 	## Step 1 : Collect input. "wishdir" represents the input direction (back/front/left/right)
-	var wishdir: Vector3 = _get_wishdir_from_input(character)
+	var wishdir: Vector3 = Vector3.ZERO
+	var should_jump: bool = false
+	if not ignore_input:
+		wishdir = _get_wishdir_from_input(character)
+		should_jump = _should_jump()
+
 	if Global.game_settings.debug_overlay_movement_enable_wishdir && wishdir.length_squared() > 0:
 		_debug_draw_vector(character, wishdir, 1.0, debug_wishdir_color)
-	var should_jump: bool = _should_jump()
 
 	# It's easier to work on "movement" (horizontal) velocity and "jump/gravity" (vertical) velocity separately
 	# so we extract the vertical component of the current velocity inside current_vertical_velocity

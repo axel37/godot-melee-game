@@ -6,14 +6,14 @@ extends MovementProcessor
 ## The vertical velocity to add upon jumping
 @export var move_jump_impulse: float = 10
 
-func compute_next_velocity(character: Player, delta: float) -> Vector3:
+func compute_next_velocity(character: Player, delta: float, ignore_input: bool = false) -> Vector3:
 	var next_velocity: Vector3 = character.velocity
 
 	# Add the gravity.
 	if not character.is_on_floor():
 		next_velocity += character.get_gravity() * delta
 
-	if not character.ignore_movement_input:
+	if not ignore_input:
 		# Handle jump.
 		if Input.is_action_just_pressed("move_jump") and character.is_on_floor():
 			next_velocity.y = move_jump_impulse
