@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bxuh7")
-current_value = 70.0
+current_value = 83.5
 
 [node name="Background" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -22,13 +22,18 @@ color = Color(0.103744, 0.103744, 0.103744, 1)
 [node name="ValuePrevious" type="ColorRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 300.0
+offset_right = 250.5
 offset_bottom = 40.0
 color = Color(0.99969, 0.781036, 0.776367, 1)
 
 [node name="Value" type="ColorRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 210.0
+offset_right = 250.5
 offset_bottom = 40.0
 color = Color(0.57, 0.00569999, 0.13737, 1)
+
+[node name="BufferTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.7
+one_shot = true
