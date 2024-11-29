@@ -227,13 +227,13 @@ unique_name_in_owner = true
 
 [node name="HealthBarSprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28463, 0)
+cast_shadow = 0
 visibility_range_end = 10.0
 visibility_range_end_margin = 1.0
 visibility_range_fade_mode = 1
 billboard = 2
 transparent = false
 double_sided = false
-texture_filter = 0
 texture = SubResource("ViewportTexture_ukht1")
 script = ExtResource("14_242ra")
 
