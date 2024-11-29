@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://db3sblc285eoy"]
 
-[ext_resource type="PackedScene" uid="uid://bebheibvciqj5" path="res://Actors/BlenderEnemy/enemy.glb" id="1_qynyj"]
+[ext_resource type="PackedScene" uid="uid://c2k8y7vx5j4j6" path="res://Actors/BlenderEnemy/enemy.glb" id="1_qynyj"]
 
 [node name="enemy2" instance=ExtResource("1_qynyj")]
 
