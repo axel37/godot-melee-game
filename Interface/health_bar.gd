@@ -4,6 +4,7 @@
 ## Warning : Does not work wit negative max_value
 ## Warning : Does not handle size changes (fixable, but it hasn't been done)
 @tool
+class_name HealthBar
 extends Control
 
 ## Will clamp current_value
@@ -44,6 +45,9 @@ extends Control
 @onready var health_rect: ColorRect = %Value
 @onready var buffer_timer: Timer = %BufferTimer
 
+var initialized: bool = false
+
+# TODO : Crashed on game start for some reason
 # TODO : Healing buffer ?
 # BUG : If value goes down then up, buffer is still at old position
 # TODO : Handle size changes
@@ -51,10 +55,13 @@ extends Control
 
 func _ready() -> void:
 	buffer_timer.timeout.connect(_on_buffer_timeout)
+	initialized = true
 
 ## When current_value changes, update visuals
 ## (setter method)
 func _set_value(new_value: float) -> void:
+	# This check prevents a crash (_set_value is called before the node is ready for some reason)
+	if not initialized: return
 	# Step 1 : Update buffer
 	# If value has increase, update immediately. Else, tween it.
 	if new_value > buffer_rect.size.x:

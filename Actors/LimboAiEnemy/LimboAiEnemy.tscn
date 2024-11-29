@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bgx45e0mxvfwf"]
+[gd_scene load_steps=31 format=3 uid="uid://bgx45e0mxvfwf"]
 
 [ext_resource type="PackedScene" uid="uid://bwwxp248vlwcm" path="res://Actors/LimboAiEnemy/enemy.glb" id="1_fodfn"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/limbo_ai_enemy.gd" id="1_sjejd"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/stagger_state.gd" id="8_5nv8m"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/alive_state_machine.gd" id="8_yxr7p"]
 [ext_resource type="Script" path="res://Actors/LimboAiEnemy/dying_state.gd" id="9_xyjtj"]
+[ext_resource type="Script" path="res://Actors/LimboAiEnemy/health_bar_sprite_3d.gd" id="14_242ra"]
+[ext_resource type="PackedScene" uid="uid://dcilvcalj7nya" path="res://Interface/HealthBar.tscn" id="14_ebglw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kkf48"]
 size = Vector3(0.2, 0.2, 2)
@@ -72,6 +74,9 @@ size = Vector3(1.9939, 1.6377, 2.64343)
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_k733v"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wlei4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ukht1"]
+viewport_path = NodePath("HealthBarSprite3D/HUD")
 
 [node name="LimboAiEnemy" type="CharacterBody3D"]
 collision_layer = 2147483649
@@ -220,11 +225,34 @@ animation_name = &"anim-death"
 [node name="DeadState" type="LimboState" parent="StateMachine"]
 unique_name_in_owner = true
 
+[node name="HealthBarSprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28463, 0)
+visibility_range_end = 10.0
+visibility_range_end_margin = 1.0
+visibility_range_fade_mode = 1
+billboard = 2
+transparent = false
+double_sided = false
+texture_filter = 0
+texture = SubResource("ViewportTexture_ukht1")
+script = ExtResource("14_242ra")
+
+[node name="HUD" type="SubViewport" parent="HealthBarSprite3D"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(250, 20)
+
+[node name="HealthBar" parent="HealthBarSprite3D/HUD" instance=ExtResource("14_ebglw")]
+unique_name_in_owner = true
+offset_right = 0.0
+offset_bottom = 0.0
+
 [connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]
 [connection signal="body_exited" from="KeepFollowingArea3D" to="StateMachine/AliveState" method="_on_keep_following_area_3d_body_exited"]
 [connection signal="body_entered" from="TargetDetectorArea3D" to="StateMachine/AliveState" method="_on_target_detector_area_3d_body_entered"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="StateMachine/AliveState" method="_on_damage_receiving_handler_received_damage"]
 [connection signal="detected_damage" from="HazardDetector" to="StateMachine/AliveState" method="_on_hazard_detector_detected_damage"]
+[connection signal="health_changed" from="StateMachine/AliveState" to="HealthBarSprite3D" method="_on_alive_state_health_changed"]
 
 [editable path="model"]

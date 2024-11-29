@@ -1,5 +1,7 @@
 extends LimboHSM
 
+signal health_changed(current_value: int)
+
 @onready var roaming_state: BTState = %RoamingState
 @onready var combat_state: BTState = %CombatState
 @onready var stagger_state: LimboState = %StaggerState
@@ -64,6 +66,7 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	agent.add_child(particles)
 	particles.emitting = true
 	health -= 1
+	health_changed.emit(health)
 
 	if health <= 0:
 		dispatch(&"died")
