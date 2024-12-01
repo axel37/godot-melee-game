@@ -245,9 +245,7 @@ size = Vector2i(300, 30)
 
 [node name="HealthBar" parent="HealthBarSprite3D/HUD" instance=ExtResource("14_ebglw")]
 unique_name_in_owner = true
-offset_right = 0.0
-offset_bottom = 0.0
-current_value = 42.0
+current_value = 47.4
 
 [connection signal="body_exited" from="KeepFollowingArea3D" to="." method="_on_keep_following_area_3d_body_exited"]
 [connection signal="body_exited" from="KeepFollowingArea3D" to="StateMachine/AliveState" method="_on_keep_following_area_3d_body_exited"]

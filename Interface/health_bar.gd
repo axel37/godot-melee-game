@@ -2,7 +2,7 @@
 ## The buffer represents the old value and helps visualize change over time
 ## Note : The health bar's size is controlled by the standard Transform / size property
 ## Warning : Does not work wit negative max_value
-## Warning : Does not handle size changes (fixable, but it hasn't been done)
+## Warning : Buffer behaves incorrectly when size changes
 @tool
 class_name HealthBar
 extends Control
@@ -21,10 +21,10 @@ extends Control
 @export_group("Buffer", "buffer")
 ## How long to display the buffer / how long the buffer should hold the old value for.[br]
 ## When this delay is reached, the buffer bar adjusts to match the health bar.
-@export_range(.1, 3, .1) var buffer_delay: float = .4
+@export_range(.1, 3, .1, "or_greater") var buffer_delay: float = .4
 ## Once buffer_delay has expired, how long it should take for the buffer to match the health bar.[br]
 ## Set this to 0 to make it instantaneous.
-@export_range(0, 1.5, .1) var buffer_time: float = .3
+@export_range(0, 1.5, .1, "or_greater") var buffer_time: float = .3
 
 @export_group("Colors", "color")
 @export var color_health: Color = Color(0.57, 0.006, 0.137):
@@ -56,6 +56,7 @@ var initialized: bool = false
 func _ready() -> void:
 	buffer_timer.timeout.connect(_on_buffer_timeout)
 	initialized = true
+	resized.connect(_on_resized)
 
 ## When current_value changes, update visuals
 ## (setter method)
@@ -84,3 +85,10 @@ func _on_buffer_timeout() -> void:
 ## Takes into account
 func _get_viz_size_for_value(new_value: float) -> float:
 	return size.x * (new_value - min_value) / (max_value - min_value)
+
+## Recompute proper sizings on resize
+## TODO : Buffer will still look incorrect
+func _on_resized() -> void:
+	health_rect.size.x = _get_viz_size_for_value(current_value)
+	health_rect.size.y = size.y
+	buffer_rect.size.y = size.y
