@@ -20,28 +20,24 @@ signal blocked_damage(time_since_block: float, damage_dealer: DamageDealer)
 ## Time this DamageBlocker has been active
 var time_blocking: float = 0
 
+## HACK : This stores the result of find_parent("*Level*") (it's a slow operation)
+static var level: Node3D
+
 func _ready() -> void:
 	_renew()
-	area_entered.connect(_on_area_entered)
+	area_shape_entered.connect(_on_area_shape_entered)
 
 func _process(delta: float) -> void:
 	time_blocking += delta
 	_draw_debug()
 
-func _on_area_entered(area: Area3D) -> void:
-	if area is DamageDealer:
-		var damage_dealer: DamageDealer = area as DamageDealer
-		Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage %s" % [name, damage_dealer.name])
-		blocked_damage.emit(time_blocking, damage_dealer)
-		# Spawn particles (kinda sucks)
-		# TODO : Particles are spawned at current position, which may not reflect where the attack actually landed
-		# TODO : Duplicated particle spawning code ?
-		# TODO : Use area_shape_entered signal to find the shape's location instead ?
-		var particle_node: GPUParticles3D = block_particles.instantiate()
-		get_parent().add_child(particle_node)
-		var particles_position = block_particles_position_override.position if block_particles_position_override != null else position
-		particle_node.position = particles_position
-		particle_node.emitting = true
+func _on_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+	if area is not DamageDealer: return
+	var damage_dealer: DamageDealer = area
+	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage %s" % [name, damage_dealer.name])
+	blocked_damage.emit(time_blocking, damage_dealer)
+
+	_spawn_block_particles(area, area_shape_index)
 
 func _renew() -> void:
 	time_blocking = 0
@@ -54,6 +50,25 @@ func _set_enabled(value: bool):
 	set_deferred("monitorable", value)
 	set_deferred("monitoring", value)
 	Global.log(LOG_CODE_SET_ENABLED, "%s : _set_enabled %s" % [name, value])
+
+## Spawn VFX at the mid-point between the damage dealer and the damage blocker
+## This is a good approximation for the actual collision point !
+func _spawn_block_particles(area: Area3D, area_shape_index: int) -> void:
+	var shape: CollisionShape3D = area.shape_owner_get_owner(area.shape_find_owner(area_shape_index))
+	var shape_pos: Vector3 = shape.global_position
+	var sub: Vector3 = global_position - shape_pos
+	var mid: Vector3 = sub * 0.5
+	var final: Vector3 = shape_pos + mid
+	# Gigantic hack that works suprisngly well : spawn the particles slightly higher
+	final.y += 0.75
+
+	var particle_node: GPUParticles3D = block_particles.instantiate()
+	if level == null:
+		push_warning("HACK : find_parent('*Level*') - THIS WILL BREAK SHIT, I WARNED YOU")
+		level = find_parent("*Level*")
+	level.add_child(particle_node)
+	particle_node.position = final
+	particle_node.emitting = true
 
 ## Draw a wireframe box around collision shapes
 func _draw_debug() -> void:

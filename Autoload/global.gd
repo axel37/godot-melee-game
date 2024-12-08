@@ -23,6 +23,7 @@ func log(code: String, message: String) -> void:
 		return
 	_logger.log(code, message)
 
+
 ## Setter for [member time_scale]
 func _set_time_scale(value: float) -> void:
 	# TODO : We might want to update "max physics ticks per frame" here
