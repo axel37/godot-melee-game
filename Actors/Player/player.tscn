@@ -1062,8 +1062,8 @@ scale_min = 0.0
 scale_curve = SubResource("CurveTexture_xuuf7")
 
 [sub_resource type="Gradient" id="Gradient_105rj"]
-offsets = PackedFloat32Array(0, 0.325503, 0.654362, 1)
-colors = PackedColorArray(0.9, 0.2169, 0.00899999, 1, 1, 0, 0, 1, 0.611012, 0, 0.0176932, 1, 1, 0, 0, 0)
+offsets = PackedFloat32Array(0.275168, 0.38255, 0.40604, 1)
+colors = PackedColorArray(0.187904, 2.28621e-07, 3.00817e-08, 1, 0.611012, 0, 0.0176932, 1, 0.629317, 0, 0.0168606, 0.952941, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_dx8mu"]
 gradient = SubResource("Gradient_105rj")
@@ -1075,6 +1075,7 @@ metadata/_snap_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymyjj"]
 transparency = 1
 albedo_texture = SubResource("GradientTexture2D_dx8mu")
+roughness = 0.1
 backlight = Color(1, 1, 1, 1)
 billboard_mode = 3
 billboard_keep_scale = true
@@ -1188,10 +1189,11 @@ shape = SubResource("BoxShape3D_f60r3")
 
 [node name="HurtParticles" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04724, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2439, 0)
 emitting = false
 amount = 16
 one_shot = true
+preprocess = 0.1
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_jhanw")
 draw_pass_1 = SubResource("PlaneMesh_psjfx")
