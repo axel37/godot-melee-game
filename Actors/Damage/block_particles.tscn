@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://bug25yfxb1nvk"]
+
+[sub_resource type="Gradient" id="Gradient_ixnhj"]
+offsets = PackedFloat32Array(0, 0.241497, 0.863946)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.966667, 0, 1, 1, 0.7, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y6sle"]
+gradient = SubResource("Gradient_ixnhj")
+
+[sub_resource type="Curve" id="Curve_apvbk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c85ot"]
+curve = SubResource("Curve_apvbk")
+
+[sub_resource type="Curve" id="Curve_60821"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.496894, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n73tv"]
+curve = SubResource("Curve_60821")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3jop2"]
+direction = Vector3(0, 0, -1)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_n73tv")
+color_ramp = SubResource("GradientTexture1D_y6sle")
+emission_curve = SubResource("CurveTexture_c85ot")
+
+[sub_resource type="Gradient" id="Gradient_geoxl"]
+offsets = PackedFloat32Array(0.130872, 0.201342, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.0509804, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qsk4h"]
+gradient = SubResource("Gradient_geoxl")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ko7w"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_qsk4h")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_d1say"]
+lightmap_size_hint = Vector2i(2, 2)
+material = SubResource("StandardMaterial3D_5ko7w")
+size = Vector2(0.1, 0.1)
+
+[node name="BlockParticles" type="GPUParticles3D"]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3jop2")
+draw_passes = 2
+draw_pass_1 = SubResource("QuadMesh_d1say")
+draw_pass_2 = null

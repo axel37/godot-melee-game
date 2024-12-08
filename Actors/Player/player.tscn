@@ -1150,10 +1150,11 @@ metadata/_edit_lock_ = true
 [node name="DamageReceivingHandler" type="Node3D" parent="."]
 script = ExtResource("4_vmj4h")
 
-[node name="DamageBlocker" type="Area3D" parent="DamageReceivingHandler"]
+[node name="DamageBlocker" type="Area3D" parent="DamageReceivingHandler" node_paths=PackedStringArray("block_particles_position_override")]
 collision_layer = 536870912
 collision_mask = 3221225472
 script = ExtResource("6_irynb")
+block_particles_position_override = NodePath("../../WhereToSpawnBlockParticles")
 enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageReceivingHandler/DamageBlocker"]
@@ -1194,6 +1195,9 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_jhanw")
 draw_pass_1 = SubResource("PlaneMesh_psjfx")
+
+[node name="WhereToSpawnBlockParticles" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36561, -0.913851)
 
 [connection signal="blocked_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]

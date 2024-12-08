@@ -9,6 +9,11 @@ const LOG_CODE_DAMAGE_BLOCKED = "BLOCKER-002"
 
 signal blocked_damage(time_since_block: float, damage_dealer: DamageDealer)
 
+## Particles to emit when an attack has been blocked. MUST be of type GPUParticles3D
+## Could be changed to allow any kind of scene (it would be up to the scene to do stuff when instanced)
+@export var block_particles: PackedScene = preload("res://Actors/Damage/block_particles.tscn")
+@export var block_particles_position_override: Node3D
+
 @export var enabled: bool = true:
 	set = _set_enabled
 
@@ -28,6 +33,15 @@ func _on_area_entered(area: Area3D) -> void:
 		var damage_dealer: DamageDealer = area as DamageDealer
 		Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage %s" % [name, damage_dealer.name])
 		blocked_damage.emit(time_blocking, damage_dealer)
+		# Spawn particles (kinda sucks)
+		# TODO : Particles are spawned at current position, which may not reflect where the attack actually landed
+		# TODO : Duplicated particle spawning code ?
+		# TODO : Use area_shape_entered signal to find the shape's location instead ?
+		var particle_node: GPUParticles3D = block_particles.instantiate()
+		get_parent().add_child(particle_node)
+		var particles_position = block_particles_position_override.position if block_particles_position_override != null else position
+		particle_node.position = particles_position
+		particle_node.emitting = true
 
 func _renew() -> void:
 	time_blocking = 0
