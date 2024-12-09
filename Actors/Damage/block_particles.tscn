@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bug25yfxb1nvk"]
+[gd_scene load_steps=21 format=3 uid="uid://bug25yfxb1nvk"]
 
 [ext_resource type="Script" path="res://Actors/Damage/block_particles.gd" id="1_7yw4g"]
 [ext_resource type="Texture2D" uid="uid://cg852ii3useum" path="res://Actors/Damage/color_ramp.tres" id="2_7yu1m"]
@@ -63,13 +63,6 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_v0uka"]
 curve = SubResource("Curve_epsa8")
 
-[sub_resource type="Gradient" id="Gradient_ixnhj"]
-offsets = PackedFloat32Array(0.44, 0.687273, 0.863946)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0.966667, 0, 1, 1, 0.7, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_tddb6"]
-gradient = SubResource("Gradient_ixnhj")
-
 [sub_resource type="Curve" id="Curve_yh6i6"]
 _data = [Vector2(0, 0.428133), 0.0, 2.04399, 0, 1, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -79,19 +72,20 @@ curve = SubResource("Curve_yh6i6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7b61n"]
 gravity = Vector3(0, 0, 0)
-scale_min = 0.8
+scale_min = 0.5
+scale_max = 0.75
 scale_curve = SubResource("CurveTexture_17cj4")
-color_ramp = SubResource("GradientTexture1D_tddb6")
+color_ramp = ExtResource("2_7yu1m")
 alpha_curve = SubResource("CurveTexture_v0uka")
 
 [sub_resource type="Gradient" id="Gradient_ncroy"]
-offsets = PackedFloat32Array(0.734982, 0.897527, 0.932862, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.348993, 0.97651, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hb1a3"]
 gradient = SubResource("Gradient_ncroy")
-width = 128
-height = 128
+width = 512
+height = 512
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -102,6 +96,7 @@ transparency = 1
 blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.0431373)
 albedo_texture = SubResource("GradientTexture2D_hb1a3")
 billboard_mode = 3
 billboard_keep_scale = true
@@ -133,5 +128,6 @@ amount = 1
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_7b61n")
 draw_pass_1 = SubResource("QuadMesh_i4ev1")
