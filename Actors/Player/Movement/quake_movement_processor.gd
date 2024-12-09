@@ -11,7 +11,7 @@ extends MovementProcessor
 
 @export_group("Movement parameters")
 ## (Theoretical) Acceleration, in meters / second
-@export_range(0, 120, 5) var accel: float = 60.0
+@export_range(0, 120, 5) var acceleration: float = 60.0
 ## (Theoretical) Maximum speed (at which we stop accelerating), in meters / second
 @export_range(0, 12, .5) var max_speed: float = 6.0
 ## (Theoretical) Maximum speed allowed while in the air, in meters / second.
@@ -89,8 +89,8 @@ func _move_ground(current_horizontal_velocity: Vector3, current_vertical_velocit
 	next_velocity.x = current_horizontal_velocity.x
 	next_velocity.z = current_horizontal_velocity.z
 	# Scale down velocity
-	next_velocity = _friction(next_velocity, current_horizontal_velocity, delta)
-	next_velocity = _accelerate(wishdir, next_velocity, accel, max_speed, delta)
+	next_velocity = _friction(current_horizontal_velocity, delta)
+	next_velocity = _accelerate(wishdir, next_velocity, acceleration, max_speed, delta)
 
 	if Global.game_settings.debug_overlay_movement_enable_accelerate:
 		_debug_draw_vector(character, next_velocity, debug_draw_accelerate_scale, debug_draw_accelerate_color_ground)
@@ -105,7 +105,7 @@ func _move_air(current_horizontal_velocity: Vector3, current_vertical_velocity: 
 	var next_velocity: Vector3 = Vector3.ZERO
 	next_velocity.x = current_horizontal_velocity.x
 	next_velocity.z = current_horizontal_velocity.z
-	next_velocity = _accelerate(wishdir, next_velocity, accel, max_air_speed, delta)
+	next_velocity = _accelerate(wishdir, next_velocity, acceleration, max_air_speed, delta)
 
 	if Global.game_settings.debug_overlay_movement_enable_accelerate:
 		_debug_draw_vector(character, next_velocity, debug_draw_accelerate_scale, debug_draw_accelerate_color_air)
@@ -115,7 +115,7 @@ func _move_air(current_horizontal_velocity: Vector3, current_vertical_velocity: 
 	return next_velocity
 
 ## Scale down horizontal velocityl
-func _friction(velocity: Vector3, input_velocity: Vector3, delta: float) -> Vector3:
+func _friction(input_velocity: Vector3, delta: float) -> Vector3:
 	var speed: float = input_velocity.length()
 	var scaled_velocity: Vector3
 
@@ -131,7 +131,7 @@ func _friction(velocity: Vector3, input_velocity: Vector3, delta: float) -> Vect
 	return scaled_velocity
 
 # This is were we calculate the speed to add to current velocity
-func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, max_speed: float, delta: float)-> Vector3:
+func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, maximum_speed: float, delta: float)-> Vector3:
 	# Current speed is calculated by projecting our velocity onto wishdir.
 	# We can thus manipulate our wishdir to trick the engine into thinking we're going slower than we actually are, allowing us to accelerate further.
 	var current_speed: float = input_velocity.dot(wishdir)
@@ -139,7 +139,7 @@ func _accelerate(wishdir: Vector3, input_velocity: Vector3, accel: float, max_sp
 	# Next, we calculate the speed to be added for the next frame.
 	# If our current speed is low enough, we will add the max acceleration.
 	# If we're going too fast, our acceleration will be reduced (until it evenutually hits 0, where we don't add any more speed).
-	var add_speed: float = clamp(max_speed - current_speed, 0, accel * delta)
+	var add_speed: float = clamp(maximum_speed - current_speed, 0, accel * delta)
 
 	# TODO : Debug draw result
 

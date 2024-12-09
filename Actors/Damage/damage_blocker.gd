@@ -23,7 +23,8 @@ func _process(delta: float) -> void:
 	time_blocking += delta
 	_draw_debug()
 
-func _on_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_area_shape_entered(_area_rid: RID, area: Area3D, area_shape_index: int, _local_shape_index: int) -> void:
+	## TODO : Use local shape (local_shape_index) to increase accuracy of VFX position !
 	if area is not DamageDealer: return
 	var damage_dealer: DamageDealer = area
 	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked damage %s" % [name, damage_dealer.name])
