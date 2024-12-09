@@ -10,12 +10,19 @@ const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
 signal received_damage
 signal blocked_damage
 
+## Particles to emit when an attack has been blocked. MUST be of type GPUParticles3D
+## Could be changed to allow any kind of scene (it would be up to the scene to do stuff when instanced)
+@export var block_particles: PackedScene = preload("res://Actors/Damage/block_particles.tscn")
+
 # NOTICE DamageIds may be queue_freed by DamageDealers when they _renew themselves !
 # WARNING This array fills up with nulls !
 var _damage_sources_already_dealt_with: Array[DamageId] = []
 
 var damage_receivers: NodeRegistry
 var damage_blockers: NodeRegistry
+
+## HACK : This stores the result of find_parent("*Level*") (it's a slow operation)
+static var level: Node3D
 
 func _ready() -> void:
 	_register_children()
@@ -27,13 +34,16 @@ func _on_receiver_detected_damage(damage_dealer: DamageDealer):
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
 	received_damage.emit()
 
-func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: DamageDealer):
+## Block attack and spawn block VFX
+func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: DamageDealer, dealer_shape_index: int, blocker_position: Vector3):
 	if _should_ignore(damage_dealer): return
 
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
 	damage_dealer.block()
 	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked dealer %s" % [name, damage_dealer.name])
 	blocked_damage.emit()
+
+	_spawn_block_particles(damage_dealer, dealer_shape_index, blocker_position)
 
 func _should_ignore(damage_dealer: DamageDealer) -> bool:
 	if damage_dealer.id in _damage_sources_already_dealt_with:
@@ -50,3 +60,23 @@ func _register_children():
 	damage_blockers = NodeRegistry.new(DamageBlocker)
 	add_child(damage_blockers)
 	damage_blockers.connect_signal("blocked_damage", _on_blocker_detected_damage)
+
+
+## Spawn VFX at the mid-point between the damage dealer and the damage blocker
+## This is a good approximation for the actual collision point !
+func _spawn_block_particles(damage_dealer: Area3D, dealer_shape_index: int, blocker_position: Vector3) -> void:
+	var shape: CollisionShape3D = damage_dealer.shape_owner_get_owner(damage_dealer.shape_find_owner(dealer_shape_index))
+	var shape_pos: Vector3 = shape.global_position
+	var sub: Vector3 = blocker_position - shape_pos
+	var mid: Vector3 = sub * 0.5
+	var final: Vector3 = shape_pos + mid
+	# Gigantic hack that works suprisngly well : spawn the particles slightly higher
+	final.y += 0.75
+
+	var particle_node: GPUParticles3D = block_particles.instantiate()
+	if level == null:
+		push_warning("HACK : find_parent('*Level*') - THIS WILL BREAK SHIT, I WARNED YOU")
+		level = find_parent("*Level*")
+	level.add_child(particle_node)
+	particle_node.position = final
+	particle_node.emitting = true
