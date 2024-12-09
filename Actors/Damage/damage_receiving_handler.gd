@@ -74,9 +74,7 @@ func _spawn_block_particles(damage_dealer: Area3D, dealer_shape_index: int, bloc
 	final.y += 0.75
 
 	var particle_node: GPUParticles3D = block_particles.instantiate()
-	if level == null:
-		push_warning("HACK : find_parent('*Level*') - THIS WILL BREAK SHIT, I WARNED YOU")
-		level = find_parent("*Level*")
-	level.add_child(particle_node)
+	Global.level_manager.reparent_to_level(particle_node)
+	particle_node.global_position = final
 	particle_node.position = final
 	particle_node.emitting = true

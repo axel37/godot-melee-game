@@ -107,7 +107,7 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	Global.log(LOG_CODE_TOOK_DAMAGE, "%s took damage." % name)
 	var particles_instance: GPUParticles3D = hurt_particles.duplicate()
 	particles_instance.global_transform = hurt_particles.global_transform
-	get_parent().add_child(particles_instance)
+	Global.level_manager.reparent_to_level(particles_instance)
 	particles_instance.emitting = true
 	health -= 1
 	if health <= 0:

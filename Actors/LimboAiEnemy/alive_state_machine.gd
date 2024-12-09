@@ -62,8 +62,8 @@ func _on_keep_following_area_3d_body_exited(body: Node3D) -> void:
 
 func _on_damage_receiving_handler_received_damage() -> void:
 	var particles: GPUParticles3D = hurt_particles.duplicate()
-	## TODO : This should probably signal that we want to spawn some particles, let Global / the level handle it
-	agent.add_child(particles)
+	Global.level_manager.reparent_to_level(particles)
+	particles.global_transform = agent.global_transform
 	particles.emitting = true
 	health -= 1
 	health_changed.emit(health)
