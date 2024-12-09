@@ -35,7 +35,7 @@ func _on_receiver_detected_damage(damage_dealer: DamageDealer):
 	received_damage.emit()
 
 ## Block attack and spawn block VFX
-func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: DamageDealer, dealer_shape_index: int, blocker_position: Vector3):
+func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: DamageDealer, dealer_shape_index: int, damage_blocker: DamageBlocker, blocker_area_index: int):
 	if _should_ignore(damage_dealer): return
 
 	_damage_sources_already_dealt_with.append(damage_dealer.id)
@@ -43,7 +43,7 @@ func _on_blocker_detected_damage(_time_spent_blocking: float, damage_dealer: Dam
 	Global.log(LOG_CODE_DAMAGE_BLOCKED, "%s blocked dealer %s" % [name, damage_dealer.name])
 	blocked_damage.emit()
 
-	_spawn_block_particles(damage_dealer, dealer_shape_index, blocker_position)
+	_spawn_block_particles(damage_dealer, dealer_shape_index, damage_blocker, blocker_area_index)
 
 func _should_ignore(damage_dealer: DamageDealer) -> bool:
 	if damage_dealer.id in _damage_sources_already_dealt_with:
@@ -64,14 +64,16 @@ func _register_children():
 
 ## Spawn VFX at the mid-point between the damage dealer and the damage blocker
 ## This is a good approximation for the actual collision point !
-func _spawn_block_particles(damage_dealer: Area3D, dealer_shape_index: int, blocker_position: Vector3) -> void:
-	var shape: CollisionShape3D = damage_dealer.shape_owner_get_owner(damage_dealer.shape_find_owner(dealer_shape_index))
-	var shape_pos: Vector3 = shape.global_position
-	var sub: Vector3 = blocker_position - shape_pos
+func _spawn_block_particles(damage_dealer: Area3D, dealer_shape_index: int, damage_blocker: DamageBlocker, blocker_shape_index: int) -> void:
+	var damage_shape: CollisionShape3D = damage_dealer.shape_owner_get_owner(damage_dealer.shape_find_owner(dealer_shape_index))
+	var blocker_shape: CollisionShape3D = damage_blocker.shape_owner_get_owner(damage_blocker.shape_find_owner(blocker_shape_index))
+
+	var blocker_shape_position = blocker_shape.global_position
+
+	var shape_pos: Vector3 = damage_shape.global_position
+	var sub: Vector3 = blocker_shape_position - shape_pos
 	var mid: Vector3 = sub * 0.5
 	var final: Vector3 = shape_pos + mid
-	# Gigantic hack that works suprisngly well : spawn the particles slightly higher
-	final.y += 0.75
 
 	var particle_node: GPUParticles3D = block_particles.instantiate()
 	Global.level_manager.reparent_to_level(particle_node)
