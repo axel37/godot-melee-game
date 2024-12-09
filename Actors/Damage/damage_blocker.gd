@@ -7,7 +7,7 @@ extends Area3D
 const LOG_CODE_SET_ENABLED = "BLOCKER-001"
 const LOG_CODE_DAMAGE_BLOCKED = "BLOCKER-002"
 
-signal blocked_damage(time_since_block: float, damage_dealer: DamageDealer, dealer_shape_index: int, damage_blocker: DamageBlocker, blocker_shape_indexl: int)
+signal blocked_damage(time_since_block: float, damage_dealer: DamageDealer, dealer_shape_index: int, damage_blocker: DamageBlocker, blocker_shape_index: int)
 
 @export var enabled: bool = true:
 	set = _set_enabled
