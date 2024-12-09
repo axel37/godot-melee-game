@@ -10,8 +10,7 @@ const LOG_CODE_DAMAGE_BLOCKED = "DAMAGE-RECEIVING-HANDLER-002"
 signal received_damage
 signal blocked_damage
 
-## Particles to emit when an attack has been blocked. MUST be of type GPUParticles3D
-## Could be changed to allow any kind of scene (it would be up to the scene to do stuff when instanced)
+## Scene to spawn when an attack has been blocked. Should probably be some particles, but any scene should work.
 @export var block_particles: PackedScene = preload("res://Actors/Damage/block_particles.tscn")
 
 # NOTICE DamageIds may be queue_freed by DamageDealers when they _renew themselves !
@@ -75,8 +74,7 @@ func _spawn_block_particles(damage_dealer: Area3D, dealer_shape_index: int, dama
 	var mid: Vector3 = sub * 0.5
 	var final: Vector3 = shape_pos + mid
 
-	var particle_node: GPUParticles3D = block_particles.instantiate()
+	var particle_node: Node3D = block_particles.instantiate()
 	Global.level_manager.reparent_to_level(particle_node)
 	particle_node.global_position = final
 	particle_node.position = final
-	particle_node.emitting = true
