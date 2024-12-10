@@ -8,9 +8,11 @@ class_name HealthBar
 extends Control
 
 ## Will clamp current_value
-@export var min_value: float = 0
+@export var min_value: float = 0:
+	set = _set_min
 ## Will clamp current_value
-@export var max_value: float = 100
+@export var max_value: float = 100:
+	set = _set_max
 ## Represents the position of the health bar.[br]
 ## If current_value == max_value, the health bar is full.[br]
 ## If current_value == min_value, the health bar is empty.[br]
@@ -66,7 +68,7 @@ func _set_value(new_value: float) -> void:
 	# Step 1 : Update buffer
 	# If value has increase, update immediately. Else, tween it.
 	if new_value > buffer_rect.size.x:
-		buffer_rect.size.x = _get_viz_size_for_value(current_value)
+		_force_buffer(new_value)
 	else:
 		buffer_timer.start(buffer_delay)
 
@@ -75,6 +77,9 @@ func _set_value(new_value: float) -> void:
 
 	# Step 3 : Update health bar
 	health_rect.size.x = _get_viz_size_for_value(current_value)
+
+func _force_buffer(new_falue: float) -> void:
+	buffer_rect.size.x = _get_viz_size_for_value(current_value)
 
 ## Buffer has reached its timeout, tween it to match current_value
 func _on_buffer_timeout() -> void:
@@ -85,6 +90,16 @@ func _on_buffer_timeout() -> void:
 ## Takes into account
 func _get_viz_size_for_value(new_value: float) -> float:
 	return size.x * (new_value - min_value) / (max_value - min_value)
+
+func _set_min(new_value: float) -> void:
+	min_value = new_value
+	if current_value < new_value:
+		current_value = new_value
+
+func _set_max(new_value: float) -> void:
+	max_value = new_value
+	if current_value > new_value:
+		current_value = new_value
 
 ## Recompute proper sizings on resize
 ## TODO : Buffer will still look incorrect
