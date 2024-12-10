@@ -12,6 +12,8 @@ const LOG_CODE_DIED = "PLAYER-003"
 ## TODO : Approximate, find an exact value !
 const MOUSE_MOTION_SCALE_DOWN_FACTOR: float = 1750
 
+signal health_changed(new_value: float)
+
 ## Lower values means slower camera rotation.
 ## Should approximately match quake / source engine games.
 @export var mouse_sensitivity: float = 0.25
@@ -110,6 +112,7 @@ func _on_damage_receiving_handler_received_damage() -> void:
 	Global.level_manager.reparent_to_level(particles_instance)
 	particles_instance.emitting = true
 	health -= 1
+	health_changed.emit(health)
 	if health <= 0:
 		die()
 

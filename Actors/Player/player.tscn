@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dqy4c57ghd41i"]
+[gd_scene load_steps=67 format=3 uid="uid://dqy4c57ghd41i"]
 
 [ext_resource type="Script" path="res://Actors/Player/player.gd" id="1_cmb4o"]
 [ext_resource type="Script" path="res://Actors/Player/Movement/standard_movement_processor.gd" id="2_2ya5d"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiving_handler.gd" id="4_vmj4h"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_blocker.gd" id="6_irynb"]
 [ext_resource type="Script" path="res://Actors/Damage/damage_receiver.gd" id="6_om47h"]
+[ext_resource type="Script" path="res://Actors/Player/hud.gd" id="10_17ot3"]
+[ext_resource type="PackedScene" uid="uid://dcilvcalj7nya" path="res://Interface/HealthBar.tscn" id="10_duij1"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8f005"]
 animation = &"attack_thrust"
@@ -1199,6 +1201,31 @@ draw_pass_1 = SubResource("PlaneMesh_psjfx")
 [node name="WhereToSpawnBlockParticles" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36561, -0.913851)
 
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_17ot3")
+
+[node name="HealthBar" parent="HUD" instance=ExtResource("10_duij1")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 45.0
+offset_top = -65.0
+offset_right = 345.0
+offset_bottom = -35.0
+grow_horizontal = 1
+grow_vertical = 0
+max_value = 5.0
+
+[connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]
 [connection signal="blocked_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_blocked_damage"]
 [connection signal="received_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_received_damage"]
 [connection signal="was_blocked" from="DamageDealingHandler" to="." method="_on_damage_dealing_handler_was_blocked"]
