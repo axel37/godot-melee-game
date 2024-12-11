@@ -47,17 +47,21 @@ extends Control
 @onready var health_rect: ColorRect = %Value
 @onready var buffer_timer: Timer = %BufferTimer
 
+## Buffer proxy
+## This exists so we don't have to directly work with buffer_rect
+var _buffer_value: float:
+	set = _set_buffer_value
+
 var initialized: bool = false
 
-# TODO : Crashed on game start for some reason
 # TODO : Healing buffer ?
 # BUG : If value goes down then up, buffer is still at old position
-# TODO : Handle size changes
 # TODO : Add border ?
 
 func _ready() -> void:
 	buffer_timer.timeout.connect(_on_buffer_timeout)
 	initialized = true
+	_buffer_value = current_value
 	resized.connect(_on_resized)
 
 ## When current_value changes, update visuals
@@ -67,8 +71,8 @@ func _set_value(new_value: float) -> void:
 	if not initialized: return
 	# Step 1 : Update buffer
 	# If value has increase, update immediately. Else, tween it.
-	if new_value > buffer_rect.size.x:
-		_force_buffer(new_value)
+	if new_value > _buffer_value:
+		_buffer_value = new_value
 	else:
 		buffer_timer.start(buffer_delay)
 
@@ -76,20 +80,21 @@ func _set_value(new_value: float) -> void:
 	current_value = clampf(new_value, min_value, max_value)
 
 	# Step 3 : Update health bar
-	health_rect.size.x = _get_viz_size_for_value(current_value)
-
-func _force_buffer(new_falue: float) -> void:
-	buffer_rect.size.x = _get_viz_size_for_value(current_value)
+	health_rect.size.x = _get_rect_size_for_value(current_value)
 
 ## Buffer has reached its timeout, tween it to match current_value
 func _on_buffer_timeout() -> void:
-	var next_value:float = _get_viz_size_for_value(current_value)
-	create_tween().set_ease(Tween.EASE_IN).tween_property(buffer_rect, "size:x", next_value, buffer_time)
+	create_tween().set_ease(Tween.EASE_IN).tween_property(self, "_buffer_value", current_value, buffer_time)
 
 ## Helper function to calculate size (in pixels) of health bar
 ## Takes into account
-func _get_viz_size_for_value(new_value: float) -> float:
+func _get_rect_size_for_value(new_value: float) -> float:
 	return size.x * (new_value - min_value) / (max_value - min_value)
+
+func _set_buffer_value(new_buffer_value: float) -> void:
+	print("_set_buffer_value called with ", new_buffer_value)
+	buffer_rect.size.x = _get_rect_size_for_value(new_buffer_value)
+	_buffer_value = new_buffer_value
 
 func _set_min(new_value: float) -> void:
 	min_value = new_value
@@ -104,6 +109,7 @@ func _set_max(new_value: float) -> void:
 ## Recompute proper sizings on resize
 ## TODO : Buffer will still look incorrect
 func _on_resized() -> void:
-	health_rect.size.x = _get_viz_size_for_value(current_value)
+	print("healthbar was resized")
+	health_rect.size.x = _get_rect_size_for_value(current_value)
 	health_rect.size.y = size.y
 	buffer_rect.size.y = size.y

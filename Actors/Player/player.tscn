@@ -1224,7 +1224,6 @@ offset_bottom = -35.0
 grow_horizontal = 1
 grow_vertical = 0
 max_value = 5.0
-current_value = 5.0
 
 [connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]
 [connection signal="blocked_damage" from="DamageReceivingHandler" to="." method="_on_damage_receiving_handler_blocked_damage"]
