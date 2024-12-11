@@ -2,7 +2,6 @@
 ## The buffer represents the old value and helps visualize change over time
 ## Note : The health bar's size is controlled by the standard Transform / size property
 ## Warning : Does not work wit negative max_value
-## Warning : Buffer behaves incorrectly when size changes
 @tool
 class_name HealthBar
 extends Control
@@ -106,10 +105,10 @@ func _set_max(new_value: float) -> void:
 	if current_value > new_value:
 		current_value = new_value
 
-## Recompute proper sizings on resize
-## TODO : Buffer will still look incorrect
+## On size changes, recompute proper sizes for children
 func _on_resized() -> void:
 	print("healthbar was resized")
 	health_rect.size.x = _get_rect_size_for_value(current_value)
 	health_rect.size.y = size.y
+	buffer_rect.size.x = _get_rect_size_for_value(_buffer_value)
 	buffer_rect.size.y = size.y
