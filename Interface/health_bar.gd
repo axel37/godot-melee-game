@@ -53,6 +53,8 @@ var _buffer_value: float:
 
 var initialized: bool = false
 
+var buffer_tween: Tween
+
 # TODO : Healing buffer ?
 # BUG : If value goes down then up, buffer is still at old position
 # TODO : Add border ?
@@ -65,25 +67,36 @@ func _ready() -> void:
 
 ## When current_value changes, update visuals
 ## (setter method)
+# TODO : Timer / tween shouldn't be fired when called by _ready
 func _set_value(new_value: float) -> void:
+	# Step 1 : Update current_value (remember, we're in a setter function !)
+	current_value = clampf(new_value, min_value, max_value)
+
+	# Next steps involve changing children, which may not have been initialized yet.
 	# This check prevents a crash (_set_value is called before the node is ready for some reason)
 	if not initialized: return
-	# Step 1 : Update buffer
+
+	# Step 2 : Update health bar
+	health_rect.size.x = _get_rect_size_for_value(current_value)
+
+	# Step 3 : Update buffer
 	# If value has increase, update immediately. Else, tween it.
 	if new_value > _buffer_value:
 		_buffer_value = new_value
 	else:
 		buffer_timer.start(buffer_delay)
 
-	# Step 2 : Update internal current_value (remember, we're in a setter function !)
-	current_value = clampf(new_value, min_value, max_value)
 
-	# Step 3 : Update health bar
-	health_rect.size.x = _get_rect_size_for_value(current_value)
 
 ## Buffer has reached its timeout, tween it to match current_value
 func _on_buffer_timeout() -> void:
-	create_tween().set_ease(Tween.EASE_IN).tween_property(self, "_buffer_value", current_value, buffer_time)
+	# Attempt to stop existing tween. I'm not sure it's working, but it seems OK in-game.
+	if buffer_tween != null:
+		buffer_tween.stop()
+		buffer_tween.kill()
+
+	buffer_tween = create_tween().set_ease(Tween.EASE_IN)
+	buffer_tween.tween_property(self, "_buffer_value", current_value, buffer_time)
 
 ## Helper function to calculate size (in pixels) of health bar
 ## Takes into account
@@ -91,7 +104,6 @@ func _get_rect_size_for_value(new_value: float) -> float:
 	return size.x * (new_value - min_value) / (max_value - min_value)
 
 func _set_buffer_value(new_buffer_value: float) -> void:
-	print("_set_buffer_value called with ", new_buffer_value)
 	buffer_rect.size.x = _get_rect_size_for_value(new_buffer_value)
 	_buffer_value = new_buffer_value
 
