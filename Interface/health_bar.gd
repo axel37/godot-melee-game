@@ -119,7 +119,6 @@ func _set_max(new_value: float) -> void:
 
 ## On size changes, recompute proper sizes for children
 func _on_resized() -> void:
-	print("healthbar was resized")
 	health_rect.size.x = _get_rect_size_for_value(current_value)
 	health_rect.size.y = size.y
 	buffer_rect.size.x = _get_rect_size_for_value(_buffer_value)
